@@ -1,6 +1,10 @@
 # comp150-desktop-game
 A desktop game made collaboratively using C++ and SDL.
 
+##Target market
+This game is aimed at people that enjoy roguelites as well as people that enjoy darkly themed, yet non-traditional, horror games that elicit feelings of tension.
+It is aimed at people that enjoy a challenge, and don't feel put off by losing a few times. 
+Aimed at masochistic gamers!
 
 ##Aesthetic
 This game intends to create feelings of tension and fear of the unknown.
