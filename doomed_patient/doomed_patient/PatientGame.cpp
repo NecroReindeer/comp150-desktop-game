@@ -5,6 +5,7 @@
 
 PatientGame::PatientGame()
 {
+
 	// Initialise SDL video system
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -85,9 +86,7 @@ void PatientGame::render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
-
 	//Render game objects here
-
 
 	// Present the newly rendered screen
 	SDL_RenderPresent(renderer);
