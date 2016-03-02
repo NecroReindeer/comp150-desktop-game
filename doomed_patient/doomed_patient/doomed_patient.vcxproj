@@ -157,8 +157,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Crature_Behaviour.h" />
+    <ClInclude Include="Creature.h" />
+    <ClInclude Include="Doctor.h" />
     <ClInclude Include="doomed_patient.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Guard.h" />
     <ClInclude Include="InitialisationError.h" />
     <ClInclude Include="PatientGame.h" />
     <ClInclude Include="Resource.h" />
@@ -167,8 +171,12 @@
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Crature_Behaviour.cpp" />
+    <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="Doctor.cpp" />
     <ClCompile Include="doomed_patient.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Guard.cpp" />
     <ClCompile Include="InitialisationError.cpp" />
     <ClCompile Include="PatientGame.cpp" />
     <ClCompile Include="stdafx.cpp">
