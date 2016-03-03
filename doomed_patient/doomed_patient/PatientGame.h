@@ -46,6 +46,7 @@ public:
 	*/
 	static const int WINDOW_HEIGHT = 1080;
 
+
 	Texture* getFloorSprite() { return &floorSprite; }
 
 private:

@@ -4,7 +4,7 @@
 
 
 LevelCell::LevelCell(PatientGame* game, int x, int y)
-	:GameObject(game, game->getFloorSprite()),
+	: GameObject(game, game->getFloorSprite()),				// Call base class constructor
 	gridPositionX(x),
 	gridPositionY(y)
 {

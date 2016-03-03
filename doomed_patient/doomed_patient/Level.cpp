@@ -3,7 +3,7 @@
 
 
 Level::Level(PatientGame* game)
-	:cells(GRID_SIZE_X, std::vector<LevelCell*>(GRID_SIZE_Y, nullptr)),
+	:cells(GRID_SIZE_X, std::vector<LevelCell*>(GRID_SIZE_Y, nullptr)),		// initialise vector to correct size
 	game(game)
 {
 }
@@ -15,7 +15,12 @@ Level::~Level()
 	{
 		for (int y = 0; y < GRID_SIZE_Y; y++)
 		{
-			delete cells[x][y];
+			// Delete the cells created in generate if they exist
+			if (cells[x][y])
+			{
+				delete cells[x][y];
+			}
+			
 		}
 	}
 }
@@ -27,6 +32,7 @@ void Level::generate()
 	{
 		for (int y = 0; y < GRID_SIZE_Y; y++)
 		{
+			// Create a cell at index corresponding to its grid position
 			cells[x][y] = new LevelCell(game, x, y);
 		}
 	}
@@ -39,6 +45,7 @@ void Level::render(SDL_Renderer* renderer)
 	{
 		for (int y = 0; y < GRID_SIZE_Y; y++)
 		{
+			// Render each cell
 			cells[x][y]->render(renderer);
 		}
 	}
