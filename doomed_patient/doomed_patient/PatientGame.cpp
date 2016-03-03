@@ -4,6 +4,8 @@
 
 
 PatientGame::PatientGame()
+	:floorSprite("Sprites\\floor.png"),
+	level(this)
 {
 
 	// Initialise SDL video system
@@ -41,6 +43,7 @@ PatientGame::~PatientGame()
 void PatientGame::run()
 {
 	running = true;
+	level.generate();
 
 	// Main game loop
 	while (running)
@@ -87,6 +90,7 @@ void PatientGame::render()
 	SDL_RenderClear(renderer);
 
 	//Render game objects here
+	level.render(renderer);
 
 	// Present the newly rendered screen
 	SDL_RenderPresent(renderer);
