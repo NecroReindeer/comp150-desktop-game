@@ -160,6 +160,8 @@
     <ClInclude Include="doomed_patient.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InitialisationError.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelCell.h" />
     <ClInclude Include="PatientGame.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -170,6 +172,8 @@
     <ClCompile Include="doomed_patient.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InitialisationError.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelCell.cpp" />
     <ClCompile Include="PatientGame.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

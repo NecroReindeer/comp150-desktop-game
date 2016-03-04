@@ -7,6 +7,7 @@
 
 #pragma once
 #include "Texture.h"
+#include "Level.h"
 
 class PatientGame
 {
@@ -44,6 +45,9 @@ public:
 	  window as an integer.
 	*/
 	static const int WINDOW_HEIGHT = 1080;
+
+
+	Texture* getFloorSprite() { return &floorSprite; }
 
 private:
 
@@ -91,5 +95,19 @@ private:
 	  update the renderer and display the updated screen.
 	*/
 	void render();
+
+	//! Texture for the floor.
+	/*!
+	  This variable stores the texture that will be used
+	  for the floor. It is initialised in the initialiser
+	  list of the constructor.
+	*/
+	Texture floorSprite;
+
+	//! The current level.
+	/*!
+	  This stores the level that will be rendered.
+	*/
+	Level level;
 };
 

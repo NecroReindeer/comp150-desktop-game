@@ -23,13 +23,19 @@ public:
 	*/
 	~Texture();
 
-	//! Pointer to SDL texture.
+	//! Getter for the texture.
 	/*!
-	  This is a pointer to the SDL texture, which is null until 
+	  This is a getter for the SDL texture, which is null until 
 	  render is called.
 	  The texture will be created from the sprite at the given path.
 	*/
 	SDL_Texture* getTexture() { return texture; }
+
+	//! Returns the filename as a string.
+	/*!
+	  This getter returns the image file name as a string.
+	*/
+	std::string getImageFileName() { return imageFilename; }
 
 	//! Render the texture.
 	/*!
@@ -56,6 +62,7 @@ private:
 	/*!
 	  This is a pointer to the SDL texture. The texture is null
 	  until render is called.
+	  The texture will be created from the sprite at the given path.
 	*/
 	SDL_Texture* texture;
 };
