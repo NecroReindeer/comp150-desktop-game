@@ -3,6 +3,7 @@
 #include "PatientGame.h"
 #include "Directions.h"
 #include "CellWall.h"
+#include "CellPassage.h"
 
 
 LevelCell::LevelCell(PatientGame* game, int x, int y)
@@ -14,15 +15,10 @@ LevelCell::LevelCell(PatientGame* game, int x, int y)
 	centreX = gridPositionX * spriteSizeX + spriteSizeX / 2;
 	centreY = gridPositionY * spriteSizeY + spriteSizeY / 2;
 
-	northEdge = new CellWall(Directions::Direction::NORTH, this, game);
-	eastEdge = new CellWall (Directions::Direction::EAST, this, game);
-	southEdge = new CellWall(Directions::Direction::SOUTH, this, game);
-	westEdge = new CellWall (Directions::Direction::WEST, this, game);
-
-	edges[0] = northEdge;
-	edges[1] = eastEdge;
-	edges[2] = westEdge;
-	edges[3] = southEdge;
+	edges[Directions::Direction::NORTH] = nullptr;
+	edges[Directions::Direction::EAST] = nullptr;
+	edges[Directions::Direction::WEST] = nullptr;
+	edges[Directions::Direction::SOUTH] = nullptr;
 }
 
 
@@ -37,8 +33,58 @@ LevelCell::~LevelCell()
 void LevelCell::render(SDL_Renderer* renderer)
 {
 	GameObject::render(renderer);
-	for each (CellWall* edge in edges)
+
+	// Iterate through all map elements
+	for (auto& element : edges)
 	{
-		edge->render(renderer);
+		CellEdge* edge = element.second;
+		if (edge)
+			edge->render(renderer);
 	}
+}
+
+bool LevelCell::allEdgesInitialised()
+{
+
+	// Iterate through all map elements
+	for (auto& element : edges)
+	{
+		CellEdge* edge = element.second;
+		if (!edge)
+		{
+			return false;
+		}
+	}
+
+	return true;
+	
+}
+
+Directions::Direction LevelCell::getRandomUninitialisedDirection()
+{
+	std::vector<Directions::Direction> uncheckedDirections = {Directions::Direction::NORTH, Directions::Direction::EAST, 
+		Directions::Direction::WEST, Directions::Direction::SOUTH};
+	for (;;)
+	{
+		int index = rand() % (uncheckedDirections.size());
+
+		if (!edges[uncheckedDirections[index]])
+		{
+			return uncheckedDirections[index];
+		}
+		else
+		{
+			uncheckedDirections.erase(uncheckedDirections.begin() + index);
+		}
+	}
+}
+
+void LevelCell::createWall(Directions::Direction direction)
+{
+	edges[direction] = new CellWall(direction, this, game);
+}
+
+void LevelCell::createPassage(Directions::Direction direction)
+{
+	edges[direction] = new CellPassage(direction, this);
 }

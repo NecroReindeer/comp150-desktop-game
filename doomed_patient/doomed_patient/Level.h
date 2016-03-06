@@ -6,6 +6,7 @@
 
 #pragma once
 #include "LevelCell.h"
+#include "GridCoordinate.h"
 
 class Level
 {
@@ -43,13 +44,18 @@ public:
 	/*!
 	  This method begins the level generation process.
 	*/
-	void generate();
+	void generateMaze();
+	
 
 	//! Render the level.
 	/*!
 	  This method renders the cells in the level.
 	*/
 	void render(SDL_Renderer* renderer);
+
+	LevelCell* getCell(GridCoordinate coordinates);
+
+	SDL_Renderer* renderer;
 
 
 private:
@@ -68,5 +74,10 @@ private:
 	  sprite.
 	*/
 	PatientGame* game;
+
+	void generateCells(std::vector<LevelCell*>& activeCells);
+	LevelCell* createCell(GridCoordinate coordinates);
+	GridCoordinate getRandomCoordinates();
+	bool containsCoordinates(GridCoordinate coordinates);
 };
 

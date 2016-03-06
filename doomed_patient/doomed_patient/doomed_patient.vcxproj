@@ -163,6 +163,7 @@
     <ClInclude Include="Directions.h" />
     <ClInclude Include="doomed_patient.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GridCoordinate.h" />
     <ClInclude Include="InitialisationError.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelCell.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Directions.cpp" />
     <ClCompile Include="doomed_patient.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GridCoordinate.cpp" />
     <ClCompile Include="InitialisationError.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelCell.cpp" />

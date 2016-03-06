@@ -1,4 +1,5 @@
 #pragma once
+#include "GridCoordinate.h"
 
 class Directions
 {
@@ -15,7 +16,7 @@ public:
 	Directions();
 	~Directions();
 
-	int getEdgeCentreX(Directions::Direction direction);
-	int getEdgeCentreY(Directions::Direction direction);
+	static GridCoordinate getDirectionVector(Direction direction);
+	static Direction getOpposite(Direction direction);
 };
 

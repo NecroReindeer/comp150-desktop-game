@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "CellEdge.h"
+#include "GridCoordinate.h"
 
 
 
@@ -23,6 +24,16 @@ public:
 
 	void render(SDL_Renderer* renderer);
 
+	bool allEdgesInitialised();
+
+	Directions::Direction getRandomUninitialisedDirection();
+
+	static const int NUMBER_OF_SIDES = 4;
+
+	GridCoordinate getCoordinates() { return GridCoordinate(gridPositionX, gridPositionY); }
+
+	void createWall(Directions::Direction direction);
+	void createPassage(Directions::Direction direction);
 
 private:
 	//! Cell's x position.
@@ -44,7 +55,7 @@ private:
 	CellEdge* southEdge;
 	CellEdge* westEdge;
 
-	CellEdge* edges[4];
-
+	//CellEdge* edges[NUMBER_OF_SIDES];
+	std::map<Directions::Direction, CellEdge*> edges;
 };
 

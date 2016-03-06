@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Level.h"
+#include "GridCoordinate.h"
+#include "Directions.h"
 
 
 Level::Level(PatientGame* game)
@@ -20,22 +22,70 @@ Level::~Level()
 			{
 				delete cells[x][y];
 			}
-			
 		}
 	}
 }
 
-
-void Level::generate()
+bool Level::containsCoordinates(GridCoordinate coordinates)
 {
-	for (int x = 0; x < GRID_SIZE_X; x++)
+	return (0 <= coordinates.x && coordinates.x < GRID_SIZE_X && 0 <= coordinates.y && coordinates.y < GRID_SIZE_Y);
+}
+
+LevelCell* Level::getCell(GridCoordinate coordinates)
+{
+	return cells[coordinates.x][coordinates.y];
+}
+
+void Level::generateCells(std::vector<LevelCell*>& activeCells)
+{
+	int currentIndex = activeCells.size() - 1;
+	LevelCell* currentCell = activeCells[currentIndex];
+
+	if (currentCell->allEdgesInitialised())
 	{
-		for (int y = 0; y < GRID_SIZE_Y; y++)
+		activeCells.erase(activeCells.begin() + currentIndex);
+		return;
+	}
+
+	Directions::Direction randomDirection = currentCell->getRandomUninitialisedDirection();
+	GridCoordinate nextCellCoordinates = currentCell->getCoordinates() + Directions::getDirectionVector(randomDirection);
+
+	if (containsCoordinates(nextCellCoordinates))
+	{
+		LevelCell* nextCell = getCell(nextCellCoordinates);
+		if (!nextCell)
 		{
-			// Create a cell at index corresponding to its grid position
-			cells[x][y] = new LevelCell(game, x, y);
+			nextCell = createCell(nextCellCoordinates);
+			currentCell->createPassage(randomDirection);
+			nextCell->createPassage(Directions::getOpposite(randomDirection));
+
+			activeCells.push_back(nextCell);
+		}
+		else
+		{
+			currentCell->createWall(randomDirection);
+			nextCell->createWall(Directions::getOpposite(randomDirection));
 		}
 	}
+	else
+	{
+		currentCell->createWall(randomDirection);
+	}
+}
+
+void Level::generateMaze()
+{
+	std::vector<LevelCell*> activeCells;
+	GridCoordinate firstCellCoordinates = getRandomCoordinates();
+	activeCells.push_back(createCell(firstCellCoordinates));
+
+	while (activeCells.size() > 0)
+	{
+		generateCells(activeCells);
+		render(renderer);
+		SDL_RenderPresent(renderer);
+	}
+
 }
 
 
@@ -46,7 +96,22 @@ void Level::render(SDL_Renderer* renderer)
 		for (int y = 0; y < GRID_SIZE_Y; y++)
 		{
 			// Render each cell
-			cells[x][y]->render(renderer);
+			if (cells[x][y])
+				cells[x][y]->render(renderer);
 		}
 	}
+}
+
+LevelCell* Level::createCell(GridCoordinate coordinates)
+{
+	cells[coordinates.x][coordinates.y] = new LevelCell(game, coordinates.x, coordinates.y);
+	return cells[coordinates.x][coordinates.y];
+}
+
+GridCoordinate Level::getRandomCoordinates()
+{
+	GridCoordinate coordinates;
+	coordinates.x = rand() % Level::GRID_SIZE_X;
+	coordinates.y = rand() % Level::GRID_SIZE_Y;
+	return coordinates;
 }

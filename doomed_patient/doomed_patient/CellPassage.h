@@ -7,5 +7,7 @@ public:
 	CellPassage(Directions::Direction direction, LevelCell* cell);
 	~CellPassage();
 
+	void render(SDL_Renderer* renderer);
+
 };
 

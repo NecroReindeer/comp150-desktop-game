@@ -12,3 +12,8 @@ CellPassage::CellPassage(Directions::Direction direction, LevelCell* cell)
 CellPassage::~CellPassage()
 {
 }
+
+
+void CellPassage::render(SDL_Renderer* renderer)
+{
+}

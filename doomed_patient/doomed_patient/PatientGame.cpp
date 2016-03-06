@@ -31,6 +31,8 @@ PatientGame::PatientGame()
 	{
 		throw InitialisationError("SDL_CreateRenderer failed");
 	}
+
+	level.renderer = renderer;
 }
 
 
@@ -45,7 +47,7 @@ PatientGame::~PatientGame()
 void PatientGame::run()
 {
 	running = true;
-	level.generate();
+	level.generateMaze();
 
 	// Main game loop
 	while (running)
