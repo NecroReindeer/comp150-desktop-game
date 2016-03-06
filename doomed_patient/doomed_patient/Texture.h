@@ -43,6 +43,9 @@ public:
 	*/
 	void render(SDL_Renderer* renderer, int x, int y, int width, int height);
 
+	int getSpriteSizeX() { return spriteSizeX; }
+	int getSpriteSizeY() { return spriteSizeY; }
+
 private:
 	//! Load the texture.
 	/*!
@@ -65,4 +68,7 @@ private:
 	  The texture will be created from the sprite at the given path.
 	*/
 	SDL_Texture* texture;
+
+	int spriteSizeX;
+	int spriteSizeY;
 };

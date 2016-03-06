@@ -48,6 +48,8 @@ public:
 
 
 	Texture* getFloorSprite() { return &floorSprite; }
+	Texture* getHorizontalWallSprite() { return &horizontalWallSprite;  }
+	Texture* getVerticalWallSprite() { return &verticalWallSprite; }
 
 private:
 
@@ -103,6 +105,8 @@ private:
 	  list of the constructor.
 	*/
 	Texture floorSprite;
+	Texture horizontalWallSprite;
+	Texture verticalWallSprite;
 
 	//! The current level.
 	/*!

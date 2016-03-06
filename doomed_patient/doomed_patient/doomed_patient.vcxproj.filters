@@ -48,6 +48,18 @@
     <ClInclude Include="LevelCell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CellWall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CellPassage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Directions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CellEdge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -72,6 +84,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LevelCell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CellWall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CellPassage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Directions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CellEdge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

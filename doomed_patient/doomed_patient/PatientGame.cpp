@@ -5,6 +5,8 @@
 
 PatientGame::PatientGame()
 	:floorSprite("Sprites\\floor.png"),
+	verticalWallSprite("Sprites\\ver_wall.png"),
+	horizontalWallSprite("Sprites\\horiz_wall.png"),
 	level(this)
 {
 

@@ -1,7 +1,9 @@
 #pragma once
-
-
 #include "GameObject.h"
+#include "CellEdge.h"
+
+
+
 class LevelCell : public GameObject
 {
 public:
@@ -19,6 +21,8 @@ public:
 	*/
 	~LevelCell();
 
+	void render(SDL_Renderer* renderer);
+
 
 private:
 	//! Cell's x position.
@@ -34,5 +38,13 @@ private:
 	coordinate on the level grid.
 	*/
 	int gridPositionY;
+
+	CellEdge* northEdge;
+	CellEdge* eastEdge;
+	CellEdge* southEdge;
+	CellEdge* westEdge;
+
+	CellEdge* edges[4];
+
 };
 

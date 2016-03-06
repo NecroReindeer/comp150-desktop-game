@@ -157,6 +157,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CellEdge.h" />
+    <ClInclude Include="CellPassage.h" />
+    <ClInclude Include="CellWall.h" />
+    <ClInclude Include="Directions.h" />
     <ClInclude Include="doomed_patient.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InitialisationError.h" />
@@ -169,6 +173,10 @@
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CellEdge.cpp" />
+    <ClCompile Include="CellPassage.cpp" />
+    <ClCompile Include="CellWall.cpp" />
+    <ClCompile Include="Directions.cpp" />
     <ClCompile Include="doomed_patient.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InitialisationError.cpp" />
