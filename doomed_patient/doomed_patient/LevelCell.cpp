@@ -6,10 +6,11 @@
 #include "CellPassage.h"
 
 
-LevelCell::LevelCell(PatientGame* game, int x, int y)
+LevelCell::LevelCell(PatientGame* game, int x, int y, Room* room)
 	: GameObject(game, game->getFloorSprite()),				// Call base class constructor
 	gridPositionX(x),
-	gridPositionY(y)
+	gridPositionY(y),
+	room(room)
 {
 	// Calculate the window position from the grid position
 	centreX = gridPositionX * spriteSizeX + spriteSizeX / 2;

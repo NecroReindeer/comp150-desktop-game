@@ -2,6 +2,8 @@
 #include "Level.h"
 #include "GridCoordinate.h"
 #include "Directions.h"
+#include "LevelCell.h"
+#include "Room.h"
 
 
 Level::Level(PatientGame* game)
@@ -36,6 +38,13 @@ LevelCell* Level::getCell(GridCoordinate coordinates)
 	return cells[coordinates.x][coordinates.y];
 }
 
+Room* Level::createRoom()
+{
+	Room* room = new Room;
+	rooms.push_back(room);
+	return room;
+}
+
 void Level::generateCells(std::vector<LevelCell*>& activeCells)
 {
 	int currentIndex = activeCells.size() - 1;
@@ -55,15 +64,30 @@ void Level::generateCells(std::vector<LevelCell*>& activeCells)
 		LevelCell* nextCell = getCell(nextCellCoordinates);
 		if (!nextCell)
 		{
-			nextCell = createCell(nextCellCoordinates);
+			
 
 			double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
 			bool isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
 
 			currentCell->createPassage(randomDirection, isDoor);
+
+			if (isDoor)
+			{
+				nextCell = createCell(nextCellCoordinates, createRoom());
+			}
+			else
+			{
+				nextCell = createCell(nextCellCoordinates, currentCell->room);
+			}
+
 			nextCell->createPassage(Directions::getOpposite(randomDirection), isDoor);
 
 			activeCells.push_back(nextCell);
+		}
+		else if (currentCell->room == nextCell->room)
+		{
+			currentCell->createPassage(randomDirection, false);
+			nextCell->createPassage(Directions::getOpposite(randomDirection), false);
 		}
 		else
 		{
@@ -80,8 +104,12 @@ void Level::generateCells(std::vector<LevelCell*>& activeCells)
 void Level::generateMaze()
 {
 	std::vector<LevelCell*> activeCells;
+
+ 
+	Room* room = createRoom();
 	GridCoordinate firstCellCoordinates = getRandomCoordinates();
-	activeCells.push_back(createCell(firstCellCoordinates));
+	LevelCell* firstCell = createCell(firstCellCoordinates, room);
+	activeCells.push_back(firstCell);
 
 	while (activeCells.size() > 0)
 	{
@@ -108,9 +136,9 @@ void Level::render(SDL_Renderer* renderer)
 	}
 }
 
-LevelCell* Level::createCell(GridCoordinate coordinates)
+LevelCell* Level::createCell(GridCoordinate coordinates, Room* room)
 {
-	cells[coordinates.x][coordinates.y] = new LevelCell(game, coordinates.x, coordinates.y);
+	cells[coordinates.x][coordinates.y] = new LevelCell(game, coordinates.x, coordinates.y, room);
 	return cells[coordinates.x][coordinates.y];
 }
 

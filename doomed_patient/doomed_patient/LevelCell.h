@@ -3,6 +3,8 @@
 #include "CellEdge.h"
 #include "GridCoordinate.h"
 
+class Room;
+
 class LevelCell : public GameObject
 {
 public:
@@ -13,7 +15,7 @@ public:
 	  position. The constructor sets up the cell's 
 	  window position based on its xy grid coordinates.
 	*/
-	LevelCell(PatientGame* game, int x, int y);
+	LevelCell(PatientGame* game, int x, int y, Room* room);
 
 	//! Destructor for the level cell.
 	/*!
@@ -32,6 +34,8 @@ public:
 
 	void createWall(Directions::Direction direction);
 	void createPassage(Directions::Direction direction, bool isDoor);
+
+	Room* room;
 
 
 private:

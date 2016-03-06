@@ -5,8 +5,11 @@
 */
 
 #pragma once
-#include "LevelCell.h"
 #include "GridCoordinate.h"
+
+class Room;
+class LevelCell;
+class PatientGame;
 
 class Level
 {
@@ -77,10 +80,14 @@ private:
 	PatientGame* game;
 
 	void generateCells(std::vector<LevelCell*>& activeCells);
-	LevelCell* createCell(GridCoordinate coordinates);
+	LevelCell* createCell(GridCoordinate coordinates, Room* room);
 	GridCoordinate getRandomCoordinates();
 	bool containsCoordinates(GridCoordinate coordinates);
 
 	const double DOOR_PROBABILITY = 0.1;
+
+	std::vector<Room*> rooms;
+
+	Room* createRoom();
 };
 
