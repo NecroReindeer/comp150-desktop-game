@@ -37,11 +37,11 @@ void CellWall::initialiseCentre()
 	switch (direction)
 	{
 	case Directions::Direction::NORTH:
-		centreX = cell->getCentreX() + (cell->getSpriteSizeX() / 2 - wallSprite->getSpriteSizeX() / 2);
+		centreX = cell->getCentreX() - (cell->getSpriteSizeX() / 2 - wallSprite->getSpriteSizeX() / 2);
 		centreY = cell->getCentreY();
 		break;
 	case Directions::Direction::SOUTH:
-		centreX = cell->getCentreX() - (cell->getSpriteSizeX() / 2 - wallSprite->getSpriteSizeX() / 2);
+		centreX = cell->getCentreX() + (cell->getSpriteSizeX() / 2 - wallSprite->getSpriteSizeX() / 2);
 		centreY = cell->getCentreY();
 		break;
 	case Directions::Direction::EAST:
