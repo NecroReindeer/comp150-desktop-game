@@ -56,8 +56,12 @@ void Level::generateCells(std::vector<LevelCell*>& activeCells)
 		if (!nextCell)
 		{
 			nextCell = createCell(nextCellCoordinates);
-			currentCell->createPassage(randomDirection);
-			nextCell->createPassage(Directions::getOpposite(randomDirection));
+
+			double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
+			bool isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
+
+			currentCell->createPassage(randomDirection, isDoor);
+			nextCell->createPassage(Directions::getOpposite(randomDirection), isDoor);
 
 			activeCells.push_back(nextCell);
 		}
@@ -82,6 +86,8 @@ void Level::generateMaze()
 	while (activeCells.size() > 0)
 	{
 		generateCells(activeCells);
+
+		// For testing
 		render(renderer);
 		SDL_RenderPresent(renderer);
 	}

@@ -1,11 +1,15 @@
 #include "stdafx.h"
 #include "CellPassage.h"
 #include "Directions.h"
+#include "PatientGame.h"
 
 
-CellPassage::CellPassage(Directions::Direction direction, LevelCell* cell)
-	: CellEdge(direction, cell)
+CellPassage::CellPassage(Directions::Direction direction, LevelCell* cell, PatientGame* game, bool isDoor)
+	: CellEdge(direction, cell),
+	isDoor(isDoor)
 {
+	initialiseSprite(game);
+	initialisePosition();
 }
 
 
@@ -14,6 +18,20 @@ CellPassage::~CellPassage()
 }
 
 
-void CellPassage::render(SDL_Renderer* renderer)
+
+void CellPassage::initialiseSprite(PatientGame* game)
 {
+	if (isDoor)
+	{
+		if (direction == Directions::Direction::NORTH || direction == Directions::Direction::SOUTH)
+		{
+			sprite = game->getHorizontalDoorSprite();
+		}
+
+		else if (direction == Directions::Direction::EAST || direction == Directions::Direction::WEST)
+		{
+			sprite = game->getVerticalDoorSprite();
+		}
+	}
 }
+	

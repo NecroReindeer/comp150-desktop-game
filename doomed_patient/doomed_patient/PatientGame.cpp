@@ -7,6 +7,8 @@ PatientGame::PatientGame()
 	:floorSprite("Sprites\\floor.png"),
 	verticalWallSprite("Sprites\\ver_wall.png"),
 	horizontalWallSprite("Sprites\\horiz_wall.png"),
+	verticalDoorSprite("Sprites\\ver_door.png"),
+	horizontalDoorSprite("Sprites\\horiz_door.png"),
 	level(this)
 {
 
@@ -32,6 +34,8 @@ PatientGame::PatientGame()
 		throw InitialisationError("SDL_CreateRenderer failed");
 	}
 
+
+	// For testing
 	level.renderer = renderer;
 }
 

@@ -55,6 +55,7 @@ public:
 
 	LevelCell* getCell(GridCoordinate coordinates);
 
+	// For testing
 	SDL_Renderer* renderer;
 
 
@@ -79,5 +80,7 @@ private:
 	LevelCell* createCell(GridCoordinate coordinates);
 	GridCoordinate getRandomCoordinates();
 	bool containsCoordinates(GridCoordinate coordinates);
+
+	const double DOOR_PROBABILITY = 0.1;
 };
 

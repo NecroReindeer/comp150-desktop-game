@@ -3,8 +3,6 @@
 #include "CellEdge.h"
 #include "GridCoordinate.h"
 
-
-
 class LevelCell : public GameObject
 {
 public:
@@ -33,7 +31,8 @@ public:
 	GridCoordinate getCoordinates() { return GridCoordinate(gridPositionX, gridPositionY); }
 
 	void createWall(Directions::Direction direction);
-	void createPassage(Directions::Direction direction);
+	void createPassage(Directions::Direction direction, bool isDoor);
+
 
 private:
 	//! Cell's x position.
@@ -50,12 +49,6 @@ private:
 	*/
 	int gridPositionY;
 
-	CellEdge* northEdge;
-	CellEdge* eastEdge;
-	CellEdge* southEdge;
-	CellEdge* westEdge;
-
-	//CellEdge* edges[NUMBER_OF_SIDES];
 	std::map<Directions::Direction, CellEdge*> edges;
 };
 

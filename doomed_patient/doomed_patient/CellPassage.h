@@ -1,13 +1,20 @@
 #pragma once
 #include "CellEdge.h"
+
+class PatientGame;
+
 class CellPassage :
 	public CellEdge
 {
 public:
-	CellPassage(Directions::Direction direction, LevelCell* cell);
+	CellPassage(Directions::Direction direction, LevelCell* cell, PatientGame* game, bool isDoor);
 	~CellPassage();
 
-	void render(SDL_Renderer* renderer);
+
+	bool isDoor;
+
+private:
+	void initialiseSprite(PatientGame* game);
 
 };
 

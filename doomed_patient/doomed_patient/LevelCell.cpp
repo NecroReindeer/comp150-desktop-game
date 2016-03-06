@@ -24,10 +24,14 @@ LevelCell::LevelCell(PatientGame* game, int x, int y)
 
 LevelCell::~LevelCell()
 {
-	delete northEdge;
-	delete eastEdge;
-	delete southEdge;
-	delete westEdge;
+	for (auto& element : edges)
+	{
+		CellEdge* edge = element.second;
+		if (edge)
+		{
+			delete edge;
+		}
+	}
 }
 
 void LevelCell::render(SDL_Renderer* renderer)
@@ -84,7 +88,7 @@ void LevelCell::createWall(Directions::Direction direction)
 	edges[direction] = new CellWall(direction, this, game);
 }
 
-void LevelCell::createPassage(Directions::Direction direction)
+void LevelCell::createPassage(Directions::Direction direction, bool isDoor)
 {
-	edges[direction] = new CellPassage(direction, this);
+	edges[direction] = new CellPassage(direction, this, game, isDoor);
 }
