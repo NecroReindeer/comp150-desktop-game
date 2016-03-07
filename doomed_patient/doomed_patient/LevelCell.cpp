@@ -16,6 +16,7 @@ LevelCell::LevelCell(PatientGame* game, int x, int y, Room* room)
 	centreX = gridPositionX * spriteSizeX + spriteSizeX / 2;
 	centreY = gridPositionY * spriteSizeY + spriteSizeY / 2;
 
+	// Set up empty edges
 	edges[Directions::Direction::NORTH] = nullptr;
 	edges[Directions::Direction::EAST] = nullptr;
 	edges[Directions::Direction::WEST] = nullptr;
@@ -25,6 +26,7 @@ LevelCell::LevelCell(PatientGame* game, int x, int y, Room* room)
 
 LevelCell::~LevelCell()
 {
+	// Delete all created edges
 	for (auto& element : edges)
 	{
 		CellEdge* edge = element.second;
@@ -37,9 +39,10 @@ LevelCell::~LevelCell()
 
 void LevelCell::render(SDL_Renderer* renderer)
 {
+	// Render the cell
 	GameObject::render(renderer);
 
-	// Iterate through all map elements
+	// Iterate through all map elements and render each edge
 	for (auto& element : edges)
 	{
 		CellEdge* edge = element.second;
@@ -51,7 +54,7 @@ void LevelCell::render(SDL_Renderer* renderer)
 bool LevelCell::allEdgesInitialised()
 {
 
-	// Iterate through all map elements
+	// Iterate through all map elements and check if edge exists
 	for (auto& element : edges)
 	{
 		CellEdge* edge = element.second;
@@ -68,7 +71,8 @@ bool LevelCell::allEdgesInitialised()
 Directions::Direction LevelCell::getRandomUninitialisedDirection()
 {
 	std::vector<Directions::Direction> uncheckedDirections = {Directions::Direction::NORTH, Directions::Direction::EAST, 
-		Directions::Direction::WEST, Directions::Direction::SOUTH};
+															  Directions::Direction::WEST, Directions::Direction::SOUTH};
+
 	for (;;)
 	{
 		int index = rand() % (uncheckedDirections.size());

@@ -22,20 +22,27 @@ public:
 	*/
 	~LevelCell();
 
+	void createWall(Directions::Direction direction);
+
+	void createPassage(Directions::Direction direction, bool isDoor);
+
 	void render(SDL_Renderer* renderer);
 
 	bool allEdgesInitialised();
 
 	Directions::Direction getRandomUninitialisedDirection();
 
-	static const int NUMBER_OF_SIDES = 4;
-
 	GridCoordinate getCoordinates() { return GridCoordinate(gridPositionX, gridPositionY); }
 
-	void createWall(Directions::Direction direction);
-	void createPassage(Directions::Direction direction, bool isDoor);
-
 	Room* room;
+
+	static const int NUMBER_OF_SIDES = 4;
+
+	
+
+	
+
+	
 
 
 private:

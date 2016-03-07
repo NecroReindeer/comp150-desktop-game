@@ -29,6 +29,19 @@ public:
 	*/
 	~Level();
 
+	//! Render the level.
+	/*!
+	This method renders the cells in the level.
+	*/
+	void render(SDL_Renderer* renderer);
+
+	//! Returns the cell at the given coordinates.
+	/*!
+	This method returns a pointer to the cell located
+	at the given coordinates.
+	*/
+	LevelCell* getCell(GridCoordinate coordinates);
+
 	//! Width of the level.
 	/*!
 	  This static member represents the width of
@@ -49,20 +62,49 @@ public:
 	*/
 	void generateMaze();
 	
-
-	//! Render the level.
-	/*!
-	  This method renders the cells in the level.
-	*/
-	void render(SDL_Renderer* renderer);
-
-	LevelCell* getCell(GridCoordinate coordinates);
-
 	// For testing
 	SDL_Renderer* renderer;
 
 
 private:
+
+	//! Generate the maze cells.
+	/*!
+	  This method implements the Growing Tree Algorithm to
+	  generate each cell of the level and the positionings 
+	  of walls and doors.
+	*/
+	void generateCells(std::vector<LevelCell*>& activeCells);
+
+	//! Check if the given coordinates are in the level.
+	/*!
+	  This method checks if the given coordinates are contained
+	  in the level. If so, it returns true.
+	*/
+	bool containsCoordinates(GridCoordinate coordinates);
+
+	//! Create a cell.
+	/*!
+	  This method created a cell at the given grid coordinates in the
+	  given room. It returns a pointer to the cell it has created.
+	*/
+	LevelCell* createCell(GridCoordinate coordinates, Room* room);
+
+	//! Create a room.
+	/*!
+	  This method creates a room and returns a pointer to the
+	  room it has created. Rooms are used to determine where
+	  passages should be placed instead of walls.
+	*/
+	Room* createRoom();
+
+    //! Returns random coordinates.
+	/*!
+	  This method returns random grid coordinates that
+	  are contained in the level.
+	*/
+	GridCoordinate getRandomCoordinates();
+
 	//! Vector that holds pointers to the level's cells.
 	/*!
 	  This private 2d vector holds pointers to the level's
@@ -79,15 +121,22 @@ private:
 	*/
 	PatientGame* game;
 
-	void generateCells(std::vector<LevelCell*>& activeCells);
-	LevelCell* createCell(GridCoordinate coordinates, Room* room);
-	GridCoordinate getRandomCoordinates();
-	bool containsCoordinates(GridCoordinate coordinates);
-
-	const double DOOR_PROBABILITY = 0.1;
-
+	//! Vector of rooms.
+	/*!
+	  This vector stores pointers to all rooms that have been
+	  created using createRoom().
+	*/
 	std::vector<Room*> rooms;
 
-	Room* createRoom();
+	//! The probability that a door will be made.
+	/*!
+	  This constant defines the probability that a door
+	  will be made instead of a passage. This value should
+	  be between 0 and 1.
+	  0 means that doors will never spawn, 1  means that 
+	  doors will always spawn.
+	*/
+	const double DOOR_PROBABILITY = 0.075;
+	
 };
 
