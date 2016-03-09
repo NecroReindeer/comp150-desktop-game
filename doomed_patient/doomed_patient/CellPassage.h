@@ -7,7 +7,7 @@ class CellPassage :
 	public CellEdge
 {
 public:
-	CellPassage(Directions::Direction direction, LevelCell* cell, PatientGame* game, bool isDoor);
+	CellPassage(Directions::Direction direction, std::shared_ptr<LevelCell> cell, PatientGame* game, bool isDoor);
 	~CellPassage();
 
 

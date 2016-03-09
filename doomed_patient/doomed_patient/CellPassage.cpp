@@ -4,7 +4,7 @@
 #include "PatientGame.h"
 
 
-CellPassage::CellPassage(Directions::Direction direction, LevelCell* cell, PatientGame* game, bool isDoor)
+CellPassage::CellPassage(Directions::Direction direction, std::shared_ptr<LevelCell> cell, PatientGame* game, bool isDoor)
 	: CellEdge(direction, cell),
 	isDoor(isDoor)
 {
@@ -32,6 +32,10 @@ void CellPassage::initialiseSprite(PatientGame* game)
 		{
 			sprite = game->getVerticalDoorSprite();
 		}
+	}
+	else
+	{
+		sprite = nullptr;
 	}
 }
 	

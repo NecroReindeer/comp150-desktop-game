@@ -8,7 +8,7 @@ class CellWall :
 	public CellEdge
 {
 public:
-	CellWall(Directions::Direction direction, LevelCell* cell, PatientGame* game);
+	CellWall(Directions::Direction direction, std::shared_ptr<LevelCell> cell, PatientGame* game);
 	~CellWall();
 
 

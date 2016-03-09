@@ -23,20 +23,6 @@ LevelCell::LevelCell(PatientGame* game, int x, int y, Room* room)
 	edges[Directions::Direction::SOUTH] = nullptr;
 }
 
-
-LevelCell::~LevelCell()
-{
-	// Delete all created edges
-	for (auto& element : edges)
-	{
-		CellEdge* edge = element.second;
-		if (edge)
-		{
-			delete edge;
-		}
-	}
-}
-
 void LevelCell::render(SDL_Renderer* renderer)
 {
 	// Render the cell
@@ -45,7 +31,7 @@ void LevelCell::render(SDL_Renderer* renderer)
 	// Iterate through all map elements and render each edge
 	for (auto& element : edges)
 	{
-		CellEdge* edge = element.second;
+		auto edge = element.second;
 		if (edge)
 			edge->render(renderer);
 	}
@@ -57,7 +43,7 @@ bool LevelCell::allEdgesInitialised()
 	// Iterate through all map elements and check if edge exists
 	for (auto& element : edges)
 	{
-		CellEdge* edge = element.second;
+		auto edge = element.second;
 		if (!edge)
 		{
 			return false;
@@ -90,10 +76,11 @@ Directions::Direction LevelCell::getRandomUninitialisedDirection()
 
 void LevelCell::createWall(Directions::Direction direction)
 {
-	edges[direction] = new CellWall(direction, this, game);
+	// shared_from_this() returns shared pointer to this
+	edges[direction] = std::make_shared<CellWall>(direction, shared_from_this(), game);
 }
 
 void LevelCell::createPassage(Directions::Direction direction, bool isDoor)
 {
-	edges[direction] = new CellPassage(direction, this, game, isDoor);
+	edges[direction] = std::make_shared<CellPassage>(direction, shared_from_this(), game, isDoor);
 }

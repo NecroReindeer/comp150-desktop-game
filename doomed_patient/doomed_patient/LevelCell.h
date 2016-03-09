@@ -5,7 +5,7 @@
 
 class Room;
 
-class LevelCell : public GameObject
+class LevelCell : public GameObject, public std::enable_shared_from_this<LevelCell>		// So that this can be passed as a shared pointer
 {
 public:
 	//! Constructor for the level cell.
@@ -16,11 +16,6 @@ public:
 	  window position based on its xy grid coordinates.
 	*/
 	LevelCell(PatientGame* game, int x, int y, Room* room);
-
-	//! Destructor for the level cell.
-	/*!
-	*/
-	~LevelCell();
 
 	void createWall(Directions::Direction direction);
 
@@ -54,6 +49,6 @@ private:
 	*/
 	int gridPositionY;
 
-	std::map<Directions::Direction, CellEdge*> edges;
+	std::map<Directions::Direction, std::shared_ptr<CellEdge>> edges;
 };
 

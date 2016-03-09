@@ -4,9 +4,9 @@
 #include "LevelCell.h"
 
 
-CellEdge::CellEdge(Directions::Direction direction, LevelCell* cell)
+CellEdge::CellEdge(Directions::Direction direction, std::shared_ptr<LevelCell> cell)
 	: direction(direction),
-	cell(cell)
+	containingCell(cell)
 {
 }
 
@@ -20,6 +20,8 @@ void CellEdge::initialisePosition()
 	// For rendering purposes so only necessary if object has a sprite
 	if (sprite)
 	{
+		std::shared_ptr<LevelCell> cell = containingCell.lock();
+
 		switch (direction)
 		{
 		case Directions::Direction::NORTH:

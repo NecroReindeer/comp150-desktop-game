@@ -4,7 +4,7 @@
 #include "PatientGame.h"
 
 
-CellWall::CellWall(Directions::Direction direction, LevelCell* cell, PatientGame* game)
+CellWall::CellWall(Directions::Direction direction, std::shared_ptr<LevelCell> cell, PatientGame* game)
 	: CellEdge(direction, cell)
 {
 	initialiseSprite(game);

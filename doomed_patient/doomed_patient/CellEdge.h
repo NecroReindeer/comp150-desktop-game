@@ -8,14 +8,14 @@ class PatientGame;
 class CellEdge
 {
 public:
-	CellEdge(Directions::Direction direction, LevelCell* cell);
+	CellEdge(Directions::Direction direction, std::shared_ptr<LevelCell> cell);
 	~CellEdge();
 
 	void render(SDL_Renderer* renderer);
 
 protected:
 	Directions::Direction direction;
-	LevelCell* cell;
+	std::weak_ptr<LevelCell> containingCell;
 
 	int centreX;
 	int centreY;
