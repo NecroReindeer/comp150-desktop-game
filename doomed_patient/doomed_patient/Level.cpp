@@ -4,6 +4,7 @@
 #include "Directions.h"
 #include "LevelCell.h"
 #include "Room.h"
+#include "Exit.h"
 
 
 Level::Level(PatientGame* game)
@@ -127,6 +128,27 @@ void Level::generateCells(std::vector<LevelCell*>& activeCells)
 	}
 }
 
+void Level::placeExit()
+{
+	bool exitOnTopEdge = rand() % 2;
+
+	int exitPosX;
+	int exitPosY;
+    
+	if (exitOnTopEdge)
+	{
+		exitPosX = rand() % GRID_SIZE_X;
+		exitPosY = 0;
+	}
+	else
+	{
+		exitPosX = GRID_SIZE_X - 1;
+		exitPosY = rand() % GRID_SIZE_Y;
+	}
+
+	GridCoordinate exitCoords(exitPosX, exitPosY);
+	exit = new Exit(game, getCell(exitCoords));
+}
 
 void Level::generateMaze()
 {
@@ -142,9 +164,11 @@ void Level::generateMaze()
 		generateCells(activeCells);
 
 		// For testing
-		render(renderer);
-		SDL_RenderPresent(renderer);
+		//render(renderer);
+		//SDL_RenderPresent(renderer);
 	}
+
+	placeExit();
 }
 
 
@@ -161,6 +185,8 @@ void Level::render(SDL_Renderer* renderer)
 			}
 		}
 	}
+
+	exit->render(renderer);
 }
 
 LevelCell* Level::createCell(GridCoordinate coordinates, Room* room)

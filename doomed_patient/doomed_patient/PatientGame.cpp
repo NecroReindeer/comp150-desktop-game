@@ -9,6 +9,7 @@ PatientGame::PatientGame()
 	horizontalWallSprite("Sprites\\horiz_wall.png"),
 	verticalDoorSprite("Sprites\\ver_door.png"),
 	horizontalDoorSprite("Sprites\\horiz_door.png"),
+	exitSprite("Sprites\\exit.png"),
 	level(this)
 {
 

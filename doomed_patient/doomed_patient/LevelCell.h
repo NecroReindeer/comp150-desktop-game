@@ -38,12 +38,6 @@ public:
 
 	static const int NUMBER_OF_SIDES = 4;
 
-	
-
-	
-
-	
-
 
 private:
 	//! Cell's x position.

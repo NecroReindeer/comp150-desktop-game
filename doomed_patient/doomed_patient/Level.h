@@ -10,6 +10,7 @@
 class Room;
 class LevelCell;
 class PatientGame;
+class Exit;
 
 class Level
 {
@@ -137,6 +138,9 @@ private:
 	  doors will always spawn.
 	*/
 	const double DOOR_PROBABILITY = 0.075;
-	
+
+	void placeExit();
+
+	Exit* exit;
 };
 

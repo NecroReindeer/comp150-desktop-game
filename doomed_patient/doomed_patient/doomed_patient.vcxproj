@@ -162,6 +162,7 @@
     <ClInclude Include="CellWall.h" />
     <ClInclude Include="Directions.h" />
     <ClInclude Include="doomed_patient.h" />
+    <ClInclude Include="Exit.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GridCoordinate.h" />
     <ClInclude Include="InitialisationError.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="CellWall.cpp" />
     <ClCompile Include="Directions.cpp" />
     <ClCompile Include="doomed_patient.cpp" />
+    <ClCompile Include="Exit.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GridCoordinate.cpp" />
     <ClCompile Include="InitialisationError.cpp" />

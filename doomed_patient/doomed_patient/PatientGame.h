@@ -52,6 +52,7 @@ public:
 	Texture* getVerticalWallSprite() { return &verticalWallSprite; }
 	Texture* getHorizontalDoorSprite() { return &horizontalDoorSprite; }
 	Texture* getVerticalDoorSprite() { return &verticalDoorSprite; }
+	Texture* getExitSprite() { return &exitSprite; }
 
 private:
 
@@ -111,6 +112,7 @@ private:
 	Texture verticalWallSprite;
 	Texture horizontalDoorSprite;
 	Texture verticalDoorSprite;
+	Texture exitSprite;
 
 	//! The current level.
 	/*!
