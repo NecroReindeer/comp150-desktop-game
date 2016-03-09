@@ -16,14 +16,7 @@ Level::Level(PatientGame* game)
 
 Level::~Level()
 {
-	// Delete all created rooms
-	for each (Room* room in rooms)
-	{
-		if (room)
-		{
-			delete room;
-		}
-	}
+	
 }
  
 
@@ -40,10 +33,10 @@ std::shared_ptr<LevelCell> Level::getCell(GridCoordinate coordinates)
 }
 
 
-Room* Level::createRoom()
+std::shared_ptr<Room> Level::createRoom()
 {
 	// Create a room and add a pointer to it to the vector of rooms
-	Room* room = new Room;
+	std::shared_ptr<Room> room = std::make_shared<Room>();
 	rooms.push_back(room);
 	return room;
 }
@@ -116,6 +109,7 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 	}
 }
 
+
 void Level::placeExit()
 {
 	// Get random 0 or 1. Edge is on right if not on top
@@ -139,11 +133,12 @@ void Level::placeExit()
 	exit = std::make_shared<Exit>(game, getCell(exitCoords));
 }
 
+
 void Level::generateMaze()
 {
 	// Randomly choose position to start from and add it to activeCells
 	std::vector<std::shared_ptr<LevelCell>> activeCells;
-	Room* room = createRoom();
+	std::shared_ptr<Room> room = createRoom();
 	GridCoordinate firstCellCoordinates = getRandomCoordinates();
 	std::shared_ptr<LevelCell> firstCell = createCell(firstCellCoordinates, room);
 	activeCells.push_back(firstCell);
@@ -178,11 +173,13 @@ void Level::render(SDL_Renderer* renderer)
 	exit->render(renderer);
 }
 
-std::shared_ptr<LevelCell> Level::createCell(GridCoordinate coordinates, Room* room)
+
+std::shared_ptr<LevelCell> Level::createCell(GridCoordinate coordinates, std::shared_ptr<Room> room)
 {
 	cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates.x, coordinates.y, room);
 	return cells[coordinates.x][coordinates.y];
 }
+
 
 GridCoordinate Level::getRandomCoordinates()
 {

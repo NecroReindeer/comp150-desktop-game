@@ -88,7 +88,7 @@ private:
 	  This method created a cell at the given grid coordinates in the
 	  given room. It returns a pointer to the cell it has created.
 	*/
-	std::shared_ptr<LevelCell> createCell(GridCoordinate coordinates, Room* room);
+	std::shared_ptr<LevelCell> createCell(GridCoordinate coordinates, std::shared_ptr<Room> room);
 
 	//! Create a room.
 	/*!
@@ -96,7 +96,7 @@ private:
 	  room it has created. Rooms are used to determine where
 	  passages should be placed instead of walls.
 	*/
-	Room* createRoom();
+	std::shared_ptr<Room> createRoom();
 
     //! Returns random coordinates.
 	/*!
@@ -134,7 +134,7 @@ private:
 	  This vector stores pointers to all rooms that have been
 	  created using createRoom().
 	*/
-	std::vector<Room*> rooms;
+	std::vector<std::shared_ptr<Room>> rooms;
 
 	//! Pointer to the exit.
 	/*!

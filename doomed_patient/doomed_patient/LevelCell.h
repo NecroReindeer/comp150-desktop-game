@@ -24,7 +24,7 @@ public:
 	  window position based on its xy grid coordinates.
 	  It also initialises the edges to nullptr.
 	*/
-	LevelCell(PatientGame* game, int x, int y, Room* room);
+	LevelCell(PatientGame* game, int x, int y, std::shared_ptr<Room> room);
 
 	//! Creates a wall on a given side.
 	/*!
@@ -67,7 +67,7 @@ public:
 	*/
 	GridCoordinate getCoordinates() { return GridCoordinate(gridPositionX, gridPositionY); }
 
-	Room* room;
+	std::shared_ptr<Room> room;
 
 	//! The number of sides the cell has.
 	/*!
