@@ -7,7 +7,7 @@ class Exit :
 	public GameObject
 {
 public:
-	Exit(PatientGame* game, LevelCell* cell);
+	Exit(PatientGame* game, std::shared_ptr<LevelCell>cell);
 	~Exit();
 };
 

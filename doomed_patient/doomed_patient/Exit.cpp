@@ -4,7 +4,7 @@
 #include "LevelCell.h"
 
 
-Exit::Exit(PatientGame* game, LevelCell* cell)
+Exit::Exit(PatientGame* game, std::shared_ptr<LevelCell> cell)
 	: GameObject(game, game->getExitSprite())
 {
 	// Calculate the window position from the grid position

@@ -30,6 +30,12 @@ public:
 	*/
 	~Level();
 
+	//! Generates the level.
+	/*!
+	  This method begins the level generation process.
+	*/
+	void generateMaze();
+
 	//! Render the level.
 	/*!
 	This method renders the cells in the level.
@@ -41,7 +47,7 @@ public:
 	This method returns a pointer to the cell located
 	at the given coordinates.
 	*/
-	LevelCell* getCell(GridCoordinate coordinates);
+	std::shared_ptr<LevelCell> getCell(GridCoordinate coordinates);
 
 	//! Width of the level.
 	/*!
@@ -56,26 +62,19 @@ public:
 	the level in grid squares as an integer.
 	*/
 	static const int GRID_SIZE_Y = 8;
-
-	//! Generates the level.
-	/*!
-	  This method begins the level generation process.
-	*/
-	void generateMaze();
 	
 	// For testing
 	SDL_Renderer* renderer;
 
 
 private:
-
 	//! Generate the maze cells.
 	/*!
 	  This method implements the Growing Tree Algorithm to
 	  generate each cell of the level and the positionings 
 	  of walls and doors.
 	*/
-	void generateCells(std::vector<LevelCell*>& activeCells);
+	void generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells);
 
 	//! Check if the given coordinates are in the level.
 	/*!
@@ -89,7 +88,7 @@ private:
 	  This method created a cell at the given grid coordinates in the
 	  given room. It returns a pointer to the cell it has created.
 	*/
-	LevelCell* createCell(GridCoordinate coordinates, Room* room);
+	std::shared_ptr<LevelCell> createCell(GridCoordinate coordinates, Room* room);
 
 	//! Create a room.
 	/*!
@@ -106,13 +105,21 @@ private:
 	*/
 	GridCoordinate getRandomCoordinates();
 
+	//! Add the exit to the level.
+	/*!
+	  This method creates an instance of the exit and
+	  sets its position to a random place on the top or
+	  left edge.
+	*/
+	void placeExit();
+
 	//! Vector that holds pointers to the level's cells.
 	/*!
 	  This private 2d vector holds pointers to the level's
 	  cells. The cells are instantiated and added to the
 	  vector when generate is called.
 	*/
-	std::vector<std::vector<LevelCell*>> cells;
+	std::vector<std::vector<std::shared_ptr<LevelCell>>> cells;
 
 	//! Pointer to the game
 	/*!
@@ -129,6 +136,14 @@ private:
 	*/
 	std::vector<Room*> rooms;
 
+	//! Pointer to the exit.
+	/*!
+	This is a shared pointer to the exit of the level.
+	The exit is of type Exit, and is created and placed
+	during the level generation process.
+	*/
+	std::shared_ptr<Exit> exit;
+
 	//! The probability that a door will be made.
 	/*!
 	  This constant defines the probability that a door
@@ -138,9 +153,5 @@ private:
 	  doors will always spawn.
 	*/
 	const double DOOR_PROBABILITY = 0.075;
-
-	void placeExit();
-
-	Exit* exit;
 };
 

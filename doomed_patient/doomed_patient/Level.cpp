@@ -8,7 +8,7 @@
 
 
 Level::Level(PatientGame* game)
-	:cells(GRID_SIZE_X, std::vector<LevelCell*>(GRID_SIZE_Y, nullptr)),		// Initialise vector to correct size
+	:cells(GRID_SIZE_X, std::vector<std::shared_ptr<LevelCell>>(GRID_SIZE_Y, nullptr)),		// Initialise vector to correct size
 	game(game)
 {
 }
@@ -16,18 +16,6 @@ Level::Level(PatientGame* game)
 
 Level::~Level()
 {
-	// Delete the cells created in generate if they exist
-	for (int x = 0; x < GRID_SIZE_X; x++)
-	{
-		for (int y = 0; y < GRID_SIZE_Y; y++)
-		{
-			if (cells[x][y])
-			{
-				delete cells[x][y];
-			}
-		}
-	}
-
 	// Delete all created rooms
 	for each (Room* room in rooms)
 	{
@@ -46,7 +34,7 @@ bool Level::containsCoordinates(GridCoordinate coordinates)
 }
 
 
-LevelCell* Level::getCell(GridCoordinate coordinates)
+std::shared_ptr<LevelCell> Level::getCell(GridCoordinate coordinates)
 {
 	return cells[coordinates.x][coordinates.y];
 }
@@ -61,11 +49,11 @@ Room* Level::createRoom()
 }
 
 
-void Level::generateCells(std::vector<LevelCell*>& activeCells)
+void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 {
 	// Last index. Can be changed (first, middle, or random) to give different results
 	int currentIndex = activeCells.size() - 1;
-	LevelCell* currentCell = activeCells[currentIndex];
+	std::shared_ptr<LevelCell> currentCell = activeCells[currentIndex];
 
 	// Delete the cell from the list of active cell if all edges have been set
 	if (currentCell->allEdgesInitialised())
@@ -82,12 +70,12 @@ void Level::generateCells(std::vector<LevelCell*>& activeCells)
 
 	if (containsCoordinates(nextCellCoordinates))
 	{
-		LevelCell* nextCell = getCell(nextCellCoordinates);
+		std::shared_ptr<LevelCell> nextCell = getCell(nextCellCoordinates);
 
 		// If there isn't a cell in the visted coordinates, create the cell and a passage
 		if (!nextCell)
 		{
-			// Decide if the passaage will be a door
+			// Decide if the passaage will be a door by picking random number between 0 and 1
 			double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
 			bool isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
 
@@ -130,6 +118,7 @@ void Level::generateCells(std::vector<LevelCell*>& activeCells)
 
 void Level::placeExit()
 {
+	// Get random 0 or 1. Edge is on right if not on top
 	bool exitOnTopEdge = rand() % 2;
 
 	int exitPosX;
@@ -147,16 +136,16 @@ void Level::placeExit()
 	}
 
 	GridCoordinate exitCoords(exitPosX, exitPosY);
-	exit = new Exit(game, getCell(exitCoords));
+	exit = std::make_shared<Exit>(game, getCell(exitCoords));
 }
 
 void Level::generateMaze()
 {
 	// Randomly choose position to start from and add it to activeCells
-	std::vector<LevelCell*> activeCells;
+	std::vector<std::shared_ptr<LevelCell>> activeCells;
 	Room* room = createRoom();
 	GridCoordinate firstCellCoordinates = getRandomCoordinates();
-	LevelCell* firstCell = createCell(firstCellCoordinates, room);
+	std::shared_ptr<LevelCell> firstCell = createCell(firstCellCoordinates, room);
 	activeCells.push_back(firstCell);
 
 	while (activeCells.size() > 0)
@@ -189,12 +178,11 @@ void Level::render(SDL_Renderer* renderer)
 	exit->render(renderer);
 }
 
-LevelCell* Level::createCell(GridCoordinate coordinates, Room* room)
+std::shared_ptr<LevelCell> Level::createCell(GridCoordinate coordinates, Room* room)
 {
-	cells[coordinates.x][coordinates.y] = new LevelCell(game, coordinates.x, coordinates.y, room);
+	cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates.x, coordinates.y, room);
 	return cells[coordinates.x][coordinates.y];
 }
-
 
 GridCoordinate Level::getRandomCoordinates()
 {
