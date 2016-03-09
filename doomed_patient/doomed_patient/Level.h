@@ -38,7 +38,7 @@ public:
 
 	//! Render the level.
 	/*!
-	This method renders the cells in the level.
+	This method renders the cells in the level and the exit.
 	*/
 	void render(SDL_Renderer* renderer);
 

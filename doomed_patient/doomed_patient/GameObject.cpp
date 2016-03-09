@@ -6,17 +6,8 @@
 GameObject::GameObject(PatientGame* game, Texture* sprite)
 	: game(game), objectSprite(sprite)
 {
-	// Get the sprite size
-	SDL_Surface* image;
-	image = IMG_Load(objectSprite->getImageFileName().c_str());
-
-	if (!image)
-	{
-		throw InitialisationError("IMG_Load failed.");
-	}
-
-	spriteSizeX = image->w;
-	spriteSizeY = image->h;
+	spriteSizeX = objectSprite->getSpriteSizeX();
+	spriteSizeY = objectSprite->getSpriteSizeY();
 }
 
 GameObject::~GameObject()
@@ -25,6 +16,9 @@ GameObject::~GameObject()
 
 void GameObject::render(SDL_Renderer* renderer)
 {
-	// Render the game object
-	objectSprite->render(renderer, centreX, centreY, spriteSizeX, spriteSizeY);
+	if (objectSprite)
+	{
+		// Render the game object
+		objectSprite->render(renderer, centreX, centreY, spriteSizeX, spriteSizeY);
+	}
 }
