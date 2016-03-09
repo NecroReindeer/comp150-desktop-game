@@ -9,3 +9,8 @@ It will include:
 * Placing collectable items in appropriate positions
 * Placing doors and locked doors in appropriate positions
 * Ensuring that keycards are placed on the correct side of locked doors
+
+###Proposal Trello Board
+Note that the user stories will be made more specific as we develop and playtest the game
+
+![Initial Trello Board](https://github.com/NecroReindeer/comp150-desktop-game/blob/level-generation/COMP110%20Coding%20Task%202/Initial%20Trello%20Board.png)
