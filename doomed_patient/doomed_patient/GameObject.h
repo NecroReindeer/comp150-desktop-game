@@ -70,7 +70,5 @@ private:
 	  It is initialised in the constructor.
 	*/
 	Texture* objectSprite;
-
-	
 };
 

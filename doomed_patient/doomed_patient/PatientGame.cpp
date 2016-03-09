@@ -4,12 +4,12 @@
 
 
 PatientGame::PatientGame()
-	:floorSprite("Sprites\\floor.png"),
-	verticalWallSprite("Sprites\\ver_wall.png"),
-	horizontalWallSprite("Sprites\\horiz_wall.png"),
-	verticalDoorSprite("Sprites\\ver_door.png"),
-	horizontalDoorSprite("Sprites\\horiz_door.png"),
-	exitSprite("Sprites\\exit.png"),
+	:floorSprite("Sprites\\small\\floor.png"),
+	verticalWallSprite("Sprites\\small\\ver_wall.png"),
+	horizontalWallSprite("Sprites\\small\\horiz_wall.png"),
+	verticalDoorSprite("Sprites\\small\\ver_door.png"),
+	horizontalDoorSprite("Sprites\\small\\horiz_door.png"),
+	exitSprite("Sprites\\small\\exit.png"),
 	level(this)
 {
 

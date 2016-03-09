@@ -18,7 +18,6 @@ public:
 	~CellWall();
 
 
-
 private:
 	//! Initialises the sprite.
 	/*!

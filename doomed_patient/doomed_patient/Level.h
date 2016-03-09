@@ -54,14 +54,14 @@ public:
 	  This static member represents the width of
 	  the level in grid squares as an integer.
 	*/
-	static const int GRID_SIZE_X = 15;
+	static const int GRID_SIZE_X = 30;
 
 	//! Height of the level.
 	/*!
 	This static member represents the height of
 	the level in grid squares as an integer.
 	*/
-	static const int GRID_SIZE_Y = 8;
+	static const int GRID_SIZE_Y = 16;
 	
 	// For testing
 	SDL_Renderer* renderer;
@@ -152,6 +152,6 @@ private:
 	  0 means that doors will never spawn, 1  means that 
 	  doors will always spawn.
 	*/
-	const double DOOR_PROBABILITY = 0.075;
+	const double DOOR_PROBABILITY = 0.03;
 };
 
