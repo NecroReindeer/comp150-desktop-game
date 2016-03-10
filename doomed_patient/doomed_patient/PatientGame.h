@@ -50,6 +50,7 @@ public:
 	Texture* getGuardSprite() { return &guardSprite; }
 	Texture* getDoctorSprite() { return &doctorSprite; }
 	Texture* getCreatureSprite() { return &creatureSprite; }
+	Texture* getPlayerSprite() { return &playerSprite; }
 	Texture* getFloorSprite() { return &floorSprite; }
 	Texture* getHorizontalWallSprite() { return &horizontalWallSprite;  }
 	Texture* getVerticalWallSprite() { return &verticalWallSprite; }
@@ -119,6 +120,7 @@ private:
 	Texture guardSprite;
 	Texture doctorSprite;
 	Texture creatureSprite;
+	Texture playerSprite;
 
 	//! The current level.
 	/*!

@@ -9,6 +9,7 @@ PatientGame::PatientGame()
 	: guardSprite("Sprites\\Guard.png"),
 	doctorSprite("Sprites\\Doctor.png"),
 	creatureSprite("Sprites\\Creature.png"),
+	playerSprite("Sprites\\Player.png"),
 	floorSprite("Sprites\\small\\floor.png"),
 	verticalWallSprite("Sprites\\small\\ver_wall.png"),
 	horizontalWallSprite("Sprites\\small\\horiz_wall.png"),

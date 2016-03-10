@@ -4,7 +4,7 @@ class Player :
 	public GameObject
 {
 public:
-	Player();
+	Player(PatientGame* game);
 	~Player();
 };
 
