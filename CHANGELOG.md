@@ -1,3 +1,8 @@
+##09/03/2016
+* Exit is now generated on the top or right edge
+* All classes now use smart pointers where appropriate
+* Code in all classes has been tidied up and documented
+
 ##07/03/2016
 * Code in Level class has now been tidied up and documented
 
