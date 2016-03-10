@@ -7,7 +7,7 @@ for any general data.
 */
 #pragma once
 
-#include "GameObject"
+#include "GameObject.h"
 
 class Creature : public GameObject
 {
@@ -20,5 +20,5 @@ public:
 	//!Destuctor for the Creature
 	/*!
 	*/
-	Creature();
+	~Creature();
 };

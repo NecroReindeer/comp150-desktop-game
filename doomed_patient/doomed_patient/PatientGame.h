@@ -13,13 +13,13 @@ class PatientGame
 public:
 
 	//! Constructor for the game.
-	/*! 
+	/*!
 	  The constructor should initialise the SDL subsystems
 	*/
 	PatientGame();
 
 	//! Destructor for the game.
-	/*! 
+	/*!
 	  The destructor should destroy the window and renderer,
 	  as well as quitting SDL.
 	*/
@@ -36,14 +36,19 @@ public:
 	   This is a static member for storing the width of the
 	   window as an integer.
 	*/
-	static const int WINDOW_WIDTH = 1920;
+	static const int WINDOW_WIDTH = 800;//1920;
 
 	//! A public static member for storing window height.
 	/*!
 	  This is a static member for storing the height of the
 	  window as an integer.
 	*/
-	static const int WINDOW_HEIGHT = 1080;
+	static const int WINDOW_HEIGHT = 600;//1080;
+
+	Texture* getGuardSprite() { return &guardSprite; }
+	Texture* getDoctorSprite() { return &doctorSprite; }
+	Texture* getCreatureSprite() { return &creatureSprite; }
+
 
 private:
 
@@ -62,6 +67,10 @@ private:
 	  Access the renderer through this.
 	*/
 	SDL_Renderer* renderer;
+
+	Texture guardSprite;
+	Texture doctorSprite;
+	Texture creatureSprite;
 
 	//! Private boolean to store whether the game is running.
 	/*!

@@ -7,7 +7,7 @@ for any general data.
 */
 #pragma once
 
-#include "GameObject"
+#include "GameObject.h"
 
 class Guard : public GameObject
 {

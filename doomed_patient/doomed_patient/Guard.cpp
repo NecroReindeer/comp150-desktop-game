@@ -10,6 +10,8 @@ which then inherits from textures.h
 	: GameObject(game, game->getGuardSprite())
 	
 {
+	centreX = rand() % 800;
+	centreY = rand() % 600;
 }
 
 

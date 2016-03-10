@@ -1,9 +1,14 @@
 #include "stdafx.h"
 #include "PatientGame.h"
 #include "InitialisationError.h"
-
+#include "Creature.h"
+#include "Guard.h"
 
 PatientGame::PatientGame()
+	: guardSprite("Sprites\\Guard.png"),
+	doctorSprite("Sprites\\Doctor.png"),
+	creatureSprite("Sprites\\Creature.png")
+
 {
 
 	// Initialise SDL video system
@@ -86,6 +91,9 @@ void PatientGame::render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
+	//THIS IS FOR TESTING!!
+	Guard Test(this);
+	Test.render(renderer);
 	//Render game objects here
 
 	// Present the newly rendered screen
