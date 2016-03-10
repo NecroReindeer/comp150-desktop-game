@@ -8,6 +8,7 @@
 #pragma once
 #include "Texture.h"
 #include "Level.h"
+#include "Guard.h"
 
 class PatientGame
 {
@@ -37,21 +38,18 @@ public:
 	   This is a static member for storing the width of the
 	   window as an integer.
 	*/
-	static const int WINDOW_WIDTH = 800;//1920;
+	static const int WINDOW_WIDTH = 1366;//1920;
 
 	//! A public static member for storing window height.
 	/*!
 	  This is a static member for storing the height of the
 	  window as an integer.
 	*/
-	static const int WINDOW_HEIGHT = 600;//1080;
+	static const int WINDOW_HEIGHT = 768;//1080;
 
 	Texture* getGuardSprite() { return &guardSprite; }
 	Texture* getDoctorSprite() { return &doctorSprite; }
 	Texture* getCreatureSprite() { return &creatureSprite; }
-
-
-
 	Texture* getFloorSprite() { return &floorSprite; }
 	Texture* getHorizontalWallSprite() { return &horizontalWallSprite;  }
 	Texture* getVerticalWallSprite() { return &verticalWallSprite; }
@@ -76,10 +74,6 @@ private:
 	  Access the renderer through this.
 	*/
 	SDL_Renderer* renderer;
-
-	Texture guardSprite;
-	Texture doctorSprite;
-	Texture creatureSprite;
 
 	//! Private boolean to store whether the game is running.
 	/*!
@@ -122,11 +116,15 @@ private:
 	Texture horizontalDoorSprite;
 	Texture verticalDoorSprite;
 	Texture exitSprite;
+	Texture guardSprite;
+	Texture doctorSprite;
+	Texture creatureSprite;
 
 	//! The current level.
 	/*!
 	  This stores the level that will be rendered.
 	*/
 	Level level;
+	
 };
 

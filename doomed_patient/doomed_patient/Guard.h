@@ -8,6 +8,7 @@ for any general data.
 #pragma once
 
 #include "GameObject.h"
+class LevelCell;
 
 class Guard : public GameObject
 {
@@ -15,8 +16,8 @@ public:
 	//!Constructor for the Guard
 	/*!
 	*/
-	Guard(PatientGame* game);
-
+	Guard(PatientGame* game, std::shared_ptr<LevelCell>cell);
+	
 	//!Destuctor for the Guard
 	/*!
 	*/

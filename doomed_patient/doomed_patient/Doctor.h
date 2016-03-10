@@ -9,13 +9,15 @@ for any general data.
 
 #include "GameObject.h"
 
+class LevelCell;
+
 class Doctor : public GameObject
 {
 public:
 	//!Constructor for the Doctor
 	/*!
 	*/
-	Doctor(PatientGame* game);
+	Doctor(PatientGame* game, std::shared_ptr<LevelCell>cell);
 
 	//!Destuctor for the Doctor
 	/*!

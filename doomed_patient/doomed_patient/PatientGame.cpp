@@ -3,6 +3,7 @@
 #include "InitialisationError.h"
 #include "Creature.h"
 #include "Guard.h"
+#include "Doctor.h"
 
 PatientGame::PatientGame()
 	: guardSprite("Sprites\\Guard.png"),
@@ -25,7 +26,7 @@ PatientGame::PatientGame()
 	}
 
 	// Create window for the game
-	window = SDL_CreateWindow("The Doomed Patient", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("The Doomed Patient", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN|SDL_WINDOW_FULLSCREEN);
 	// Check if window was successfully created
 	if (window == nullptr)
 	{
@@ -103,9 +104,6 @@ void PatientGame::render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
-	//THIS IS FOR TESTING!!
-	Guard Test(this);
-	Test.render(renderer);
 	//Render game objects here
 	level.render(renderer);
 
