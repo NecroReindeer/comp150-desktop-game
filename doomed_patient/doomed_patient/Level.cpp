@@ -7,6 +7,7 @@
 #include "Exit.h"
 #include "Guard.h"
 #include "Doctor.h"
+#include "Player.h"
 
 Level::Level(PatientGame* game)
 	:cells(GRID_SIZE_X, std::vector<std::shared_ptr<LevelCell>>(GRID_SIZE_Y, nullptr)),		// Initialise vector to correct size
@@ -67,6 +68,14 @@ void Level::createDoctor()
 
 	npc.push_back(doctor);
 }
+
+void Level::createPlayer()
+{
+	// Create a guard and add a pointer to the vector of player
+	GridCoordinate playerCoords(Player::playerStartX, Player::playerStartY);
+	player = std::make_shared<Player>(game, getCell(playerCoords));
+}
+
 
 void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 {
@@ -181,6 +190,7 @@ void Level::generateMaze()
 	placeExit();
 	createGuard();
 	createDoctor();
+	createPlayer();
 }
 
 
@@ -203,6 +213,7 @@ void Level::render(SDL_Renderer* renderer)
 	{
 		npc[i]->render(renderer);
 	}
+	player->render(renderer);
 }
 
 

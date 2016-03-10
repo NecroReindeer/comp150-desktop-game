@@ -8,7 +8,6 @@
 #pragma once
 #include "Texture.h"
 #include "Level.h"
-#include "Guard.h"
 
 class PatientGame
 {

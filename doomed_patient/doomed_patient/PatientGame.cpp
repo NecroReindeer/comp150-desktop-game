@@ -4,6 +4,7 @@
 #include "Creature.h"
 #include "Guard.h"
 #include "Doctor.h"
+#include "Player.h"
 
 PatientGame::PatientGame()
 	: guardSprite("Sprites\\Guard.png"),
