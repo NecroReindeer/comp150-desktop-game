@@ -157,6 +157,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Crature_Behaviour.h" />
+    <ClInclude Include="Creature.h" />
+    <ClInclude Include="Doctor.h" />
     <ClInclude Include="CellEdge.h" />
     <ClInclude Include="CellPassage.h" />
     <ClInclude Include="CellWall.h" />
@@ -164,11 +167,13 @@
     <ClInclude Include="doomed_patient.h" />
     <ClInclude Include="Exit.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Guard.h" />
     <ClInclude Include="GridCoordinate.h" />
     <ClInclude Include="InitialisationError.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelCell.h" />
     <ClInclude Include="PatientGame.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="stdafx.h" />
@@ -176,6 +181,9 @@
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Crature_Behaviour.cpp" />
+    <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="Doctor.cpp" />
     <ClCompile Include="CellEdge.cpp" />
     <ClCompile Include="CellPassage.cpp" />
     <ClCompile Include="CellWall.cpp" />
@@ -183,11 +191,13 @@
     <ClCompile Include="doomed_patient.cpp" />
     <ClCompile Include="Exit.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Guard.cpp" />
     <ClCompile Include="GridCoordinate.cpp" />
     <ClCompile Include="InitialisationError.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelCell.cpp" />
     <ClCompile Include="PatientGame.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

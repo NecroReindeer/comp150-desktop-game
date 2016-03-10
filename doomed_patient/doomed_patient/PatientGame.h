@@ -8,19 +8,20 @@
 #pragma once
 #include "Texture.h"
 #include "Level.h"
+#include "Guard.h"
 
 class PatientGame
 {
 public:
 
 	//! Constructor for the game.
-	/*! 
+	/*!
 	  The constructor should initialise the SDL subsystems
 	*/
 	PatientGame();
 
 	//! Destructor for the game.
-	/*! 
+	/*!
 	  The destructor should destroy the window and renderer,
 	  as well as quitting SDL.
 	*/
@@ -37,16 +38,19 @@ public:
 	   This is a static member for storing the width of the
 	   window as an integer.
 	*/
-	static const int WINDOW_WIDTH = 1920;
+	static const int WINDOW_WIDTH = 1366;//1920;
 
 	//! A public static member for storing window height.
 	/*!
 	  This is a static member for storing the height of the
 	  window as an integer.
 	*/
-	static const int WINDOW_HEIGHT = 1080;
+	static const int WINDOW_HEIGHT = 768;//1080;
 
-
+	Texture* getGuardSprite() { return &guardSprite; }
+	Texture* getDoctorSprite() { return &doctorSprite; }
+	Texture* getCreatureSprite() { return &creatureSprite; }
+	Texture* getPlayerSprite() { return &playerSprite; }
 	Texture* getFloorSprite() { return &floorSprite; }
 	Texture* getHorizontalWallSprite() { return &horizontalWallSprite;  }
 	Texture* getVerticalWallSprite() { return &verticalWallSprite; }
@@ -113,11 +117,16 @@ private:
 	Texture horizontalDoorSprite;
 	Texture verticalDoorSprite;
 	Texture exitSprite;
+	Texture guardSprite;
+	Texture doctorSprite;
+	Texture creatureSprite;
+	Texture playerSprite;
 
 	//! The current level.
 	/*!
 	  This stores the level that will be rendered.
 	*/
 	Level level;
+	
 };
 
