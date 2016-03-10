@@ -23,3 +23,7 @@
 #include <SDL_image.h>
 #include <string>
 #include <exception>
+#include <vector>
+#include <map>
+#include <time.h>
+#include <memory>

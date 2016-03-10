@@ -5,6 +5,17 @@
 Texture::Texture(const std::string& fileName)
 	: imageFilename(fileName), texture(nullptr)
 {
+	// Get the sprite size
+	SDL_Surface* image;
+	image = IMG_Load(imageFilename.c_str());
+
+	if (!image)
+	{
+		throw InitialisationError("IMG_Load failed.");
+	}
+
+	spriteSizeX = image->w;
+	spriteSizeY = image->h;
 }
 
 

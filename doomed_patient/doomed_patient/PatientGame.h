@@ -7,6 +7,7 @@
 
 #pragma once
 #include "Texture.h"
+#include "Level.h"
 
 class PatientGame
 {
@@ -49,6 +50,14 @@ public:
 	Texture* getDoctorSprite() { return &doctorSprite; }
 	Texture* getCreatureSprite() { return &creatureSprite; }
 
+
+
+	Texture* getFloorSprite() { return &floorSprite; }
+	Texture* getHorizontalWallSprite() { return &horizontalWallSprite;  }
+	Texture* getVerticalWallSprite() { return &verticalWallSprite; }
+	Texture* getHorizontalDoorSprite() { return &horizontalDoorSprite; }
+	Texture* getVerticalDoorSprite() { return &verticalDoorSprite; }
+	Texture* getExitSprite() { return &exitSprite; }
 
 private:
 
@@ -100,5 +109,24 @@ private:
 	  update the renderer and display the updated screen.
 	*/
 	void render();
+
+	//! Texture for the floor.
+	/*!
+	  This variable stores the texture that will be used
+	  for the floor. It is initialised in the initialiser
+	  list of the constructor.
+	*/
+	Texture floorSprite;
+	Texture horizontalWallSprite;
+	Texture verticalWallSprite;
+	Texture horizontalDoorSprite;
+	Texture verticalDoorSprite;
+	Texture exitSprite;
+
+	//! The current level.
+	/*!
+	  This stores the level that will be rendered.
+	*/
+	Level level;
 };
 

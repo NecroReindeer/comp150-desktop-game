@@ -23,19 +23,37 @@ public:
 	*/
 	~Texture();
 
-	//! Pointer to SDL texture.
+	//! Getter for the texture.
 	/*!
-	  This is a pointer to the SDL texture, which is null until 
+	  This is a getter for the SDL texture, which is null until 
 	  render is called.
 	  The texture will be created from the sprite at the given path.
 	*/
 	SDL_Texture* getTexture() { return texture; }
+
+	//! Returns the filename as a string.
+	/*!
+	  This getter returns the image file name as a string.
+	*/
+	std::string getImageFileName() { return imageFilename; }
 
 	//! Render the texture.
 	/*!
 	  This method copies the texture to the renderer.
 	*/
 	void render(SDL_Renderer* renderer, int x, int y, int width, int height);
+
+	//! Return the width of the sprite.
+	/*!
+	  This getter returns the width of the sprite in pixels as an int.
+	*/
+	int getSpriteSizeX() { return spriteSizeX; }
+
+	//! Return the height of the sprite.
+	/*!
+	  This getter returns the height of the sprite in pixels as an int.
+	*/
+	int getSpriteSizeY() { return spriteSizeY; }
 
 private:
 	//! Load the texture.
@@ -56,6 +74,19 @@ private:
 	/*!
 	  This is a pointer to the SDL texture. The texture is null
 	  until render is called.
+	  The texture will be created from the sprite at the given path.
 	*/
 	SDL_Texture* texture;
+
+	//! The width of the sprite.
+	/*!
+	  This is the width of the sprite in pixels. It is set in the constructor. 
+	*/
+	int spriteSizeX;
+
+	//! The height of the sprite.
+	/*!
+	This is the height of the sprite in pixels. It is set in the constructor.
+	*/
+	int spriteSizeY;
 };

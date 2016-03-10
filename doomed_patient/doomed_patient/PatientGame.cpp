@@ -7,7 +7,14 @@
 PatientGame::PatientGame()
 	: guardSprite("Sprites\\Guard.png"),
 	doctorSprite("Sprites\\Doctor.png"),
-	creatureSprite("Sprites\\Creature.png")
+	creatureSprite("Sprites\\Creature.png"),
+	floorSprite("Sprites\\small\\floor.png"),
+	verticalWallSprite("Sprites\\small\\ver_wall.png"),
+	horizontalWallSprite("Sprites\\small\\horiz_wall.png"),
+	verticalDoorSprite("Sprites\\small\\ver_door.png"),
+	horizontalDoorSprite("Sprites\\small\\horiz_door.png"),
+	exitSprite("Sprites\\small\\exit.png"),
+	level(this)
 
 {
 
@@ -32,6 +39,10 @@ PatientGame::PatientGame()
 	{
 		throw InitialisationError("SDL_CreateRenderer failed");
 	}
+
+
+	// For testing
+	level.renderer = renderer;
 }
 
 
@@ -46,6 +57,7 @@ PatientGame::~PatientGame()
 void PatientGame::run()
 {
 	running = true;
+	level.generateMaze();
 
 	// Main game loop
 	while (running)
@@ -95,6 +107,7 @@ void PatientGame::render()
 	Guard Test(this);
 	Test.render(renderer);
 	//Render game objects here
+	level.render(renderer);
 
 	// Present the newly rendered screen
 	SDL_RenderPresent(renderer);
