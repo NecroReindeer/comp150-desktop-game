@@ -57,7 +57,7 @@ void Level::createGuard()
 
 void Level::createDoctor()
 {
-	// Create a doctor and add a pointer to the vector of guards
+	// Create a doctor and add a pointer to the vector of doctors
 	// Indicates the position of the doctors
 	int doctorPosX = rand() % GRID_SIZE_X;
 	int doctorPosY = rand() % GRID_SIZE_Y;
@@ -177,7 +177,7 @@ void Level::generateMaze()
 		//render(renderer);
 		//SDL_RenderPresent(renderer);
 	}
-
+	
 	placeExit();
 	createGuard();
 	createDoctor();

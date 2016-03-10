@@ -157,6 +157,11 @@ private:
 	*/
 	const double DOOR_PROBABILITY = 0.03;
 
+	//! Add the Guards and Doctors to the level.
+	/*!
+	This method creates an instance of the Guards/Doctors and
+	sets its position to a random place on the map.
+	*/
 	std::vector<std::shared_ptr<GameObject>> npc;
 	void createGuard();
 	void createDoctor();
