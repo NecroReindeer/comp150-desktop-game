@@ -11,6 +11,10 @@ class Room;
 class LevelCell;
 class PatientGame;
 class Exit;
+class Guard;
+class Doctor;
+class GameObject;
+class Player;
 
 class Level
 {
@@ -54,14 +58,14 @@ public:
 	  This static member represents the width of
 	  the level in grid squares as an integer.
 	*/
-	static const int GRID_SIZE_X = 30;
+	static const int GRID_SIZE_X = 21;
 
 	//! Height of the level.
 	/*!
 	This static member represents the height of
 	the level in grid squares as an integer.
 	*/
-	static const int GRID_SIZE_Y = 16;
+	static const int GRID_SIZE_Y = 12;
 	
 	// For testing
 	SDL_Renderer* renderer;
@@ -153,5 +157,17 @@ private:
 	  doors will always spawn.
 	*/
 	const double DOOR_PROBABILITY = 0.03;
+
+	//! Add the Guards and Doctors to the level.
+	/*!
+	This method creates an instance of the Guards/Doctors and
+	sets its position to a random place on the map.
+	*/
+	std::vector<std::shared_ptr<GameObject>> npc;
+	void createGuard();
+	void createDoctor();
+
+	std::shared_ptr<Player> player;
+	void createPlayer();
 };
 

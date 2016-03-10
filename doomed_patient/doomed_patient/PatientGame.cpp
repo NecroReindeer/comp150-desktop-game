@@ -1,16 +1,24 @@
 #include "stdafx.h"
 #include "PatientGame.h"
 #include "InitialisationError.h"
-
+#include "Creature.h"
+#include "Guard.h"
+#include "Doctor.h"
+#include "Player.h"
 
 PatientGame::PatientGame()
-	:floorSprite("Sprites\\small\\floor.png"),
+	: guardSprite("Sprites\\Guard.png"),
+	doctorSprite("Sprites\\Doctor.png"),
+	creatureSprite("Sprites\\Creature.png"),
+	playerSprite("Sprites\\Player.png"),
+	floorSprite("Sprites\\small\\floor.png"),
 	verticalWallSprite("Sprites\\small\\ver_wall.png"),
 	horizontalWallSprite("Sprites\\small\\horiz_wall.png"),
 	verticalDoorSprite("Sprites\\small\\ver_door.png"),
 	horizontalDoorSprite("Sprites\\small\\horiz_door.png"),
 	exitSprite("Sprites\\small\\exit.png"),
 	level(this)
+
 {
 
 	// Initialise SDL video system
@@ -20,7 +28,7 @@ PatientGame::PatientGame()
 	}
 
 	// Create window for the game
-	window = SDL_CreateWindow("The Doomed Patient", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("The Doomed Patient", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN|SDL_WINDOW_FULLSCREEN);
 	// Check if window was successfully created
 	if (window == nullptr)
 	{

@@ -5,7 +5,9 @@
 #include "LevelCell.h"
 #include "Room.h"
 #include "Exit.h"
-
+#include "Guard.h"
+#include "Doctor.h"
+#include "Player.h"
 
 Level::Level(PatientGame* game)
 	:cells(GRID_SIZE_X, std::vector<std::shared_ptr<LevelCell>>(GRID_SIZE_Y, nullptr)),		// Initialise vector to correct size
@@ -39,6 +41,39 @@ std::shared_ptr<Room> Level::createRoom()
 	std::shared_ptr<Room> room = std::make_shared<Room>();
 	rooms.push_back(room);
 	return room;
+}
+
+void Level::createGuard()
+{
+	// Create a guard and add a pointer to the vector of guards
+	// Indicates the position of the guards
+	int guardPosX = rand() % GRID_SIZE_X;
+	int guardPosY = rand() % GRID_SIZE_Y;
+
+	GridCoordinate guardCoords(guardPosX, guardPosY);
+	std::shared_ptr<Guard>guard = std::make_shared<Guard>(game, getCell(guardCoords));
+
+	npc.push_back(guard);
+}
+
+void Level::createDoctor()
+{
+	// Create a doctor and add a pointer to the vector of doctors
+	// Indicates the position of the doctors
+	int doctorPosX = rand() % GRID_SIZE_X;
+	int doctorPosY = rand() % GRID_SIZE_Y;
+
+	GridCoordinate doctorCoords(doctorPosX, doctorPosY);
+	std::shared_ptr<Doctor>doctor = std::make_shared<Doctor>(game, getCell(doctorCoords));
+
+	npc.push_back(doctor);
+}
+
+void Level::createPlayer()
+{
+	// Create a guard and add a pointer to the vector of player
+	GridCoordinate playerCoords(Player::playerStartX, Player::playerStartY);
+	player = std::make_shared<Player>(game, getCell(playerCoords));
 }
 
 
@@ -151,8 +186,11 @@ void Level::generateMaze()
 		//render(renderer);
 		//SDL_RenderPresent(renderer);
 	}
-
+	
 	placeExit();
+	createGuard();
+	createDoctor();
+	createPlayer();
 }
 
 
@@ -171,6 +209,11 @@ void Level::render(SDL_Renderer* renderer)
 	}
 
 	exit->render(renderer);
+	for (int i = 0; i < npc.size(); i++)
+	{
+		npc[i]->render(renderer);
+	}
+	player->render(renderer);
 }
 
 
