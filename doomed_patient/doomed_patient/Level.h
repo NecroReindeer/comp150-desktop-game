@@ -14,6 +14,7 @@ class Exit;
 class Guard;
 class Doctor;
 class GameObject;
+class Player;
 
 class Level
 {
@@ -165,5 +166,8 @@ private:
 	std::vector<std::shared_ptr<GameObject>> npc;
 	void createGuard();
 	void createDoctor();
+
+	std::shared_ptr<Player> player;
+	void createPlayer();
 };
 
