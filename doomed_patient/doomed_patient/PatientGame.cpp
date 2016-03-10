@@ -4,7 +4,12 @@
 
 
 PatientGame::PatientGame()
-	:floorSprite("Sprites\\floor.png"),
+	:floorSprite("Sprites\\small\\floor.png"),
+	verticalWallSprite("Sprites\\small\\ver_wall.png"),
+	horizontalWallSprite("Sprites\\small\\horiz_wall.png"),
+	verticalDoorSprite("Sprites\\small\\ver_door.png"),
+	horizontalDoorSprite("Sprites\\small\\horiz_door.png"),
+	exitSprite("Sprites\\small\\exit.png"),
 	level(this)
 {
 
@@ -29,6 +34,10 @@ PatientGame::PatientGame()
 	{
 		throw InitialisationError("SDL_CreateRenderer failed");
 	}
+
+
+	// For testing
+	level.renderer = renderer;
 }
 
 
@@ -43,7 +52,7 @@ PatientGame::~PatientGame()
 void PatientGame::run()
 {
 	running = true;
-	level.generate();
+	level.generateMaze();
 
 	// Main game loop
 	while (running)

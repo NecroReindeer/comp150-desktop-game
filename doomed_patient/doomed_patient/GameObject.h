@@ -6,7 +6,6 @@
 */
 
 #pragma once
-
 #include "Texture.h"
 
 class PatientGame;
@@ -34,6 +33,11 @@ public:
 	  This function renders the game object to the screen.
 	*/
 	void render(SDL_Renderer* renderer);
+
+	int getSpriteSizeX() { return spriteSizeX; }
+	int getSpriteSizeY() { return spriteSizeY; }
+	int getCentreX() { return centreX; }
+	int getCentreY() { return centreY; }
 
 protected:
 	//! Pointer to the game.
@@ -66,7 +70,5 @@ private:
 	  It is initialised in the constructor.
 	*/
 	Texture* objectSprite;
-
-	
 };
 
