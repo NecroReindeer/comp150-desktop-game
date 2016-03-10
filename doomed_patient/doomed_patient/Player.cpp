@@ -13,6 +13,7 @@ which then inherits from textures.h
 	// Calculate the window position from the grid position
 	centreX = cell->getCentreX();
 	centreY = cell->getCentreY();
+
 }
 
 Player::~Player()

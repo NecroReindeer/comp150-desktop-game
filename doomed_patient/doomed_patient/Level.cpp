@@ -71,12 +71,8 @@ void Level::createDoctor()
 
 void Level::createPlayer()
 {
-	// Create a guard and add a pointer to the vector of guards
-	// Indicates the position of the guards
-	int playerPosX = 0;
-	int playerPosY = GRID_SIZE_Y-1;
-
-	GridCoordinate playerCoords(playerPosX, playerPosY);
+	// Create a guard and add a pointer to the vector of player
+	GridCoordinate playerCoords(Player::playerStartX, Player::playerStartY);
 	player = std::make_shared<Player>(game, getCell(playerCoords));
 }
 

@@ -8,6 +8,7 @@ for any general data.
 #pragma once
 
 #include "GameObject.h"
+#include "Level.h"
 
 class LevelCell;
 
@@ -19,6 +20,9 @@ public:
 	*/
 	Player(PatientGame* game, std::shared_ptr<LevelCell>cell);
 
+	// Indicates the starting position of the player.
+	static const int playerStartX = 0;
+	static const int playerStartY = Level::GRID_SIZE_Y - 1;
 	//!Destuctor for the Player
 	/*!
 	*/
