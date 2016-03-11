@@ -61,6 +61,7 @@ void PatientGame::run()
 {
 	running = true;
 	level.generateMaze();
+	player = level.createPlayer();
 
 	// Main game loop
 	while (running)
@@ -89,6 +90,17 @@ void PatientGame::handleEvents()
 			break;
 		}
 	} 
+
+	// Check keyboard state
+	const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
+	if (keyboardState[SDL_SCANCODE_UP])
+		player->move(Directions::Direction::NORTH);
+	if (keyboardState[SDL_SCANCODE_DOWN])
+		player->move(Directions::Direction::SOUTH);
+	if (keyboardState[SDL_SCANCODE_LEFT])
+		player->move(Directions::Direction::WEST);
+	if (keyboardState[SDL_SCANCODE_RIGHT])
+		player->move(Directions::Direction::EAST);
 }
 
 
