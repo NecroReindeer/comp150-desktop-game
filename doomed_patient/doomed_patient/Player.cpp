@@ -8,14 +8,16 @@ Player::Player(PatientGame* game, std::shared_ptr<LevelCell> cell)
 /*!It inherits this from PatientGame.cpp
 which then inherits from textures.h
 */
-	: GameObject(game, game->getPlayerSprite())
+	: GameObject(game, game->getPlayerSprite()),
+	speed(2)
 {
 	// Calculate the window position from the grid position
 	centreX = cell->getCentreX();
 	centreY = cell->getCentreY();
-
 }
 
-Player::~Player()
+void Player::move(Directions::Direction direction)
 {
+	centreX += Directions::getDirectionVector(direction).x * speed;
+	centreY += Directions::getDirectionVector(direction).y * speed;
 }

@@ -126,6 +126,8 @@ private:
 	  This stores the level that will be rendered.
 	*/
 	Level level;
+
+	std::shared_ptr<Player> player;
 	
 };
 
