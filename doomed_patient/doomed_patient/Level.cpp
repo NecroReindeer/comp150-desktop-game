@@ -43,46 +43,44 @@ std::shared_ptr<Room> Level::createRoom()
 	return room;
 }
 
-void Level::createGuard()
+bool Level::positionOccupied(GridCoordinate coordinates)
 {
-	// Create a guard and add a pointer to the vector of guards
-	// Indicates the position of the guards
-	int guardPosX = rand() % GRID_SIZE_X;
-	int guardPosY = rand() % GRID_SIZE_Y;
-
-	GridCoordinate guardCoords(guardPosX, guardPosY);
-	std::shared_ptr<Guard>guard = std::make_shared<Guard>(game, getCell(guardCoords));
-
-	npcs.push_back(guard);
+	for each (std::shared_ptr<Character> npc in npcs)
+	{
+		if (coordinates == npc->getStartCoordinates())
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
-void Level::createDoctor()
+
+template<typename CharacterType>
+void Level::createCharacter()
 {
 	// Create a doctor and add a pointer to the vector of doctors
 	// Indicates the position of the doctors
-	int doctorPosX;
-	int doctorPosY;
 	bool positionIsValid = false;
 
-	while (!positionIsValid)
-	{
-		doctorPosX = rand() % GRID_SIZE_X;
-		doctorPosY = rand() % GRID_SIZE_Y;
+	int startCoordinatesX = rand() % GRID_SIZE_X;
+	int startCoordinatesY = rand() % GRID_SIZE_Y;
 
-		for each (auto npc in npcs)
+	if (!npcs.empty())
+	{
+		while (positionOccupied(GridCoordinate(startCoordinatesX, startCoordinatesY)))
 		{
-			if (!(GridCoordinate(doctorPosX, doctorPosY) == npc->getStartCoordinates()))
-			{
-				positionIsValid = true;
-				break;
-			}
+				startCoordinatesX = rand() % GRID_SIZE_X;
+				startCoordinatesY = rand() % GRID_SIZE_Y;
 		}
 	}
 
-	GridCoordinate doctorCoords(doctorPosX, doctorPosY);
-	std::shared_ptr<Doctor>doctor = std::make_shared<Doctor>(game, getCell(doctorCoords));
-	npcs.push_back(doctor);
+	GridCoordinate characterStartCoordinates(startCoordinatesX, startCoordinatesY);
+	std::shared_ptr<CharacterType> character = std::make_shared<CharacterType>(game, getCell(characterStartCoordinates));
+	npcs.push_back(character);
 }
+
+
 
 std::shared_ptr<Player> Level::createPlayer()
 {
@@ -207,8 +205,8 @@ void Level::generateMaze()
 
 	for (int i = 0; i < rand() % 10; i++)
 	{
-		createGuard();
-		createDoctor();
+		createCharacter<Guard>();
+		createCharacter<Doctor>();
 	}
 }
 
@@ -228,11 +226,13 @@ void Level::render(SDL_Renderer* renderer)
 	}
 
 	exit->render(renderer);
+	player->render(renderer);
+
 	for (int i = 0; i < npcs.size(); i++)
 	{
 		npcs[i]->render(renderer);
 	}
-	player->render(renderer);
+	
 }
 
 

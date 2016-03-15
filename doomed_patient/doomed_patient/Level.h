@@ -165,10 +165,11 @@ private:
 	sets its position to a random place on the map.
 	*/
 	std::vector<std::shared_ptr<Character>> npcs;
-	void createGuard();
-	void createDoctor();
+
+	template<typename CharacterType> void createCharacter();
 
 	std::shared_ptr<Player> player;
-	
+
+	bool positionOccupied(GridCoordinate coordinates);
 };
 
