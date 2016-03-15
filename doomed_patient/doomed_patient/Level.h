@@ -70,6 +70,8 @@ public:
 	// For testing
 	SDL_Renderer* renderer;
 
+	std::shared_ptr<Player> createPlayer();
+
 
 private:
 	//! Generate the maze cells.
@@ -168,6 +170,6 @@ private:
 	void createDoctor();
 
 	std::shared_ptr<Player> player;
-	void createPlayer();
+	
 };
 

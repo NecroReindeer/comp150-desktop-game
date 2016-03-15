@@ -69,11 +69,12 @@ void Level::createDoctor()
 	npc.push_back(doctor);
 }
 
-void Level::createPlayer()
+std::shared_ptr<Player> Level::createPlayer()
 {
 	// Create a guard and add a pointer to the vector of player
 	GridCoordinate playerCoords(Player::playerStartX, Player::playerStartY);
 	player = std::make_shared<Player>(game, getCell(playerCoords));
+	return player;
 }
 
 
@@ -190,7 +191,6 @@ void Level::generateMaze()
 	placeExit();
 	createGuard();
 	createDoctor();
-	createPlayer();
 }
 
 
