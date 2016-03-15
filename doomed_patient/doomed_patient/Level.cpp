@@ -81,7 +81,6 @@ void Level::createDoctor()
 
 	GridCoordinate doctorCoords(doctorPosX, doctorPosY);
 	std::shared_ptr<Doctor>doctor = std::make_shared<Doctor>(game, getCell(doctorCoords));
-
 	npcs.push_back(doctor);
 }
 

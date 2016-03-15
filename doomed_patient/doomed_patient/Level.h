@@ -11,10 +11,9 @@ class Room;
 class LevelCell;
 class PatientGame;
 class Exit;
-class Guard;
-class Doctor;
 class GameObject;
 class Player;
+class Character;
 
 class Level
 {
@@ -165,7 +164,7 @@ private:
 	This method creates an instance of the Guards/Doctors and
 	sets its position to a random place on the map.
 	*/
-	std::vector<std::shared_ptr<GameObject>> npcs;
+	std::vector<std::shared_ptr<Character>> npcs;
 	void createGuard();
 	void createDoctor();
 
