@@ -7,8 +7,3 @@ Guard::Guard(PatientGame* game, std::shared_ptr<LevelCell> cell)
 	: Character(game, cell, game->getGuardSprite())
 {
 }
-
-
-Guard::~Guard()
-{
-}

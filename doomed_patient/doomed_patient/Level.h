@@ -166,10 +166,24 @@ private:
 	*/
 	std::vector<std::shared_ptr<Character>> npcs;
 
+	//! Create a character in a random position.
+	/*!
+	  This template method creates a character in a 
+	  random position on the grid. CharaterType can
+	  be any class that inherits from Character.
+	  There character created corresponds to the type
+	  passed in.
+	*/
 	template<typename CharacterType> void createCharacter();
 
 	std::shared_ptr<Player> player;
 
+	//! Checks if a character starts at the given coordinates.
+	/*!
+	  This method checks if any character has its starting
+	  position at the given grid coordinates, and if so,
+	  it returns true.
+	*/
 	bool positionOccupied(GridCoordinate coordinates);
 };
 

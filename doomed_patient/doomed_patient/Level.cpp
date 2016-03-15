@@ -63,19 +63,17 @@ void Level::createCharacter()
 	// Indicates the position of the doctors
 	bool positionIsValid = false;
 
-	int startCoordinatesX = rand() % GRID_SIZE_X;
-	int startCoordinatesY = rand() % GRID_SIZE_Y;
+	GridCoordinate characterStartCoordinates(rand() % GRID_SIZE_X, rand() % GRID_SIZE_Y);
 
 	if (!npcs.empty())
 	{
-		while (positionOccupied(GridCoordinate(startCoordinatesX, startCoordinatesY)))
+		while (positionOccupied(characterStartCoordinates))
 		{
-				startCoordinatesX = rand() % GRID_SIZE_X;
-				startCoordinatesY = rand() % GRID_SIZE_Y;
+				characterStartCoordinates.x = rand() % GRID_SIZE_X;
+				characterStartCoordinates.y = rand() % GRID_SIZE_Y;
 		}
 	}
 
-	GridCoordinate characterStartCoordinates(startCoordinatesX, startCoordinatesY);
 	std::shared_ptr<CharacterType> character = std::make_shared<CharacterType>(game, getCell(characterStartCoordinates));
 	npcs.push_back(character);
 }
@@ -203,7 +201,7 @@ void Level::generateMaze()
 	
 	placeExit();
 
-	for (int i = 0; i < rand() % 10; i++)
+	for (int i = 0; i < rand() % 10 ; i++)
 	{
 		createCharacter<Guard>();
 		createCharacter<Doctor>();
