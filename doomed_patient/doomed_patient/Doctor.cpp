@@ -8,7 +8,8 @@ Doctor::Doctor(PatientGame* game, std::shared_ptr<LevelCell> cell)
 /*!It inherits this from PatientGame.cpp
 which then inherits from textures.h
 */
-	: GameObject(game, game->getDoctorSprite())
+	: GameObject(game, game->getDoctorSprite()),
+	startCoordinates(cell->getCoordinates())
 {
 	// Calculate the window position from the grid position
 	centreX = cell->getCentreX();

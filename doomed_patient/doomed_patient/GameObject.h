@@ -7,6 +7,7 @@
 
 #pragma once
 #include "Texture.h"
+#include "GridCoordinate.h"
 
 class PatientGame;
 
@@ -39,6 +40,8 @@ public:
 	int getCentreX() { return centreX; }
 	int getCentreY() { return centreY; }
 
+	GridCoordinate getStartCoordinates() { return startCoordinates; }
+
 protected:
 	//! Pointer to the game.
 	/*!
@@ -70,5 +73,7 @@ private:
 	  It is initialised in the constructor.
 	*/
 	Texture* objectSprite;
+
+	GridCoordinate startCoordinates;
 };
 

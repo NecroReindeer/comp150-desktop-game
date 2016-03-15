@@ -21,3 +21,8 @@ GridCoordinate GridCoordinate::operator+(const GridCoordinate& otherCoord)
 	GridCoordinate newCoordinates(x + otherCoord.x, y + otherCoord.y);
 	return newCoordinates;
 }
+
+bool GridCoordinate::operator==(const GridCoordinate& otherCoord)
+{
+	return (x == otherCoord.x && y == otherCoord.y);
+}

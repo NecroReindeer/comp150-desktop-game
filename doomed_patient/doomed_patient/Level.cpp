@@ -53,20 +53,36 @@ void Level::createGuard()
 	GridCoordinate guardCoords(guardPosX, guardPosY);
 	std::shared_ptr<Guard>guard = std::make_shared<Guard>(game, getCell(guardCoords));
 
-	npc.push_back(guard);
+	npcs.push_back(guard);
 }
 
 void Level::createDoctor()
 {
 	// Create a doctor and add a pointer to the vector of doctors
 	// Indicates the position of the doctors
-	int doctorPosX = rand() % GRID_SIZE_X;
-	int doctorPosY = rand() % GRID_SIZE_Y;
+	int doctorPosX;
+	int doctorPosY;
+	bool positionIsValid = false;
+
+	while (!positionIsValid)
+	{
+		doctorPosX = rand() % GRID_SIZE_X;
+		doctorPosY = rand() % GRID_SIZE_Y;
+
+		for each (auto npc in npcs)
+		{
+			if (!(GridCoordinate(doctorPosX, doctorPosY) == npc->getStartCoordinates()))
+			{
+				positionIsValid = true;
+				break;
+			}
+		}
+	}
 
 	GridCoordinate doctorCoords(doctorPosX, doctorPosY);
 	std::shared_ptr<Doctor>doctor = std::make_shared<Doctor>(game, getCell(doctorCoords));
 
-	npc.push_back(doctor);
+	npcs.push_back(doctor);
 }
 
 std::shared_ptr<Player> Level::createPlayer()
@@ -189,8 +205,12 @@ void Level::generateMaze()
 	}
 	
 	placeExit();
-	createGuard();
-	createDoctor();
+
+	for (int i = 0; i < rand() % 10; i++)
+	{
+		createGuard();
+		createDoctor();
+	}
 }
 
 
@@ -209,9 +229,9 @@ void Level::render(SDL_Renderer* renderer)
 	}
 
 	exit->render(renderer);
-	for (int i = 0; i < npc.size(); i++)
+	for (int i = 0; i < npcs.size(); i++)
 	{
-		npc[i]->render(renderer);
+		npcs[i]->render(renderer);
 	}
 	player->render(renderer);
 }

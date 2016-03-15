@@ -8,6 +8,7 @@ for any general data.
 #pragma once
 
 #include "GameObject.h"
+#include "GridCoordinate.h"
 
 class LevelCell;
 
@@ -24,6 +25,9 @@ public:
 	*/
 	~Doctor();
 
+	GridCoordinate getStartCoordinates() { return startCoordinates; }
 
+private:
+	GridCoordinate startCoordinates;
 };
 

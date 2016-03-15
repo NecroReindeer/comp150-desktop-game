@@ -10,5 +10,6 @@ public:
 	int y;
 	
 	GridCoordinate operator+(const GridCoordinate& otherCoord);
+	bool operator==(const GridCoordinate& otherCoord);
 
 };

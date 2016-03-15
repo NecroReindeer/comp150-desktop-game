@@ -165,7 +165,7 @@ private:
 	This method creates an instance of the Guards/Doctors and
 	sets its position to a random place on the map.
 	*/
-	std::vector<std::shared_ptr<GameObject>> npc;
+	std::vector<std::shared_ptr<GameObject>> npcs;
 	void createGuard();
 	void createDoctor();
 
