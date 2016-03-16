@@ -162,22 +162,20 @@ void Level::placeExit()
 	// Get random 0 or 1. Edge is on right if not on top
 	bool exitOnTopEdge = rand() % 2;
 
-	int exitPosX;
-	int exitPosY;
+	VectorXY exitCoords;
     
 	if (exitOnTopEdge)
 	{
-		exitPosX = rand() % GRID_SIZE_X;
-		exitPosY = 0;
+		exitCoords.x = rand() % GRID_SIZE_X;
+		exitCoords.y = 0;
 	}
 	else
 	{
-		exitPosX = GRID_SIZE_X - 1;
-		exitPosY = rand() % GRID_SIZE_Y;
+		exitCoords.x = GRID_SIZE_X - 1;
+		exitCoords.y = rand() % GRID_SIZE_Y;
 	}
 
-	VectorXY exitCoords(exitPosX, exitPosY);
-	exit = std::make_shared<Exit>(game, getCell(exitCoords));
+	exit = std::make_shared<Exit>(game, exitCoords);
 }
 
 
@@ -230,7 +228,6 @@ void Level::render(SDL_Renderer* renderer)
 	{
 		npcs[i]->render(renderer);
 	}
-	
 }
 
 

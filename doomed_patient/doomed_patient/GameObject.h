@@ -49,14 +49,6 @@ protected:
 	*/
 	PatientGame* game;
 
-	//! Size of the sprite in pixels.
-	/*!
-	These variables store the size of the sprite that the
-	game object has as an integer. It is defined in the
-	constructor.
-	*/
-	int spriteSizeX, spriteSizeY;
-
 	//! Stores the position of the game object.
 	/*!
 	This variable stores the position that the game object

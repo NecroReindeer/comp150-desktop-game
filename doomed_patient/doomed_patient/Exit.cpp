@@ -4,12 +4,11 @@
 #include "LevelCell.h"
 
 
-Exit::Exit(PatientGame* game, std::shared_ptr<LevelCell> cell)
+Exit::Exit(PatientGame* game, VectorXY gridCoordinates)
 	: GameObject(game, game->getExitSprite())
 {
 	// Calculate the window position from the grid position
-	centre.x = cell->getCentre().x;
-	centre.y = cell->getCentre().y;
+	centre = gridCoordinates.convertGridToWindow();
 }
 
 
