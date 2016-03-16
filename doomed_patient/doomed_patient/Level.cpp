@@ -57,27 +57,11 @@ bool Level::positionOccupied(VectorXY coordinates)
 
 
 template<typename CharacterType>
-void Level::createCharacter()
+void Level::createCharacter(VectorXY startCoordinates)
 {
-	// Create a doctor and add a pointer to the vector of doctors
-	// Indicates the position of the doctors
-	bool positionIsValid = false;
-
-	VectorXY characterStartCoordinates(rand() % GRID_SIZE_X, rand() % GRID_SIZE_Y);
-
-	if (!npcs.empty())
-	{	// Ensure that 2 NPCs aren't spawned in the same place
-		while (positionOccupied(characterStartCoordinates))
-		{
-				characterStartCoordinates.x = rand() % GRID_SIZE_X;
-				characterStartCoordinates.y = rand() % GRID_SIZE_Y;
-		}
-	}
-
-	std::shared_ptr<CharacterType> character = std::make_shared<CharacterType>(game, characterStartCoordinates);
+	std::shared_ptr<CharacterType> character = std::make_shared<CharacterType>(game, startCoordinates);
 	npcs.push_back(character);
 }
-
 
 
 std::shared_ptr<Player> Level::createPlayer()
@@ -199,10 +183,11 @@ void Level::generateMaze()
 	
 	placeExit();
 
-	for (int i = 0; i < rand() % 10 ; i++)
+	// Temporary literal 5 for testing
+	for (int i = 0; i < 5 ; i++)
 	{
-		createCharacter<Guard>();
-		createCharacter<Doctor>();
+		createCharacter<Guard>(getUnoccupiedRandomCoords());
+		createCharacter<Doctor>(getUnoccupiedRandomCoords());
 	}
 }
 
@@ -237,6 +222,24 @@ std::shared_ptr<LevelCell> Level::createCell(VectorXY coordinates, std::shared_p
 	return cells[coordinates.x][coordinates.y];
 }
 
+VectorXY Level::getUnoccupiedRandomCoords()
+{
+	bool positionIsValid = false;
+
+	VectorXY unoccupiedCoordinates(rand() % GRID_SIZE_X, rand() % GRID_SIZE_Y);
+
+	if (!npcs.empty())
+	{	
+		// Ensure that 2 NPCs aren't spawned in the same place
+		while (positionOccupied(unoccupiedCoordinates))
+		{
+			unoccupiedCoordinates.x = rand() % GRID_SIZE_X;
+			unoccupiedCoordinates.y = rand() % GRID_SIZE_Y;
+		}
+	}
+
+	return unoccupiedCoordinates;
+}
 
 VectorXY Level::getRandomCoordinates()
 {

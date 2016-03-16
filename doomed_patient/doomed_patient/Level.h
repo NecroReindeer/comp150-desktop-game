@@ -176,7 +176,7 @@ private:
 	  There character created corresponds to the type
 	  passed in.
 	*/
-	template<typename CharacterType> void createCharacter();
+	template<typename CharacterType> void createCharacter(VectorXY coordinates);
 
 	std::shared_ptr<Player> player;
 
@@ -187,5 +187,7 @@ private:
 	  it returns true.
 	*/
 	bool positionOccupied(VectorXY coordinates);
+
+	VectorXY getUnoccupiedRandomCoords();
 };
 
