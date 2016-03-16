@@ -1,3 +1,6 @@
+## 15/03/2016
+* Made multiple doctors and guards spawn in random positions
+
 ##09/03/2016
 * Exit is now generated on the top or right edge
 * All classes now use smart pointers where appropriate
