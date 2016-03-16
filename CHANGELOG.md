@@ -1,3 +1,7 @@
+##15/03/2016
+* Guards and Doctors now inherit from new Character class (which inherits from GameObject)
+* Guards and Doctors now generated using template function
+
 ##09/03/2016
 * Exit is now generated on the top or right edge
 * All classes now use smart pointers where appropriate
