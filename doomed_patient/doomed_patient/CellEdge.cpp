@@ -26,18 +26,18 @@ void CellEdge::initialisePosition()
 		{
 		case Directions::Direction::NORTH:
 			centre.x = cell->getCentreX();
-			centre.y = cell->getCentreY() - (cell->getSpriteSizeY() / 2 - sprite->getSpriteSizeY() / 2);
+			centre.y = cell->getCentreY() - (cell->getSpriteSizeY() / 2 - sprite->getSpriteSize().y / 2);
 			break;
 		case Directions::Direction::SOUTH:
 			centre.x = cell->getCentreX();
-			centre.y = cell->getCentreY() + (cell->getSpriteSizeY() / 2 - sprite->getSpriteSizeY() / 2);
+			centre.y = cell->getCentreY() + (cell->getSpriteSizeY() / 2 - sprite->getSpriteSize().y / 2);
 			break;
 		case Directions::Direction::EAST:
-			centre.x = cell->getCentreX() + (cell->getSpriteSizeX() / 2 - sprite->getSpriteSizeX() / 2);
+			centre.x = cell->getCentreX() + (cell->getSpriteSizeX() / 2 - sprite->getSpriteSize().x / 2);
 			centre.y = cell->getCentreY();
 			break;
 		case Directions::Direction::WEST:
-			centre.x = cell->getCentreX() - (cell->getSpriteSizeX() / 2 - sprite->getSpriteSizeX() / 2);
+			centre.x = cell->getCentreX() - (cell->getSpriteSizeX() / 2 - sprite->getSpriteSize().x / 2);
 			centre.y = cell->getCentreY();
 			break;
 		}
@@ -49,6 +49,6 @@ void CellEdge::render(SDL_Renderer* renderer)
 {
 	if (sprite)
 	{
-		sprite->render(renderer, centre, sprite->getSpriteSizeX(), sprite->getSpriteSizeY());
+		sprite->render(renderer, centre);
 	}
 }

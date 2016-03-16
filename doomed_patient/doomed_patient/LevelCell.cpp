@@ -16,6 +16,9 @@ LevelCell::LevelCell(PatientGame* game, VectorXY coordinates, std::shared_ptr<Ro
 	centre.x = gridPositionX * spriteSizeX + spriteSizeX / 2;
 	centre.y = gridPositionY * spriteSizeY + spriteSizeY / 2;
 
+	centre.x = coordinates.x * spriteSize.x + spriteSize.x / 2;
+	centre.y = coordinates.y * spriteSize.y + spriteSize.y / 2;
+
 	// Set up empty edges
 	edges[Directions::Direction::NORTH] = nullptr;
 	edges[Directions::Direction::EAST] = nullptr;

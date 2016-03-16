@@ -6,8 +6,7 @@
 GameObject::GameObject(PatientGame* game, Texture* sprite)
 	: game(game), objectSprite(sprite)
 {
-	spriteSizeX = objectSprite->getSpriteSizeX();
-	spriteSizeY = objectSprite->getSpriteSizeY();
+	spriteSize = objectSprite->getSpriteSize();
 }
 
 GameObject::~GameObject()
@@ -19,6 +18,6 @@ void GameObject::render(SDL_Renderer* renderer)
 	if (objectSprite)
 	{
 		// Render the game object
-		objectSprite->render(renderer, centre, spriteSizeX, spriteSizeY);
+		objectSprite->render(renderer, centre);
 	}
 }

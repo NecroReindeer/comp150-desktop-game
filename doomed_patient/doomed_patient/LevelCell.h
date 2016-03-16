@@ -92,6 +92,8 @@ private:
 	*/
 	int gridPositionY;
 
+	VectorXY gridPosition;
+
 	//! A map containing the cell's edges.
 	/*!
 	  This map stores each of the cell's four edges.
