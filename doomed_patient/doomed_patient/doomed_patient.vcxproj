@@ -169,12 +169,12 @@
     <ClInclude Include="Exit.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Guard.h" />
-    <ClInclude Include="GridCoordinate.h" />
     <ClInclude Include="InitialisationError.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelCell.h" />
     <ClInclude Include="PatientGame.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="VectorXY.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="stdafx.h" />
@@ -194,12 +194,12 @@
     <ClCompile Include="Exit.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Guard.cpp" />
-    <ClCompile Include="GridCoordinate.cpp" />
     <ClCompile Include="InitialisationError.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelCell.cpp" />
     <ClCompile Include="PatientGame.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="VectorXY.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

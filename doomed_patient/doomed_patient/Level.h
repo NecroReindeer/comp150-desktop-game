@@ -5,7 +5,7 @@
 */
 
 #pragma once
-#include "GridCoordinate.h"
+#include "VectorXY.h"
 
 class Room;
 class LevelCell;
@@ -50,7 +50,7 @@ public:
 	This method returns a pointer to the cell located
 	at the given coordinates.
 	*/
-	std::shared_ptr<LevelCell> getCell(GridCoordinate coordinates);
+	std::shared_ptr<LevelCell> getCell(VectorXY coordinates);
 
 	//! Width of the level.
 	/*!
@@ -86,14 +86,14 @@ private:
 	  This method checks if the given coordinates are contained
 	  in the level. If so, it returns true.
 	*/
-	bool containsCoordinates(GridCoordinate coordinates);
+	bool containsCoordinates(VectorXY coordinates);
 
 	//! Create a cell.
 	/*!
 	  This method created a cell at the given grid coordinates in the
 	  given room. It returns a pointer to the cell it has created.
 	*/
-	std::shared_ptr<LevelCell> createCell(GridCoordinate coordinates, std::shared_ptr<Room> room);
+	std::shared_ptr<LevelCell> createCell(VectorXY coordinates, std::shared_ptr<Room> room);
 
 	//! Create a room.
 	/*!
@@ -108,7 +108,7 @@ private:
 	  This method returns random grid coordinates that
 	  are contained in the level.
 	*/
-	GridCoordinate getRandomCoordinates();
+	VectorXY getRandomCoordinates();
 
 	//! Add the exit to the level.
 	/*!
@@ -184,6 +184,6 @@ private:
 	  position at the given grid coordinates, and if so,
 	  it returns true.
 	*/
-	bool positionOccupied(GridCoordinate coordinates);
+	bool positionOccupied(VectorXY coordinates);
 };
 

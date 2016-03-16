@@ -45,6 +45,8 @@ protected:
 	*/
 	int centreY;
 
+	VectorXY centre;
+
 	//! Pointer to the texture.
 	/*!
 	This member stores a pointer to the edge's texture.

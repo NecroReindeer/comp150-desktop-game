@@ -12,12 +12,12 @@ which then inherits from textures.h
 	speed(2)
 {
 	// Calculate the window position from the grid position
-	centreX = cell->getCentreX();
-	centreY = cell->getCentreY();
+	centre.x = cell->getCentreX();
+	centre.y = cell->getCentreY();
 }
 
 void Player::move(Directions::Direction direction)
 {
-	centreX += Directions::getDirectionVector(direction).x * speed;
-	centreY += Directions::getDirectionVector(direction).y * speed;
+	centre.x += Directions::getDirectionVector(direction).x * speed;
+	centre.y += Directions::getDirectionVector(direction).y * speed;
 }

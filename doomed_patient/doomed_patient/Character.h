@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#include "GridCoordinate.h"
+#include "VectorXY.h"
 #include "LevelCell.h"
 
 class Character :
@@ -22,7 +22,7 @@ public:
 	  This getter returns the starting position of the
 	  character as a GridCoordinate.
 	*/
-	GridCoordinate getStartCoordinates() { return startCoordinates; }
+	VectorXY getStartCoordinates() { return startCoordinates; }
 
 private:
 	//! Starting position for the Character
@@ -30,6 +30,6 @@ private:
 	This is the coordinates of the cell in the grid the character
 	will start in as a GridCoordinate.
 	*/
-	GridCoordinate startCoordinates;
+	VectorXY startCoordinates;
 };
 

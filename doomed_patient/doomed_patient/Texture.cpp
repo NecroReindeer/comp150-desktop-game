@@ -38,14 +38,14 @@ void Texture::loadTexture(SDL_Renderer* renderer)
 	}
 }
 
-void Texture::render(SDL_Renderer* renderer, int x, int y, int width, int height)
+void Texture::render(SDL_Renderer* renderer, VectorXY position, int width, int height)
 {
 	loadTexture(renderer);
 
 	// Rectangle that the texture will be loaded onto. x and y are its centre.
 	SDL_Rect dest;
-	dest.x = x - width / 2;
-	dest.y = y - height / 2;
+	dest.x = position.x - width / 2;
+	dest.y = position.y - height / 2;
 	dest.w = width;
 	dest.h = height;
 	SDL_RenderCopy(renderer, texture, nullptr, &dest);

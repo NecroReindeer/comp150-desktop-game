@@ -7,6 +7,7 @@
 
 #pragma once
 #include "Texture.h"
+#include "VectorXY.h"
 
 class PatientGame;
 
@@ -36,8 +37,8 @@ public:
 
 	int getSpriteSizeX() { return spriteSizeX; }
 	int getSpriteSizeY() { return spriteSizeY; }
-	int getCentreX() { return centreX; }
-	int getCentreY() { return centreY; }
+	int getCentreX() { return centre.x; }
+	int getCentreY() { return centre.y; }
 
 
 protected:
@@ -62,7 +63,9 @@ protected:
 	This variable stores the position that the game object
 	will be rendered on screen.
 	*/
-	int centreX, centreY;
+	//int centreX, centreY;
+
+	VectorXY centre;
 
 private:
 	//! Pointer to the texture.

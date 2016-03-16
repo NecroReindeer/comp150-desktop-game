@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Level.h"
-#include "GridCoordinate.h"
 #include "Directions.h"
 #include "LevelCell.h"
 #include "Room.h"
@@ -8,6 +7,7 @@
 #include "Guard.h"
 #include "Doctor.h"
 #include "Player.h"
+#include "VectorXY.h"
 
 Level::Level(PatientGame* game)
 	:cells(GRID_SIZE_X, std::vector<std::shared_ptr<LevelCell>>(GRID_SIZE_Y, nullptr)),		// Initialise vector to correct size
@@ -22,14 +22,14 @@ Level::~Level()
 }
  
 
-bool Level::containsCoordinates(GridCoordinate coordinates)
+bool Level::containsCoordinates(VectorXY coordinates)
 {
 	// Check if given coordinates are within the level size
 	return (0 <= coordinates.x && coordinates.x < GRID_SIZE_X && 0 <= coordinates.y && coordinates.y < GRID_SIZE_Y);
 }
 
 
-std::shared_ptr<LevelCell> Level::getCell(GridCoordinate coordinates)
+std::shared_ptr<LevelCell> Level::getCell(VectorXY coordinates)
 {
 	return cells[coordinates.x][coordinates.y];
 }
@@ -43,7 +43,7 @@ std::shared_ptr<Room> Level::createRoom()
 	return room;
 }
 
-bool Level::positionOccupied(GridCoordinate coordinates)
+bool Level::positionOccupied(VectorXY coordinates)
 {
 	for each (std::shared_ptr<Character> npc in npcs)
 	{
@@ -63,10 +63,10 @@ void Level::createCharacter()
 	// Indicates the position of the doctors
 	bool positionIsValid = false;
 
-	GridCoordinate characterStartCoordinates(rand() % GRID_SIZE_X, rand() % GRID_SIZE_Y);
+	VectorXY characterStartCoordinates(rand() % GRID_SIZE_X, rand() % GRID_SIZE_Y);
 
 	if (!npcs.empty())
-	{
+	{	// Ensure that 2 NPCs aren't spawned in the same place
 		while (positionOccupied(characterStartCoordinates))
 		{
 				characterStartCoordinates.x = rand() % GRID_SIZE_X;
@@ -83,7 +83,7 @@ void Level::createCharacter()
 std::shared_ptr<Player> Level::createPlayer()
 {
 	// Create a guard and add a pointer to the vector of player
-	GridCoordinate playerCoords(Player::playerStartX, Player::playerStartY);
+	VectorXY playerCoords(Player::playerStartX, Player::playerStartY);
 	player = std::make_shared<Player>(game, getCell(playerCoords));
 	return player;
 }
@@ -106,7 +106,7 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 	Directions::Direction randomDirection = currentCell->getRandomUninitialisedDirection();
 
 	// Calculate the next coordinates to be visited
-	GridCoordinate nextCellCoordinates = currentCell->getCoordinates() + Directions::getDirectionVector(randomDirection);
+	VectorXY nextCellCoordinates = currentCell->getCoordinates() + Directions::getDirectionVector(randomDirection);
 
 	if (containsCoordinates(nextCellCoordinates))
 	{
@@ -176,7 +176,7 @@ void Level::placeExit()
 		exitPosY = rand() % GRID_SIZE_Y;
 	}
 
-	GridCoordinate exitCoords(exitPosX, exitPosY);
+	VectorXY exitCoords(exitPosX, exitPosY);
 	exit = std::make_shared<Exit>(game, getCell(exitCoords));
 }
 
@@ -186,7 +186,7 @@ void Level::generateMaze()
 	// Randomly choose position to start from and add it to activeCells
 	std::vector<std::shared_ptr<LevelCell>> activeCells;
 	std::shared_ptr<Room> room = createRoom();
-	GridCoordinate firstCellCoordinates = getRandomCoordinates();
+	VectorXY firstCellCoordinates = getRandomCoordinates();
 	std::shared_ptr<LevelCell> firstCell = createCell(firstCellCoordinates, room);
 	activeCells.push_back(firstCell);
 
@@ -234,16 +234,16 @@ void Level::render(SDL_Renderer* renderer)
 }
 
 
-std::shared_ptr<LevelCell> Level::createCell(GridCoordinate coordinates, std::shared_ptr<Room> room)
+std::shared_ptr<LevelCell> Level::createCell(VectorXY coordinates, std::shared_ptr<Room> room)
 {
-	cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates.x, coordinates.y, room);
+	cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates, room);
 	return cells[coordinates.x][coordinates.y];
 }
 
 
-GridCoordinate Level::getRandomCoordinates()
+VectorXY Level::getRandomCoordinates()
 {
-	GridCoordinate coordinates;
+	VectorXY coordinates;
 	coordinates.x = rand() % Level::GRID_SIZE_X;
 	coordinates.y = rand() % Level::GRID_SIZE_Y;
 	return coordinates;

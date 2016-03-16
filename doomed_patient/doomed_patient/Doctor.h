@@ -8,7 +8,7 @@ for any general data.
 #pragma once
 
 #include "Character.h"
-#include "GridCoordinate.h"
+#include "VectorXY.h"
 
 class LevelCell;
 

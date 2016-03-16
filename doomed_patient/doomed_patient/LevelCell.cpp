@@ -6,15 +6,15 @@
 #include "CellPassage.h"
 
 
-LevelCell::LevelCell(PatientGame* game, int x, int y, std::shared_ptr<Room> room)
+LevelCell::LevelCell(PatientGame* game, VectorXY coordinates, std::shared_ptr<Room> room)
 	: GameObject(game, game->getFloorSprite()),				// Call base class constructor
-	gridPositionX(x),
-	gridPositionY(y),
+	gridPositionX(coordinates.x),
+	gridPositionY(coordinates.y),
 	room(room)
 {
 	// Calculate the window position from the grid position
-	centreX = gridPositionX * spriteSizeX + spriteSizeX / 2;
-	centreY = gridPositionY * spriteSizeY + spriteSizeY / 2;
+	centre.x = gridPositionX * spriteSizeX + spriteSizeX / 2;
+	centre.y = gridPositionY * spriteSizeY + spriteSizeY / 2;
 
 	// Set up empty edges
 	edges[Directions::Direction::NORTH] = nullptr;

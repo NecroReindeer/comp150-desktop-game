@@ -19,6 +19,6 @@ void GameObject::render(SDL_Renderer* renderer)
 	if (objectSprite)
 	{
 		// Render the game object
-		objectSprite->render(renderer, centreX, centreY, spriteSizeX, spriteSizeY);
+		objectSprite->render(renderer, centre, spriteSizeX, spriteSizeY);
 	}
 }

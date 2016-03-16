@@ -4,6 +4,7 @@
   rendering textures.
 */
 #pragma once
+#include "VectorXY.h"
 
 class Texture
 {
@@ -41,7 +42,7 @@ public:
 	/*!
 	  This method copies the texture to the renderer.
 	*/
-	void render(SDL_Renderer* renderer, int x, int y, int width, int height);
+	void render(SDL_Renderer* renderer, VectorXY position, int width, int height);
 
 	//! Return the width of the sprite.
 	/*!
