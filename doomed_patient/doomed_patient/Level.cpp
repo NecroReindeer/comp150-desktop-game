@@ -74,7 +74,7 @@ void Level::createCharacter()
 		}
 	}
 
-	std::shared_ptr<CharacterType> character = std::make_shared<CharacterType>(game, getCell(characterStartCoordinates));
+	std::shared_ptr<CharacterType> character = std::make_shared<CharacterType>(game, characterStartCoordinates);
 	npcs.push_back(character);
 }
 
@@ -83,8 +83,8 @@ void Level::createCharacter()
 std::shared_ptr<Player> Level::createPlayer()
 {
 	// Create a guard and add a pointer to the vector of player
-	VectorXY playerCoords(Player::playerStartX, Player::playerStartY);
-	player = std::make_shared<Player>(game, playerCoords);
+	VectorXY playerStartCoordinates(Player::playerStartX, Player::playerStartY);
+	player = std::make_shared<Player>(game, playerStartCoordinates);
 	return player;
 }
 

@@ -21,7 +21,7 @@ public:
 	*/
 	Player(PatientGame* game, VectorXY gridCoordinates);
 
-	// Indicates the starting position of the player.
+	// Player starts in the bottom left corner
 	static const int playerStartX = 0;
 	static const int playerStartY = Level::GRID_SIZE_Y - 1;
 

@@ -3,11 +3,10 @@
 #include "PatientGame.h"
 #include "LevelCell.h"
 
-Character::Character(PatientGame* game, std::shared_ptr<LevelCell> cell, Texture* sprite)
+Character::Character(PatientGame* game, VectorXY startCoordinates, Texture* sprite)
 	: GameObject(game, sprite),
-	startCoordinates(cell->getCoordinates())
+	startCoordinates(startCoordinates)
 {
 	// Calculate the window position from the grid position
-	centre.x = cell->getCentre().x;
-	centre.y = cell->getCentre().y;
+	centre = startCoordinates.convertGridToWindow();
 }

@@ -10,25 +10,25 @@ public:
 	//! Constructor for the Character.
 	/*!
 	  This is the constructor for the Character
-	  It takes a pointer to the game, starting cell, and 
+	  It takes a pointer to the game, starting grid coordinates, and 
 	  sprite, then calls through to the base class
 	  GameObject as well as setting the centreX and centreY
-	  according to the given cell.
+	  according to the start position.
 	*/
-	Character(PatientGame* game, std::shared_ptr<LevelCell> cell, Texture* sprite);
+	Character(PatientGame* game, VectorXY startCoordinates, Texture* sprite);
 
 	//! Return the starting position of the character.
 	/*!
 	  This getter returns the starting position of the
-	  character as a GridCoordinate.
+	  character as a VectorXY.
 	*/
 	VectorXY getStartCoordinates() { return startCoordinates; }
 
 private:
 	//! Starting position for the Character
 	/*!
-	This is the coordinates of the cell in the grid the character
-	will start in as a GridCoordinate.
+	  This is the coordinates of the cell in the grid the character
+	  will start in as a VectorXY.
 	*/
 	VectorXY startCoordinates;
 };

@@ -15,11 +15,11 @@ class Guard : public Character
 public:
 	//!Constructor for the Guard
 	/*!
-	  The constructor takes a pointer to the game and a shared
-	  pointer to the cell that it should start in.
+	  The constructor takes a pointer to the game and its
+	  starting grid coordinates.
 	  It calls through to the constructor for the base class,
 	  Character, and passes its sprite in.
 	*/
-	Guard(PatientGame* game, std::shared_ptr<LevelCell>cell);
+	Guard(PatientGame* game, VectorXY startCoordinates);
 };
 
