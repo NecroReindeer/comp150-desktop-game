@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "VectorXY.h"
+#include "Level.h"
 
 
 VectorXY::VectorXY()
@@ -33,4 +34,20 @@ VectorXY VectorXY::operator/(const int& scalar)
 bool VectorXY::operator==(const VectorXY& otherVector)
 {
 	return (x == otherVector.x && y == otherVector.y);
+}
+
+VectorXY& VectorXY::operator+=(const VectorXY& otherVector)
+{
+	x += otherVector.x;
+	y += otherVector.y;
+	return *this;
+}
+
+VectorXY VectorXY::convertGridToWindow()
+{
+	int cellSize = Level::CELL_SIZE;
+	int windowX = x * cellSize + cellSize / 2;
+	int windowY = y * cellSize + cellSize / 2;
+
+	return VectorXY(windowX, windowY);
 }

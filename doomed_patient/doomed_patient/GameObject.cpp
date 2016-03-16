@@ -6,7 +6,6 @@
 GameObject::GameObject(PatientGame* game, Texture* sprite)
 	: game(game), objectSprite(sprite)
 {
-	spriteSize = objectSprite->getSpriteSize();
 }
 
 GameObject::~GameObject()

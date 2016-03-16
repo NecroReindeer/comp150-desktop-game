@@ -19,7 +19,7 @@ public:
 	//!Constructor for the Player
 	/*!
 	*/
-	Player(PatientGame* game, std::shared_ptr<LevelCell>cell);
+	Player(PatientGame* game, VectorXY gridCoordinates);
 
 	// Indicates the starting position of the player.
 	static const int playerStartX = 0;

@@ -25,20 +25,20 @@ void CellEdge::initialisePosition()
 		switch (direction)
 		{
 		case Directions::Direction::NORTH:
-			centre.x = cell->getCentreX();
-			centre.y = cell->getCentreY() - (cell->getSpriteSizeY() / 2 - sprite->getSpriteSize().y / 2);
+			centre.x = cell->getCentre().x;
+			centre.y = cell->getCentre().y - (cell->getSpriteSize().y / 2 - sprite->getSpriteSize().y / 2);
 			break;
 		case Directions::Direction::SOUTH:
-			centre.x = cell->getCentreX();
-			centre.y = cell->getCentreY() + (cell->getSpriteSizeY() / 2 - sprite->getSpriteSize().y / 2);
+			centre.x = cell->getCentre().x;
+			centre.y = cell->getCentre().y + (cell->getSpriteSize().y / 2 - sprite->getSpriteSize().y / 2);
 			break;
 		case Directions::Direction::EAST:
-			centre.x = cell->getCentreX() + (cell->getSpriteSizeX() / 2 - sprite->getSpriteSize().x / 2);
-			centre.y = cell->getCentreY();
+			centre.x = cell->getCentre().x + (cell->getSpriteSize().x / 2 - sprite->getSpriteSize().x / 2);
+			centre.y = cell->getCentre().y;
 			break;
 		case Directions::Direction::WEST:
-			centre.x = cell->getCentreX() - (cell->getSpriteSizeX() / 2 - sprite->getSpriteSize().x / 2);
-			centre.y = cell->getCentreY();
+			centre.x = cell->getCentre().x - (cell->getSpriteSize().x / 2 - sprite->getSpriteSize().x / 2);
+			centre.y = cell->getCentre().y;
 			break;
 		}
 	}

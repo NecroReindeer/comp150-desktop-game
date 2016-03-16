@@ -35,12 +35,9 @@ public:
 	*/
 	void render(SDL_Renderer* renderer);
 
-	int getSpriteSizeX() { return spriteSize.x; }
-	int getSpriteSizeY() { return spriteSize.y; }
-	int getCentreX() { return centre.x; }
-	int getCentreY() { return centre.y; }
+	VectorXY getCentre() { return centre; }
 
-	VectorXY getSpriteSize() { return spriteSize; }
+	VectorXY getSpriteSize() { return objectSprite->getSpriteSize(); }
 
 
 protected:
@@ -59,8 +56,6 @@ protected:
 	constructor.
 	*/
 	int spriteSizeX, spriteSizeY;
-
-	VectorXY spriteSize;
 
 	//! Stores the position of the game object.
 	/*!

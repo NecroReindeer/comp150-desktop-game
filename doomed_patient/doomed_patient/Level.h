@@ -65,6 +65,8 @@ public:
 	the level in grid squares as an integer.
 	*/
 	static const int GRID_SIZE_Y = 12;
+
+	static const int CELL_SIZE = 64;
 	
 	// For testing
 	SDL_Renderer* renderer;

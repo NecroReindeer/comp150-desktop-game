@@ -84,7 +84,7 @@ std::shared_ptr<Player> Level::createPlayer()
 {
 	// Create a guard and add a pointer to the vector of player
 	VectorXY playerCoords(Player::playerStartX, Player::playerStartY);
-	player = std::make_shared<Player>(game, getCell(playerCoords));
+	player = std::make_shared<Player>(game, playerCoords);
 	return player;
 }
 

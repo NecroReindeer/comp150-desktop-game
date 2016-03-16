@@ -8,6 +8,6 @@ Character::Character(PatientGame* game, std::shared_ptr<LevelCell> cell, Texture
 	startCoordinates(cell->getCoordinates())
 {
 	// Calculate the window position from the grid position
-	centre.x = cell->getCentreX();
-	centre.y = cell->getCentreY();
+	centre.x = cell->getCentre().x;
+	centre.y = cell->getCentre().y;
 }
