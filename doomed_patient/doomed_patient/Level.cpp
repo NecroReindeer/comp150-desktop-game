@@ -66,9 +66,7 @@ void Level::createCharacter(VectorXY startCoordinates)
 
 std::shared_ptr<Player> Level::createPlayer()
 {
-	// Create a guard and add a pointer to the vector of player
-	VectorXY playerStartCoordinates(Player::playerStartX, Player::playerStartY);
-	player = std::make_shared<Player>(game, playerStartCoordinates);
+	player = std::make_shared<Player>(game);
 	return player;
 }
 

@@ -12,7 +12,6 @@ VectorXY::VectorXY(int x, int y)
 {
 }
 
-
 VectorXY VectorXY::operator+(const VectorXY& otherVector)
 {
 	VectorXY newVector(x + otherVector.x, y + otherVector.y);
@@ -45,9 +44,9 @@ VectorXY& VectorXY::operator+=(const VectorXY& otherVector)
 
 VectorXY VectorXY::convertGridToWindow()
 {
+	// Grid is based on the size of the cells
 	int cellSize = Level::CELL_SIZE;
 	int windowX = x * cellSize + cellSize / 2;
 	int windowY = y * cellSize + cellSize / 2;
-
 	return VectorXY(windowX, windowY);
 }

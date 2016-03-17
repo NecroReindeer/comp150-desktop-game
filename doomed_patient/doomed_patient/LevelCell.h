@@ -65,7 +65,7 @@ public:
 	/*!
 	  This getter returns the cell's coordinates as GridCoordinate.
 	*/
-	VectorXY getCoordinates() { return VectorXY(gridPositionX, gridPositionY); }
+	VectorXY getCoordinates() { return gridPosition; }
 
 	std::shared_ptr<Room> room;
 
@@ -78,20 +78,11 @@ public:
 
 
 private:
-	//! Cell's x position.
+	//! Cell's position on the grid.
 	/*!
-	  This integer represents the cell's x 
-	  coordinate on the level grid.
+	This integer represents the cell's
+	coordinates on the level grid.
 	*/
-	int gridPositionX;
-
-	//! Cell's y position.
-	/*!
-	This integer represents the cell's y
-	coordinate on the level grid.
-	*/
-	int gridPositionY;
-
 	VectorXY gridPosition;
 
 	//! A map containing the cell's edges.

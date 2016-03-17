@@ -13,19 +13,49 @@ public:
 	VectorXY();
 	VectorXY(int x, int y);
 
+	//! Interger representing the x coordinate.
+	/*!
+	  This represents the x value of the vector.
+	*/
 	int x;
+
+	//! Interger representing the y coordinate.
+	/*!
+	This represents the y value of the vector.
+	*/
 	int y;
 
+	//! Operator overload for adding 2 VectorXY
+	/*!
+	  This operator overload allows two VectorXY
+	  instances to be added together, as per the
+	  usual rules of vector addition.
+	*/
 	VectorXY operator+(const VectorXY& otherVector);
+
+	//! Operator overload for multiplying by a scalar.
+	/*!
+	  This operator overload allows a VectorXY to be
+	  multiplied by an integer scalar.
+	*/
 	VectorXY operator*(const int& scalar);
+
+	//! Operator overload for dividing by a scalar.
+	/*!
+	  This operator overload allows a VectorXY to be
+	  divided by an integer scalar.
+	*/
 	VectorXY operator/(const int& scalar);
+
 	VectorXY& operator+=(const VectorXY& otherVector);
+
 	bool operator==(const VectorXY& otherVector);
 
 	//! Convert grid coordinates to window coordinates.
 	/*!
 	  This method converts grid coordinates (this) into
-	  window coordinates, using the size of the level cells.
+	  window coordinates, using the size of the level cells, 
+	  and returns it as a VectorXY.
 	*/
 	VectorXY convertGridToWindow();
 };

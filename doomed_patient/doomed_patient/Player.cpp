@@ -3,16 +3,10 @@
 #include "PatientGame.h"
 #include "LevelCell.h"
 
-Player::Player(PatientGame* game, VectorXY gridCoordinates)
-//!This is to get the texture for the Doctor
-/*!It inherits this from PatientGame.cpp
-which then inherits from textures.h
-*/
-	: GameObject(game, game->getPlayerSprite()),
+Player::Player(PatientGame* game)
+	: Character(game, VectorXY(0, Level::GRID_SIZE_Y - 1), game->getPlayerSprite()),
 	speed(2)
 {
-	// Calculate the window position from the grid position
-	centre = gridCoordinates.convertGridToWindow();
 }
 
 void Player::move(Directions::Direction direction)

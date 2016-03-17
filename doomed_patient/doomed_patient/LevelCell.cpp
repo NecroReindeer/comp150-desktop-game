@@ -8,14 +8,11 @@
 
 LevelCell::LevelCell(PatientGame* game, VectorXY coordinates, std::shared_ptr<Room> room)
 	: GameObject(game, game->getFloorSprite()),				// Call base class constructor
-	gridPositionX(coordinates.x),
-	gridPositionY(coordinates.y),
 	gridPosition(coordinates),
 	room(room)
 {
 	// Calculate the window position from the grid position
-	centre.x = coordinates.x * getSpriteSize().x + getSpriteSize().x / 2;
-	centre.y = coordinates.y * getSpriteSize().y + getSpriteSize().y / 2;
+	centre = gridPosition.convertGridToWindow();
 
 	// Set up empty edges
 	edges[Directions::Direction::NORTH] = nullptr;

@@ -1,3 +1,10 @@
+//! Class for characters.
+/*!
+  This class is for characters. It should not be 
+  instantiated directly, but characters such as the player
+  and doctors should inherit from it.
+*/
+
 #pragma once
 #include "GameObject.h"
 #include "VectorXY.h"
