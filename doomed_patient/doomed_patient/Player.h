@@ -9,6 +9,7 @@ for any general data.
 
 #include "GameObject.h"
 #include "Level.h"
+#include "Directions.h"
 
 class LevelCell;
 
@@ -23,10 +24,7 @@ public:
 	// Indicates the starting position of the player.
 	static const int playerStartX = 0;
 	static const int playerStartY = Level::GRID_SIZE_Y - 1;
-	//!Destuctor for the Player
-	/*!
-	*/
-	~Player();
 
-
+	int speed;
+	void move(Directions::Direction direction);
 };
