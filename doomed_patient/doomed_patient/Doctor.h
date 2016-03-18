@@ -7,23 +7,21 @@ for any general data.
 */
 #pragma once
 
-#include "GameObject.h"
+#include "Character.h"
+#include "VectorXY.h"
 
 class LevelCell;
 
-class Doctor : public GameObject
+class Doctor : public Character
 {
 public:
 	//!Constructor for the Doctor
 	/*!
+	  The constructor takes a pointer to the game and its
+	  starting grid coordinates.
+	  It calls through to the constructor for the base class,
+	  Character, and passes its sprite in.
 	*/
-	Doctor(PatientGame* game, std::shared_ptr<LevelCell>cell);
-
-	//!Destuctor for the Doctor
-	/*!
-	*/
-	~Doctor();
-
-
+	Doctor(PatientGame* game, VectorXY startCoordinates);
 };
 

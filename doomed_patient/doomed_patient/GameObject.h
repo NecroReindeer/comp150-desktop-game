@@ -7,6 +7,7 @@
 
 #pragma once
 #include "Texture.h"
+#include "VectorXY.h"
 
 class PatientGame;
 
@@ -34,10 +35,10 @@ public:
 	*/
 	void render(SDL_Renderer* renderer);
 
-	int getSpriteSizeX() { return spriteSizeX; }
-	int getSpriteSizeY() { return spriteSizeY; }
-	int getCentreX() { return centreX; }
-	int getCentreY() { return centreY; }
+	VectorXY getCentre() { return centre; }
+
+	VectorXY getSpriteSize() { return objectSprite->getSpriteSize(); }
+
 
 protected:
 	//! Pointer to the game.
@@ -48,20 +49,14 @@ protected:
 	*/
 	PatientGame* game;
 
-	//! Size of the sprite in pixels.
-	/*!
-	These variables store the size of the sprite that the
-	game object has as an integer. It is defined in the
-	constructor.
-	*/
-	int spriteSizeX, spriteSizeY;
-
 	//! Stores the position of the game object.
 	/*!
 	This variable stores the position that the game object
 	will be rendered on screen.
 	*/
-	int centreX, centreY;
+	//int centreX, centreY;
+
+	VectorXY centre;
 
 private:
 	//! Pointer to the texture.

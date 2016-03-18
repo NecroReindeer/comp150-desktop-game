@@ -6,21 +6,20 @@ It inherits from th GameObject class
 for any general data.
 */
 #pragma once
+#include "Character.h"
 
-#include "GameObject.h"
 class LevelCell;
 
-class Guard : public GameObject
+class Guard : public Character
 {
 public:
 	//!Constructor for the Guard
 	/*!
+	  The constructor takes a pointer to the game and its
+	  starting grid coordinates.
+	  It calls through to the constructor for the base class,
+	  Character, and passes its sprite in.
 	*/
-	Guard(PatientGame* game, std::shared_ptr<LevelCell>cell);
-	
-	//!Destuctor for the Guard
-	/*!
-	*/
-	~Guard();
+	Guard(PatientGame* game, VectorXY startCoordinates);
 };
 
