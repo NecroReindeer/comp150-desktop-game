@@ -9,7 +9,7 @@
 #pragma once
 #include "GameObject.h"
 #include "CellEdge.h"
-#include "GridCoordinate.h"
+#include "VectorXY.h"
 
 class Room;
 
@@ -24,7 +24,7 @@ public:
 	  window position based on its xy grid coordinates.
 	  It also initialises the edges to nullptr.
 	*/
-	LevelCell(PatientGame* game, int x, int y, std::shared_ptr<Room> room);
+	LevelCell(PatientGame* game, VectorXY coordinates, std::shared_ptr<Room> room);
 
 	//! Creates a wall on a given side.
 	/*!
@@ -65,7 +65,7 @@ public:
 	/*!
 	  This getter returns the cell's coordinates as GridCoordinate.
 	*/
-	GridCoordinate getCoordinates() { return GridCoordinate(gridPositionX, gridPositionY); }
+	VectorXY getCoordinates() { return gridPosition; }
 
 	std::shared_ptr<Room> room;
 
@@ -78,19 +78,12 @@ public:
 
 
 private:
-	//! Cell's x position.
+	//! Cell's position on the grid.
 	/*!
-	  This integer represents the cell's x 
-	  coordinate on the level grid.
+	This integer represents the cell's
+	coordinates on the level grid.
 	*/
-	int gridPositionX;
-
-	//! Cell's y position.
-	/*!
-	This integer represents the cell's y
-	coordinate on the level grid.
-	*/
-	int gridPositionY;
+	VectorXY gridPosition;
 
 	//! A map containing the cell's edges.
 	/*!

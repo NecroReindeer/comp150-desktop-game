@@ -14,8 +14,8 @@ Texture::Texture(const std::string& fileName)
 		throw InitialisationError("IMG_Load failed.");
 	}
 
-	spriteSizeX = image->w;
-	spriteSizeY = image->h;
+	spriteSize.x = image->w;
+	spriteSize.y = image->h;
 }
 
 
@@ -38,16 +38,16 @@ void Texture::loadTexture(SDL_Renderer* renderer)
 	}
 }
 
-void Texture::render(SDL_Renderer* renderer, int x, int y, int width, int height)
+void Texture::render(SDL_Renderer* renderer, VectorXY position)
 {
 	loadTexture(renderer);
 
 	// Rectangle that the texture will be loaded onto. x and y are its centre.
 	SDL_Rect dest;
-	dest.x = x - width / 2;
-	dest.y = y - height / 2;
-	dest.w = width;
-	dest.h = height;
+	dest.x = position.x - spriteSize.x / 2;
+	dest.y = position.y - spriteSize.y / 2;
+	dest.w = spriteSize.x;
+	dest.h = spriteSize.y;
 	SDL_RenderCopy(renderer, texture, nullptr, &dest);
 }
 

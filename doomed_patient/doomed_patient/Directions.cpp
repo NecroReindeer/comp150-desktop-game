@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Directions.h"
-#include "GridCoordinate.h"
+#include "VectorXY.h"
 
 Directions::Directions()
 {
@@ -11,18 +11,18 @@ Directions::~Directions()
 {
 }
 
-GridCoordinate Directions::getDirectionVector(Direction direction)
+VectorXY Directions::getDirectionVector(Direction direction)
 {
 	switch (direction)
 	{
 	case Directions::Direction::NORTH:
-		return GridCoordinate(0, -1);
+		return VectorXY(0, -1);
 	case Directions::Direction::EAST:
-		return GridCoordinate(1, 0);
+		return VectorXY(1, 0);
 	case Directions::Direction::SOUTH:
-		return GridCoordinate(0, 1);
+		return VectorXY(0, 1);
 	case Directions::Direction::WEST:
-		return GridCoordinate(-1, 0);
+		return VectorXY(-1, 0);
 	}
 }
 
