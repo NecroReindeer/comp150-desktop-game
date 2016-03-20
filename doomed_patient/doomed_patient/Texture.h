@@ -4,6 +4,7 @@
   rendering textures.
 */
 #pragma once
+#include "VectorXY.h"
 
 class Texture
 {
@@ -41,19 +42,14 @@ public:
 	/*!
 	  This method copies the texture to the renderer.
 	*/
-	void render(SDL_Renderer* renderer, int x, int y, int width, int height);
+	void render(SDL_Renderer* renderer, VectorXY position);
 
-	//! Return the width of the sprite.
+	//! Return the size of the sprite.
 	/*!
-	  This getter returns the width of the sprite in pixels as an int.
+	  This getter returns the size of the sprite in pixels as a VectorXY.
 	*/
-	int getSpriteSizeX() { return spriteSizeX; }
+	VectorXY getSpriteSize() { return spriteSize; }
 
-	//! Return the height of the sprite.
-	/*!
-	  This getter returns the height of the sprite in pixels as an int.
-	*/
-	int getSpriteSizeY() { return spriteSizeY; }
 
 private:
 	//! Load the texture.
@@ -78,15 +74,10 @@ private:
 	*/
 	SDL_Texture* texture;
 
-	//! The width of the sprite.
+	//! The size of the sprite.
 	/*!
-	  This is the width of the sprite in pixels. It is set in the constructor. 
+	  This is the size of the sprite in pixels, as a VectorXY. 
+	  It is set in the constructor.
 	*/
-	int spriteSizeX;
-
-	//! The height of the sprite.
-	/*!
-	This is the height of the sprite in pixels. It is set in the constructor.
-	*/
-	int spriteSizeY;
+	VectorXY spriteSize;
 };

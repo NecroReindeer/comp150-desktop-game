@@ -5,16 +5,15 @@
 */
 
 #pragma once
-#include "GridCoordinate.h"
+#include "VectorXY.h"
 
 class Room;
 class LevelCell;
 class PatientGame;
 class Exit;
-class Guard;
-class Doctor;
 class GameObject;
 class Player;
+class Character;
 
 class Level
 {
@@ -51,7 +50,7 @@ public:
 	This method returns a pointer to the cell located
 	at the given coordinates.
 	*/
-	std::shared_ptr<LevelCell> getCell(GridCoordinate coordinates);
+	std::shared_ptr<LevelCell> getCell(VectorXY coordinates);
 
 	//! Width of the level.
 	/*!
@@ -66,6 +65,8 @@ public:
 	the level in grid squares as an integer.
 	*/
 	static const int GRID_SIZE_Y = 12;
+
+	static const int CELL_SIZE = 64;
 	
 	// For testing
 	SDL_Renderer* renderer;
@@ -87,14 +88,14 @@ private:
 	  This method checks if the given coordinates are contained
 	  in the level. If so, it returns true.
 	*/
-	bool containsCoordinates(GridCoordinate coordinates);
+	bool containsCoordinates(VectorXY coordinates);
 
 	//! Create a cell.
 	/*!
 	  This method created a cell at the given grid coordinates in the
 	  given room. It returns a pointer to the cell it has created.
 	*/
-	std::shared_ptr<LevelCell> createCell(GridCoordinate coordinates, std::shared_ptr<Room> room);
+	std::shared_ptr<LevelCell> createCell(VectorXY coordinates, std::shared_ptr<Room> room);
 
 	//! Create a room.
 	/*!
@@ -109,7 +110,7 @@ private:
 	  This method returns random grid coordinates that
 	  are contained in the level.
 	*/
-	GridCoordinate getRandomCoordinates();
+	VectorXY getRandomCoordinates();
 
 	//! Add the exit to the level.
 	/*!
@@ -165,11 +166,28 @@ private:
 	This method creates an instance of the Guards/Doctors and
 	sets its position to a random place on the map.
 	*/
-	std::vector<std::shared_ptr<GameObject>> npcs;
-	void createGuard();
-	void createDoctor();
+	std::vector<std::shared_ptr<Character>> npcs;
+
+	//! Create a character in a random position.
+	/*!
+	  This template method creates a character in a 
+	  random position on the grid. CharaterType can
+	  be any class that inherits from Character.
+	  There character created corresponds to the type
+	  passed in.
+	*/
+	template<typename CharacterType> void createCharacter(VectorXY coordinates);
 
 	std::shared_ptr<Player> player;
-	
+
+	//! Checks if a character starts at the given coordinates.
+	/*!
+	  This method checks if any character has its starting
+	  position at the given grid coordinates, and if so,
+	  it returns true.
+	*/
+	bool positionOccupied(VectorXY coordinates);
+
+	VectorXY getUnoccupiedRandomCoords();
 };
 
