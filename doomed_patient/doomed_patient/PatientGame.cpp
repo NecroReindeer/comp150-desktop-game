@@ -61,7 +61,7 @@ void PatientGame::run()
 {
 	running = true;
 	level.generateMaze();
-	player = level.createPlayer();
+	player = level.getPlayer();
 
 	// Main game loop
 	while (running)

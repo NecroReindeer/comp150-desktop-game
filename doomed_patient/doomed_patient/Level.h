@@ -52,6 +52,8 @@ public:
 	*/
 	std::shared_ptr<LevelCell> getCell(VectorXY coordinates);
 
+	std::shared_ptr<Player> getPlayer() { return player; }
+
 	//! Width of the level.
 	/*!
 	  This static member represents the width of
@@ -67,6 +69,8 @@ public:
 	static const int GRID_SIZE_Y = 12;
 
 	static const int CELL_SIZE = 64;
+
+	static const VectorXY PLAYER_START;
 	
 	// For testing
 	SDL_Renderer* renderer;
@@ -166,7 +170,7 @@ private:
 	This method creates an instance of the Guards/Doctors and
 	sets its position to a random place on the map.
 	*/
-	std::vector<std::shared_ptr<Character>> npcs;
+	std::vector<std::shared_ptr<Character>> characters;
 
 	//! Create a character in a random position.
 	/*!
@@ -176,7 +180,7 @@ private:
 	  There character created corresponds to the type
 	  passed in.
 	*/
-	template<typename CharacterType> void createCharacter(VectorXY coordinates);
+	template<typename CharacterType> std::shared_ptr<CharacterType> createCharacter(VectorXY coordinates);
 
 	std::shared_ptr<Player> player;
 

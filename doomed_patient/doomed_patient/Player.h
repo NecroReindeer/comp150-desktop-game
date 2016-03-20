@@ -22,7 +22,7 @@ public:
 	  and calls through to the base class constructor with
 	  the player's start position.
 	*/
-	Player(PatientGame* game);
+	Player(PatientGame* game, VectorXY startCoordinates);
 
 	//! Speed of the player.
 	/*!
