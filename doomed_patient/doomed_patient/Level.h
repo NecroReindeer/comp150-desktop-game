@@ -53,6 +53,7 @@ public:
 	std::shared_ptr<LevelCell> getCell(VectorXY coordinates);
 
 	std::shared_ptr<Player> getPlayer() { return player; }
+	std::shared_ptr<Exit> getExit() { return exit; }
 
 	//! Width of the level.
 	/*!
@@ -75,7 +76,6 @@ public:
 	// For testing
 	SDL_Renderer* renderer;
 
-	std::shared_ptr<Player> createPlayer();
 
 
 private:

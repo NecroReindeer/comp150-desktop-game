@@ -5,6 +5,7 @@
 #include "Guard.h"
 #include "Doctor.h"
 #include "Player.h"
+#include "Exit.h"
 
 PatientGame::PatientGame()
 	: guardSprite("Sprites\\Guard.png"),
@@ -60,8 +61,7 @@ PatientGame::~PatientGame()
 void PatientGame::run()
 {
 	running = true;
-	level.generateMaze();
-	player = level.getPlayer();
+	generateLevel();
 
 	// Main game loop
 	while (running)
@@ -73,10 +73,11 @@ void PatientGame::run()
 }
 
 
-void PatientGame::restartLevel()
+void PatientGame::generateLevel()
 {
 	level.generateMaze();
 	player = level.getPlayer();
+	exit = level.getExit();
 }
 
 
@@ -108,8 +109,9 @@ void PatientGame::handleEvents()
 		player->move(Directions::Direction::WEST);
 	if (keyboardState[SDL_SCANCODE_RIGHT])
 		player->move(Directions::Direction::EAST);
-	if (keyboardState[SDL_SCANCODE_SPACE])
-		restartLevel();
+
+	if (player->getCentre() == exit->getCentre())
+		generateLevel();
 }
 
 

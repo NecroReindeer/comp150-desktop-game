@@ -128,8 +128,9 @@ private:
 	Level level;
 
 	std::shared_ptr<Player> player;
+	std::shared_ptr<Exit> exit;
 
-	void restartLevel();
+	void generateLevel();
 	
 };
 

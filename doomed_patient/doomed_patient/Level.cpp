@@ -161,18 +161,14 @@ void Level::clearLevel()
 {
 
 	
-	if (!cells.empty())
+
+	cells.clear();
+	for (int x = 0; x < GRID_SIZE_X; x++)
 	{
-		cells.clear();
-		for (int x = 0; x < GRID_SIZE_X; x++)
-		{
-			cells.push_back(std::vector<std::shared_ptr<LevelCell>>(GRID_SIZE_Y, nullptr));
-		}
+		cells.push_back(std::vector<std::shared_ptr<LevelCell>>(GRID_SIZE_Y, nullptr));
 	}
-	if (!characters.empty())
-	{
-		characters.clear();
-	}
+
+	characters.clear();
 }
 
 void Level::generateMaze()
