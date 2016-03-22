@@ -193,5 +193,7 @@ private:
 	bool positionOccupied(VectorXY coordinates);
 
 	VectorXY getUnoccupiedRandomCoords();
+
+	void clearLevel();
 };
 

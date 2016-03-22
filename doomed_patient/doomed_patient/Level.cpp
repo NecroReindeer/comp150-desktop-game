@@ -157,9 +157,28 @@ void Level::placeExit()
 	exit = std::make_shared<Exit>(game, exitCoords);
 }
 
+void Level::clearLevel()
+{
+
+	
+	if (!cells.empty())
+	{
+		cells.clear();
+		for (int x = 0; x < GRID_SIZE_X; x++)
+		{
+			cells.push_back(std::vector<std::shared_ptr<LevelCell>>(GRID_SIZE_Y, nullptr));
+		}
+	}
+	if (!characters.empty())
+	{
+		characters.clear();
+	}
+}
 
 void Level::generateMaze()
 {
+	clearLevel();
+
 	// Randomly choose position to start from and add it to activeCells
 	std::vector<std::shared_ptr<LevelCell>> activeCells;
 	std::shared_ptr<Room> room = createRoom();

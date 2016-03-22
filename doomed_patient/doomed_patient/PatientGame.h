@@ -128,6 +128,8 @@ private:
 	Level level;
 
 	std::shared_ptr<Player> player;
+
+	void restartLevel();
 	
 };
 

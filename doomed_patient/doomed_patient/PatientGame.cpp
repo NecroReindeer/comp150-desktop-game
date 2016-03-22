@@ -73,6 +73,13 @@ void PatientGame::run()
 }
 
 
+void PatientGame::restartLevel()
+{
+	level.generateMaze();
+	player = level.getPlayer();
+}
+
+
 // Handle events such as quitting and player input here
 void PatientGame::handleEvents()
 {
@@ -101,6 +108,8 @@ void PatientGame::handleEvents()
 		player->move(Directions::Direction::WEST);
 	if (keyboardState[SDL_SCANCODE_RIGHT])
 		player->move(Directions::Direction::EAST);
+	if (keyboardState[SDL_SCANCODE_SPACE])
+		restartLevel();
 }
 
 
