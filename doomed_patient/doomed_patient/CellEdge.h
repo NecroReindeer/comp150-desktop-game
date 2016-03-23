@@ -1,3 +1,10 @@
+//! Abstract class for the cells edges.
+/*!
+  This is an abstract class to represent the edges of the
+  cells. Different edge types, such as passages and walls 
+  should inherit from this class.
+*/
+
 #pragma once
 #include "Directions.h"
 #include "Texture.h"
@@ -76,6 +83,5 @@ private:
 	  edge.
 	*/
 	std::weak_ptr<LevelCell> containingCell;
-
 };
 

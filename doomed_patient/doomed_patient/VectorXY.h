@@ -49,6 +49,12 @@ public:
 
 	VectorXY& operator+=(const VectorXY& otherVector);
 
+	//! Operator overload for equality comparison.
+	/*!
+	  This is the operator overload for equality comparison.
+	  It returns true if the x and y coordinates of the
+	  two vectors are the same.
+	*/
 	bool operator==(const VectorXY& otherVector);
 
 	//! Convert grid coordinates to window coordinates.

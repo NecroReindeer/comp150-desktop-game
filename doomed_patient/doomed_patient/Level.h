@@ -1,7 +1,9 @@
 //! Class for the level.
 /*!
   This class stores data about the level and
-  manages the level generation process.
+  manages the level generation process. 
+  It also holds pointers to all the instances that
+  the generator creates, including characters.
 */
 
 #pragma once
@@ -47,12 +49,23 @@ public:
 
 	//! Returns the cell at the given coordinates.
 	/*!
-	This method returns a pointer to the cell located
-	at the given coordinates.
+	  This method returns a pointer to the cell located
+	  at the given coordinates.
 	*/
 	std::shared_ptr<LevelCell> getCell(VectorXY coordinates);
 
+	//! Returns a pointer to the player.
+	/*!
+	  This getter returns the shared pointer to the
+	  player.
+	*/
 	std::shared_ptr<Player> getPlayer() { return player; }
+	
+	//! Returns a pointer to the exit.
+	/*!
+	  This getter returns the shared pointer to the
+	  exit.
+	*/
 	std::shared_ptr<Exit> getExit() { return exit; }
 
 	//! Width of the level.
@@ -64,18 +77,29 @@ public:
 
 	//! Height of the level.
 	/*!
-	This static member represents the height of
-	the level in grid squares as an integer.
+	  This static member represents the height of
+	  the level in grid squares as an integer.
 	*/
 	static const int GRID_SIZE_Y = 12;
 
+	//! Size of each level cell.
+	/*!
+	  This static member represents the size of each
+	  cell of the level, which corresponds to the size of
+	  the sprite. Used to convert grid coordinates to
+	  window coordinates and vice versa.
+	*/
 	static const int CELL_SIZE = 64;
 
+	//! Start position of the player.
+	/*!
+	  This static member represents the position that
+	  the player starts in.
+	*/
 	static const VectorXY PLAYER_START;
 	
 	// For testing
 	SDL_Renderer* renderer;
-
 
 
 private:
@@ -155,20 +179,11 @@ private:
 	*/
 	std::shared_ptr<Exit> exit;
 
-	//! The probability that a door will be made.
+	//! Vector of pointers to characters.
 	/*!
-	  This constant defines the probability that a door
-	  will be made instead of a passage. This value should
-	  be between 0 and 1.
-	  0 means that doors will never spawn, 1  means that 
-	  doors will always spawn.
-	*/
-	const double DOOR_PROBABILITY = 0.03;
-
-	//! Add the Guards and Doctors to the level.
-	/*!
-	This method creates an instance of the Guards/Doctors and
-	sets its position to a random place on the map.
+	  This field holds a vector of shared pointers to
+	  all instances of characters.
+	  Used for rendering etc.
 	*/
 	std::vector<std::shared_ptr<Character>> characters;
 
@@ -182,6 +197,10 @@ private:
 	*/
 	template<typename CharacterType> std::shared_ptr<CharacterType> createCharacter(VectorXY coordinates);
 
+	//! Pointer to the player.
+	/*!
+	  This member is a shared pointer to the player.
+	*/
 	std::shared_ptr<Player> player;
 
 	//! Checks if a character starts at the given coordinates.
@@ -192,8 +211,28 @@ private:
 	*/
 	bool positionOccupied(VectorXY coordinates);
 
+	//! Returns random coordinates where an character isn't placed.
+	/*!
+	  This method returns random coordinates that no other character's 
+	  start position is currently occupying.
+	*/
 	VectorXY getUnoccupiedRandomCoords();
 
+	//! Clears all cells and characters from the level.
+	/*!
+	  This method clears all the cells and characters from the level.
+	  It should be called before a new level is generated.
+	*/
 	void clearLevel();
+
+	//! The probability that a door will be made.
+	/*!
+	This constant defines the probability that a door
+	will be made instead of a passage. This value should
+	be between 0 and 1.
+	0 means that doors will never spawn, 1  means that
+	doors will always spawn.
+	*/
+	const double DOOR_PROBABILITY = 0.03;
 };
 

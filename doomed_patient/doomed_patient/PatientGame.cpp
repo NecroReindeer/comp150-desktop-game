@@ -29,7 +29,7 @@ PatientGame::PatientGame()
 	}
 
 	// Create window for the game
-	window = SDL_CreateWindow("The Doomed Patient", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN); //| SDL_WINDOW_FULLSCREEN
+	window = SDL_CreateWindow("The Doomed Patient", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 	// Check if window was successfully created
 	if (window == nullptr)
 	{
@@ -109,16 +109,15 @@ void PatientGame::handleEvents()
 		player->move(Directions::Direction::WEST);
 	if (keyboardState[SDL_SCANCODE_RIGHT])
 		player->move(Directions::Direction::EAST);
-
-	if (player->getCentre() == exit->getCentre())
-		generateLevel();
 }
 
 
 // Game updates that need to happen every frame go here
 void PatientGame::update()
 {
-
+	// Temporary before collision checking is implemented
+	if (player->getCentre() == exit->getCentre())
+		generateLevel();
 }
 
 

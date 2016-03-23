@@ -67,6 +67,11 @@ public:
 	*/
 	VectorXY getCoordinates() { return gridPosition; }
 
+	//! Pointer to the room the cell is in.
+	/*!
+	  This field holds a shared pointer to the room
+	  that contains the cell.
+	*/
 	std::shared_ptr<Room> room;
 
 	//! The number of sides the cell has.

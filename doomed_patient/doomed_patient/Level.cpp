@@ -159,12 +159,11 @@ void Level::placeExit()
 
 void Level::clearLevel()
 {
-
-	
-
+	// Clear all the cells from the vector
 	cells.clear();
 	for (int x = 0; x < GRID_SIZE_X; x++)
 	{
+		// Add nullptrs to all the spaces where cells would be
 		cells.push_back(std::vector<std::shared_ptr<LevelCell>>(GRID_SIZE_Y, nullptr));
 	}
 
