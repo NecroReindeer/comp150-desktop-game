@@ -10,7 +10,19 @@
 class VectorXY
 {
 public:
+	//! Parameterless constructor.
+	/*!
+	  The parameterless constructor can be
+	  used if the x and y coordinates are not
+	  initially known.
+	*/
 	VectorXY();
+
+	//! Constructor that takes x and y coordinates.
+	/*!
+	  This constructor sets the x and y coordinates
+	  when the vector is instantiated.
+	*/
 	VectorXY(int x, int y);
 
 	//! Interger representing the x coordinate.
