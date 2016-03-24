@@ -3,8 +3,8 @@
 #include "PatientGame.h"
 #include "LevelCell.h"
 
-Player::Player(PatientGame* game)
-	: Character(game, VectorXY(0, Level::GRID_SIZE_Y - 1), game->getPlayerSprite()),
+Player::Player(PatientGame* game, VectorXY startCoordinates)
+	: Character(game, startCoordinates, game->getPlayerSprite()),
 	speed(2)
 {
 }

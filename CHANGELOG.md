@@ -9,6 +9,7 @@
 ##15/03/2016
 * Guards and Doctors now inherit from new Character class (which inherits from GameObject) (Necro)
 * Guards and Doctors now generated using template function (Necro)
+* Made multiple doctors and guards spawn in random positions (Necro)
 
 ##11/03/2016
 * Basic player movement now implemented (Necro)
