@@ -14,6 +14,8 @@ class Exit;
 class GameObject;
 class Player;
 class Character;
+class Guard;
+class Doctor;
 
 class Level
 {

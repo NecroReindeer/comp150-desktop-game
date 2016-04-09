@@ -31,6 +31,20 @@ public:
 	*/
 	VectorXY getStartCoordinates() { return startCoordinates; }
 
+	//! Speed of the player.
+	/*!
+	This field holds the speed that the character
+	moves.
+	*/
+	int speed;
+
+	//! Moves the character.
+	/*!
+	This method moves the character in the specified
+	direction at the character's speed.
+	*/
+	void move(Directions::Direction direction);
+
 private:
 	//! Starting position for the Character
 	/*!
@@ -38,5 +52,6 @@ private:
 	  will start in as a VectorXY.
 	*/
 	VectorXY startCoordinates;
+
 };
 

@@ -24,17 +24,4 @@ public:
 	*/
 	Player(PatientGame* game);
 
-	//! Speed of the player.
-	/*!
-	  This field holds the speed that the player
-	  moves. 
-	*/
-	int speed;
-
-	//! Moves the player.
-	/*!
-	  This method moves the player in the specified
-	  direction at the player's speed.
-	*/
-	void move(Directions::Direction direction);
 };

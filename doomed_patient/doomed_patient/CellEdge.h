@@ -78,4 +78,3 @@ private:
 	std::weak_ptr<LevelCell> containingCell;
 
 };
-

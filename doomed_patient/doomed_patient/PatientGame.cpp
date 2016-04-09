@@ -81,7 +81,7 @@ void PatientGame::handleEvents()
 	{
 		switch (ev.type)
 		{
-		// Close the game when user quits
+			// Close the game when user quits
 		case SDL_QUIT:
 			running = false;
 			break;
@@ -89,7 +89,8 @@ void PatientGame::handleEvents()
 		default:
 			break;
 		}
-	} 
+	}
+
 
 	// Check keyboard state
 	const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);

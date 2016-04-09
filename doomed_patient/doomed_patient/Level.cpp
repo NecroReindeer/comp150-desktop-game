@@ -187,6 +187,7 @@ void Level::generateMaze()
 		createCharacter<Guard>(getUnoccupiedRandomCoords());
 		createCharacter<Doctor>(getUnoccupiedRandomCoords());
 	}
+
 }
 
 

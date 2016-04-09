@@ -9,6 +9,8 @@ for any general data.
 
 #include "Character.h"
 #include "VectorXY.h"
+#include "Level.h"
+#include "Directions.h"
 
 class LevelCell;
 

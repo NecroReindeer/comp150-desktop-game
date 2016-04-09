@@ -6,7 +6,11 @@ It inherits from th GameObject class
 for any general data.
 */
 #pragma once
+
 #include "Character.h"
+#include "VectorXY.h"
+#include "Level.h"
+#include "Directions.h"
 
 class LevelCell;
 
