@@ -76,5 +76,13 @@ public:
 	  and returns it as a VectorXY.
 	*/
 	VectorXY convertGridToWindow();
+
+	//! Convert window coordinates to grid coordinates.
+	/*!
+	This method converts window coordinates (this) into
+	grid coordinates, using the size of the level cells,
+	and returns it as a VectorXY.
+	*/
+	VectorXY convertWindowToGrid();
 };
 
