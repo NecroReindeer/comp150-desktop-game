@@ -85,3 +85,8 @@ void LevelCell::createPassage(Directions::Direction direction, bool isDoor)
 {
 	edges[direction] = std::make_shared<CellPassage>(direction, shared_from_this(), game, isDoor);
 }
+
+std::shared_ptr<CellEdge> LevelCell::getEdge(Directions::Direction direction)
+{
+	return edges[direction];
+}

@@ -30,6 +30,8 @@ public:
 	*/
 	void render(SDL_Renderer* renderer);
 
+	virtual bool isWall() = 0;
+
 protected:
 	//! Direction the egde is on.
 	/*!

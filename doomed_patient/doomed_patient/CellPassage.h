@@ -23,6 +23,8 @@ public:
 	*/
 	bool isDoor;
 
+	bool isWall() { return false; }
+
 private:
 	//! Initialises the sprite.
 	/*!

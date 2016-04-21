@@ -17,6 +17,8 @@ public:
 	CellWall(Directions::Direction direction, std::shared_ptr<LevelCell> cell, PatientGame* game);
 	~CellWall();
 
+	bool isWall() { return true; }
+
 
 private:
 	//! Initialises the sprite.

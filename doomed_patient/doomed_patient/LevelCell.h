@@ -74,6 +74,8 @@ public:
 	*/
 	std::shared_ptr<Room> room;
 
+	std::shared_ptr<CellEdge> getEdge(Directions::Direction direction);
+
 	//! The number of sides the cell has.
 	/*!
 	  This constant represents how many edges the 
