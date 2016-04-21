@@ -23,6 +23,11 @@ public:
 	*/
 	bool isDoor;
 
+	//! This method returns whether the edge is a wall.
+	/*!
+	  This method returns a bool indicating whether the edge is a wall.
+	  CellPassage is not a wall, so should return false.
+	*/
 	bool isWall() { return false; }
 
 private:
