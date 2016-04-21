@@ -50,3 +50,13 @@ VectorXY VectorXY::convertGridToWindow()
 	int windowY = y * cellSize + cellSize / 2;
 	return VectorXY(windowX, windowY);
 }
+
+
+VectorXY VectorXY::convertWindowToGrid()
+{
+	// Grid is based on the size of the cells
+	int cellSize = Level::CELL_SIZE;
+	int gridX = (x - cellSize / 2) / cellSize;
+	int gridY = (y - cellSize / 2) / cellSize;
+	return VectorXY(gridX, gridY);
+}
