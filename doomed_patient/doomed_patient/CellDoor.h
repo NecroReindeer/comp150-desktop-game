@@ -15,6 +15,8 @@ public:
 	*/
 	bool isWall() { return false; }
 
+	bool locked;
+
 private:
 	void initialiseSprite(PatientGame* game);
 };

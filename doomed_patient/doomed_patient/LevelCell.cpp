@@ -39,7 +39,6 @@ void LevelCell::render(SDL_Renderer* renderer)
 
 bool LevelCell::allEdgesInitialised()
 {
-
 	// Iterate through all map elements and check if edge exists
 	for (auto& element : edges)
 	{
@@ -71,17 +70,4 @@ Directions::Direction LevelCell::getRandomUninitialisedDirection()
 			uncheckedDirections.erase(uncheckedDirections.begin() + index);
 		}
 	}
-}
-
-
-void LevelCell::createWall(Directions::Direction direction)
-{
-	// shared_from_this() returns shared pointer to this
-	edges[direction] = std::make_shared<CellWall>(direction, shared_from_this(), game);
-}
-
-
-void LevelCell::createPassage(Directions::Direction direction, bool isDoor)
-{
-	edges[direction] = std::make_shared<CellPassage>(direction, shared_from_this(), game, isDoor);
 }

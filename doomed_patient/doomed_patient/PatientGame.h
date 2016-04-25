@@ -56,6 +56,8 @@ public:
 	Texture* getHorizontalDoorSprite() { return &horizontalDoorSprite; }
 	Texture* getVerticalDoorSprite() { return &verticalDoorSprite; }
 	Texture* getExitSprite() { return &exitSprite; }
+	Texture* getHorizontalLockedSprite() { return &horizontalLockedDoorSprite; }
+	Texture* getVerticalLockedSprite() { return &verticalLockedDoorSprite; }
 
 private:
 
@@ -115,6 +117,8 @@ private:
 	Texture verticalWallSprite;
 	Texture horizontalDoorSprite;
 	Texture verticalDoorSprite;
+	Texture horizontalLockedDoorSprite;
+	Texture verticalLockedDoorSprite;
 	Texture exitSprite;
 	Texture guardSprite;
 	Texture doctorSprite;

@@ -106,6 +106,7 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 				currentCell->initialiseEdge<CellDoor>(randomDirection);
 				nextCell = createCell(nextCellCoordinates, createRoom());
 				nextCell->initialiseEdge<CellDoor>(Directions::getOpposite(randomDirection));
+
 			}
 			else
 			{
