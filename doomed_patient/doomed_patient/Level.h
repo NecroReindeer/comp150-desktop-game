@@ -131,6 +131,7 @@ private:
 	  room it has created. Rooms are used to determine where
 	  passages should be placed instead of walls.
 	*/
+	std::shared_ptr<Room> createRoom(std::shared_ptr<Room> cameFrom);
 	std::shared_ptr<Room> createRoom();
 
     //! Returns random coordinates.

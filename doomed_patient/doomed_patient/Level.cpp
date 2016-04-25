@@ -48,6 +48,17 @@ std::shared_ptr<Room> Level::createRoom()
 	return room;
 }
 
+
+std::shared_ptr<Room> Level::createRoom(std::shared_ptr<Room> cameFrom)
+{
+	std::shared_ptr<Room> room = createRoom();
+	if (cameFrom->corridor)
+	{
+		room->corridor = false;
+	}
+	return room;
+}
+
 bool Level::positionOccupied(VectorXY coordinates)
 {
 	for each (std::shared_ptr<Character> npc in characters)
@@ -96,17 +107,39 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 		// If there isn't a cell in the visted coordinates, create the cell and a passage
 		if (!nextCell)
 		{
-			// Decide if the passaage will be a door by picking random number between 0 and 1
+			// Decide if the passage will be a door by picking random number between 0 and 1
 			double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
 			bool isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
+
+			if ((currentIndex - 1) >= 0)
+			{
+				auto cameFrom = activeCells[currentIndex - 1];
+				if (currentCell->room->corridor && cameFrom->room->corridor)
+				{
+					if (currentCell->getCoordinates().x == cameFrom->getCoordinates().x)
+					{
+						if (nextCellCoordinates.x != currentCell->getCoordinates().x)
+						{
+							isDoor = true;
+						}
+					}
+					else if (currentCell->getCoordinates().y == cameFrom->getCoordinates().y)
+					{
+						if (nextCellCoordinates.y != currentCell->getCoordinates().y)
+						{
+							isDoor = true;
+						}
+					}
+				}
+			}
+			
 
 			// nextCell is in a new room if there is a door, otherwise it's in the same room
 			if (isDoor)
 			{
 				currentCell->initialiseEdge<CellDoor>(randomDirection);
-				nextCell = createCell(nextCellCoordinates, createRoom());
+				nextCell = createCell(nextCellCoordinates, createRoom(currentCell->room));
 				nextCell->initialiseEdge<CellDoor>(Directions::getOpposite(randomDirection));
-
 			}
 			else
 			{
