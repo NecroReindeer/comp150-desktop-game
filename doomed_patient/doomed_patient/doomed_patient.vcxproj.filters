@@ -87,6 +87,9 @@
     <ClInclude Include="VectorXY.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CellDoor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -150,6 +153,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VectorXY.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CellDoor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

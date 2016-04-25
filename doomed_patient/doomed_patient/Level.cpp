@@ -8,8 +8,11 @@
 #include "Doctor.h"
 #include "Player.h"
 
-const VectorXY Level::PLAYER_START(0, Level::GRID_SIZE_Y - 1);
+class CellWall;
+class CellPassage;
+class CellDoor;
 
+const VectorXY Level::PLAYER_START(0, Level::GRID_SIZE_Y - 1);
 
 Level::Level(PatientGame* game)
 	:cells(GRID_SIZE_X, std::vector<std::shared_ptr<LevelCell>>(GRID_SIZE_Y, nullptr)),		// Initialise vector to correct size
@@ -67,7 +70,6 @@ std::shared_ptr<CharacterType> Level::createCharacter(VectorXY startCoordinates)
 }
 
 
-
 void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 {
 	// Last index. Can be changed (first, middle, or random) to give different results
@@ -98,19 +100,19 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 			double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
 			bool isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
 
-			currentCell->createPassage(randomDirection, isDoor);
-
 			// nextCell is in a new room if there is a door, otherwise it's in the same room
 			if (isDoor)
 			{
+				currentCell->initialiseEdge<CellDoor>(randomDirection);
 				nextCell = createCell(nextCellCoordinates, createRoom());
+				nextCell->initialiseEdge<CellDoor>(Directions::getOpposite(randomDirection));
 			}
 			else
 			{
+				currentCell->initialiseEdge<CellPassage>(randomDirection);
 				nextCell = createCell(nextCellCoordinates, currentCell->room);
+				nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(randomDirection));
 			}
-
-			nextCell->createPassage(Directions::getOpposite(randomDirection), isDoor);
 
 			// Add new cell to list of active cells
 			activeCells.push_back(nextCell);
@@ -118,20 +120,20 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 		// If a cell already exists and it's in the same room, create a passage
 		else if (currentCell->room == nextCell->room)
 		{
-			currentCell->createPassage(randomDirection, false);
-			nextCell->createPassage(Directions::getOpposite(randomDirection), false);
+			currentCell->initialiseEdge<CellPassage>(randomDirection);
+			nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(randomDirection));
 		}
 		// If a cell already exists and isn't in the same room, create a wall
 		else
 		{
-			currentCell->createWall(randomDirection);
-			nextCell->createWall(Directions::getOpposite(randomDirection));
+			currentCell->initialiseEdge<CellWall>(randomDirection);
+			nextCell->initialiseEdge<CellWall>(Directions::getOpposite(randomDirection));
 		}
 	}
 	// If the current cell is at the edge of the level, create a wall
 	else
 	{
-		currentCell->createWall(randomDirection);
+		currentCell->initialiseEdge<CellWall>(randomDirection);
 	}
 }
 

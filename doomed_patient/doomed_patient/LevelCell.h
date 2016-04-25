@@ -10,6 +10,9 @@
 #include "GameObject.h"
 #include "CellEdge.h"
 #include "VectorXY.h"
+#include "CellWall.h"
+#include "CellPassage.h"
+#include "CellDoor.h"
 
 class Room;
 
@@ -31,7 +34,7 @@ public:
 	  This method instantiates and sets up a pointer to a CellWall
 	  as the edge in the given direction relative to the cell.
 	*/
-	void createWall(Directions::Direction direction);
+	//void createWall(Directions::Direction direction);
 
 	//! Creates a passage on a given side.
 	/*!
@@ -39,7 +42,7 @@ public:
 	as the edge in the given direction relative to the cell.
 	Passages may instead be doors, which is specified by the bool isDoor.
 	*/
-	void createPassage(Directions::Direction direction, bool isDoor);
+	//void createPassage(Directions::Direction direction, bool isDoor);
 
 	//! Render the cell.
 	/*!
@@ -87,6 +90,15 @@ public:
 	  cell has.
 	*/
 	static const int NUMBER_OF_SIDES = 4;
+
+	//!
+	/*!
+	  Needs to be defined in header file as other classes call this function.
+	*/
+	template<typename EdgeType> void initialiseEdge(Directions::Direction direction)
+	{
+		edges[direction] = std::make_shared<EdgeType>(direction, shared_from_this(), game);
+	}
 
 
 private:
