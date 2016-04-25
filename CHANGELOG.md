@@ -1,3 +1,13 @@
+##21/04/2016
+* Cell edges can now be retrieved by passing a direction (Necro)
+* Can check if edges are walls or not (Necro)
+
+##22/03/2016
+* Level now regenerates when players coordinates match the exit (Necro)
+
+##20/03/2016
+* NPCs can no longer start in the same position as the player (Necro)
+
 ##17/03/2016
 * Player now inherits from Character class (Necro)
 * Player starting grid position is now defined by Player (Necro)
