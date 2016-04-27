@@ -9,6 +9,7 @@
 int main(int argc, char* args[])
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
+	srand(1);
 
 	try
 	{

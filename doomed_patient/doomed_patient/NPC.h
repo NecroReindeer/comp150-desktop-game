@@ -34,6 +34,15 @@ public:
 
 	virtual void update(LevelCell::Passable passable);
 
+
 private:
 	Directions::Direction movementDirection;
+
+	std::shared_ptr<LevelCell> currentCell;
+
+	void getNextDirection(LevelCell::Passable passable);
+	void changeDirection();
+	void updateDirection();
+	void updateCurrentCell();
+	bool passedCellCentre();
 };
