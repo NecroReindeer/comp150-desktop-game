@@ -4,13 +4,14 @@
 #include "Directions.h"
 #include "CellWall.h"
 #include "CellPassage.h"
-
+#include "Room.h"
 
 LevelCell::LevelCell(PatientGame* game, VectorXY coordinates, std::shared_ptr<Room> room)
 	: GameObject(game, game->getFloorSprite()),				// Call base class constructor
 	gridPosition(coordinates),
 	room(room)
 {
+	room->addCell(shared_from_this());
 	// Calculate the window position from the grid position
 	centre = gridPosition.convertGridToWindow();
 
