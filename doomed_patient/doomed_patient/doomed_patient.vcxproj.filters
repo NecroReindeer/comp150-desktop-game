@@ -87,7 +87,7 @@
     <ClInclude Include="VectorXY.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
+    <ClInclude Include="NPC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -155,7 +155,7 @@
     <ClCompile Include="VectorXY.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
+    <ClCompile Include="NPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -31,12 +31,12 @@ public:
 	*/
 	VectorXY getStartCoordinates() { return startCoordinates; }
 
-	//! Speed of the player.
+	//! Speed of the characters.
 	/*!
 	This field holds the speed that the character
 	moves.
 	*/
-	int speed;
+	int speed = 1;
 
 	//! Moves the character.
 	/*!
@@ -45,6 +45,9 @@ public:
 	*/
 	void move(Directions::Direction direction);
 
+	virtual void update(LevelCell::Passable passable);
+
+
 private:
 	//! Starting position for the Character
 	/*!
@@ -52,6 +55,7 @@ private:
 	  will start in as a VectorXY.
 	*/
 	VectorXY startCoordinates;
+
 
 };
 

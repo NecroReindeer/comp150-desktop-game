@@ -2,10 +2,12 @@
 #include "Guard.h"
 #include "PatientGame.h"
 #include "LevelCell.h"
-#include "Character.h"
 
 Guard::Guard(PatientGame* game, VectorXY startCoordinates)
-	: Character(game, startCoordinates, game->getGuardSprite())
+	: NPC(game, startCoordinates, game->getGuardSprite())
 {
-	speed = 1;
+}
+void Guard::move(Directions::Direction direction)
+{
+	centre += Directions::getDirectionVector(direction) * speed;
 }

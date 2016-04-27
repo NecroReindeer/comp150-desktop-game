@@ -8,7 +8,7 @@
 #pragma once
 #include "Texture.h"
 #include "Level.h"
-#include "Character.h"
+#include "LevelCell.h"
 
 class PatientGame
 {
@@ -128,7 +128,11 @@ private:
 	*/
 	Level level;
 
+
 	std::shared_ptr<Player> player;
-	std::shared_ptr<Character> character;
+	std::shared_ptr<Exit> exit;
+
+	void generateLevel();
+	
 };
 

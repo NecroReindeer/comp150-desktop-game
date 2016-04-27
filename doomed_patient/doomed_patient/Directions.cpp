@@ -13,6 +13,8 @@ Directions::~Directions()
 
 VectorXY Directions::getDirectionVector(Direction direction)
 {
+	int X = rand() % 4;
+	int Y = rand() % 3 - 1;
 	switch (direction)
 	{
 	case Directions::Direction::NORTH:
@@ -23,6 +25,8 @@ VectorXY Directions::getDirectionVector(Direction direction)
 		return VectorXY(0, 1);
 	case Directions::Direction::WEST:
 		return VectorXY(-1, 0);
+	case Directions::Direction::RANDOM:
+		return VectorXY(X, Y);
 	}
 }
 

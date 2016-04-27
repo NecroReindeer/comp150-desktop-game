@@ -1,3 +1,10 @@
+//! Abstract class for the cells edges.
+/*!
+  This is an abstract class to represent the edges of the
+  cells. Different edge types, such as passages and walls 
+  should inherit from this class.
+*/
+
 #pragma once
 #include "Directions.h"
 #include "Texture.h"
@@ -22,6 +29,13 @@ public:
 	  This method renders the edge if it has a sprite.
 	*/
 	void render(SDL_Renderer* renderer);
+
+	//! Pure virtual method for indicating if edge is wall.
+	/*!
+	  This pure virtual method should be implemented in the subclasses.
+	  It should return a bool that indicates whether the edge is a wall.
+	*/
+	virtual bool isWall();
 
 protected:
 	//! Direction the egde is on.
@@ -76,5 +90,5 @@ private:
 	  edge.
 	*/
 	std::weak_ptr<LevelCell> containingCell;
-
 };
+

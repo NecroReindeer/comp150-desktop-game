@@ -5,6 +5,8 @@
 #include "Guard.h"
 #include "Doctor.h"
 #include "Player.h"
+#include "Exit.h"
+#include "LevelCell.h"
 
 PatientGame::PatientGame()
 	: guardSprite("Sprites\\Guard.png"),
@@ -28,7 +30,7 @@ PatientGame::PatientGame()
 	}
 
 	// Create window for the game
-	window = SDL_CreateWindow("The Doomed Patient", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN); //| SDL_WINDOW_FULLSCREEN
+	window = SDL_CreateWindow("The Doomed Patient", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 	// Check if window was successfully created
 	if (window == nullptr)
 	{
@@ -60,8 +62,7 @@ PatientGame::~PatientGame()
 void PatientGame::run()
 {
 	running = true;
-	level.generateMaze();
-	player = level.createPlayer();
+	generateLevel();
 
 	// Main game loop
 	while (running)
@@ -73,6 +74,14 @@ void PatientGame::run()
 }
 
 
+void PatientGame::generateLevel()
+{
+	level.generateMaze();
+	player = level.getPlayer();
+	exit = level.getExit();
+}
+
+
 // Handle events such as quitting and player input here
 void PatientGame::handleEvents()
 {
@@ -81,7 +90,7 @@ void PatientGame::handleEvents()
 	{
 		switch (ev.type)
 		{
-			// Close the game when user quits
+		// Close the game when user quits
 		case SDL_QUIT:
 			running = false;
 			break;
@@ -89,8 +98,7 @@ void PatientGame::handleEvents()
 		default:
 			break;
 		}
-	}
-
+	} 
 
 	// Check keyboard state
 	const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
@@ -108,7 +116,24 @@ void PatientGame::handleEvents()
 // Game updates that need to happen every frame go here
 void PatientGame::update()
 {
+	for each (std::shared_ptr<Character> npc in level.characters)
+	{
+		// TODO: Bug where centre appears to be checking wrong cell for north and west edges
+		LevelCell::Passable direction = {
+			level.getCell((npc->getCentre()).convertWindowToGrid() )->getEdge(Directions::Direction::NORTH)->isWall(),
+			level.getCell(npc->getCentre().convertWindowToGrid())->getEdge(Directions::Direction::EAST)->isWall(),
+			level.getCell(npc->getCentre().convertWindowToGrid())->getEdge(Directions::Direction::SOUTH)->isWall(),
+			level.getCell((npc->getCentre()).convertWindowToGrid())->getEdge(Directions::Direction::WEST)->isWall()
+		};
 
+		npc->update(direction);
+	}
+
+	// Temporary before collision checking is implemented
+	if (player->getCentre() == exit->getCentre())
+	{
+		generateLevel();
+	}
 }
 
 

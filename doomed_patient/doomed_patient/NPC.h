@@ -1,20 +1,19 @@
-//! Class for the Doctors.
+//! Class for the Guards.
 /*!
-This is a class for handling the doctors 
+This is a class for handling the Guards
 and storing any unique data.
-It inherits from th GameObject class 
+It inherits from th GameObject class
 for any general data.
 */
 #pragma once
-
 #include "Character.h"
 #include "VectorXY.h"
 #include "Directions.h"
-#include "NPC.h"
+#include "LevelCell.h"
 
 class LevelCell;
 
-class Doctor : public NPC
+class NPC : public Character
 {
 public:
 	//!Constructor for the Guard
@@ -24,7 +23,7 @@ public:
 	It calls through to the constructor for the base class,
 	Character, and passes its sprite in.
 	*/
-	Doctor(PatientGame* game, VectorXY startCoordinates);
+	NPC(PatientGame* game, VectorXY startCoordinates, Texture* sprite);
 
 	//! Moves the player.
 	/*!
@@ -32,5 +31,9 @@ public:
 	direction at the player's speed.
 	*/
 	void move(Directions::Direction direction);
-};
 
+	virtual void update(LevelCell::Passable passable);
+
+private:
+	Directions::Direction movementDirection;
+};

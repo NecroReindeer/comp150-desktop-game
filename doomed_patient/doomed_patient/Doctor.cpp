@@ -2,10 +2,12 @@
 #include "Doctor.h"
 #include "PatientGame.h"
 #include "LevelCell.h"
-#include "Character.h"
 
 Doctor::Doctor(PatientGame* game, VectorXY startCoordinates)
-	: Character(game, startCoordinates, game->getDoctorSprite())
+	:NPC(game, startCoordinates, game->getDoctorSprite())
 {
-	speed = 1;
+}
+void Doctor::move(Directions::Direction direction)
+{
+	centre += Directions::getDirectionVector(direction) * speed;
 }

@@ -10,7 +10,19 @@
 class VectorXY
 {
 public:
+	//! Parameterless constructor.
+	/*!
+	  The parameterless constructor can be
+	  used if the x and y coordinates are not
+	  initially known.
+	*/
 	VectorXY();
+
+	//! Constructor that takes x and y coordinates.
+	/*!
+	  This constructor sets the x and y coordinates
+	  when the vector is instantiated.
+	*/
 	VectorXY(int x, int y);
 
 	//! Interger representing the x coordinate.
@@ -49,6 +61,12 @@ public:
 
 	VectorXY& operator+=(const VectorXY& otherVector);
 
+	//! Operator overload for equality comparison.
+	/*!
+	  This is the operator overload for equality comparison.
+	  It returns true if the x and y coordinates of the
+	  two vectors are the same.
+	*/
 	bool operator==(const VectorXY& otherVector);
 
 	//! Convert grid coordinates to window coordinates.
@@ -58,5 +76,13 @@ public:
 	  and returns it as a VectorXY.
 	*/
 	VectorXY convertGridToWindow();
+
+	//! Convert window coordinates to grid coordinates.
+	/*!
+	This method converts window coordinates (this) into
+	grid coordinates, using the size of the level cells,
+	and returns it as a VectorXY.
+	*/
+	VectorXY convertWindowToGrid();
 };
 

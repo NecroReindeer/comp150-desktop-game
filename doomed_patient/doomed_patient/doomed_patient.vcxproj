@@ -172,9 +172,9 @@
     <ClInclude Include="InitialisationError.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelCell.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="PatientGame.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Time.h" />
     <ClInclude Include="VectorXY.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Room.h" />
@@ -198,9 +198,9 @@
     <ClCompile Include="InitialisationError.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelCell.cpp" />
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="PatientGame.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Time.cpp" />
     <ClCompile Include="VectorXY.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="stdafx.cpp">

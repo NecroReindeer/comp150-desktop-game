@@ -67,7 +67,19 @@ public:
 	*/
 	VectorXY getCoordinates() { return gridPosition; }
 
+	//! Pointer to the room the cell is in.
+	/*!
+	  This field holds a shared pointer to the room
+	  that contains the cell.
+	*/
 	std::shared_ptr<Room> room;
+
+	//! Returns a pointer to the edge in the given direction.
+	/*!
+	  This method returns a pointer to the cell's edge that's 
+	  in the given Directions::Direction.
+	*/
+	std::shared_ptr<CellEdge> getEdge(Directions::Direction direction) { return edges[direction]; }
 
 	//! The number of sides the cell has.
 	/*!
@@ -75,6 +87,14 @@ public:
 	  cell has.
 	*/
 	static const int NUMBER_OF_SIDES = 4;
+
+	struct Passable
+	{
+		bool NORTH;
+		bool EAST;
+		bool SOUTH;
+		bool WEST;
+	};
 
 
 private:

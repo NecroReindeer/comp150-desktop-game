@@ -2,11 +2,14 @@
 #include "Player.h"
 #include "PatientGame.h"
 #include "LevelCell.h"
-#include "Character.h"
 
-Player::Player(PatientGame* game)
-	: Character(game, VectorXY(0, Level::GRID_SIZE_Y - 1), game->getPlayerSprite())
-
+Player::Player(PatientGame* game, VectorXY startCoordinates)
+	: Character(game, startCoordinates, game->getPlayerSprite()),
+	speed(2)
 {
-	speed = 2;
+}
+
+void Player::move(Directions::Direction direction)
+{
+	centre += Directions::getDirectionVector(direction) * speed;
 }

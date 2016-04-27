@@ -17,6 +17,13 @@ public:
 	CellWall(Directions::Direction direction, std::shared_ptr<LevelCell> cell, PatientGame* game);
 	~CellWall();
 
+	//! This method returns whether the edge is a wall.
+	/*!
+	  This method returns a bool indicating whether the edge is a wall.
+	  CellWall is a wall, so should return true.
+	*/
+	bool isWall() { return true; }
+
 
 private:
 	//! Initialises the sprite.
