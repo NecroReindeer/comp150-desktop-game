@@ -20,12 +20,89 @@ void NPC::move(Directions::Direction direction)
 
 void NPC::update(LevelCell::Passable blocked)
 {
+	// Makes sure NPC's grid position is up to date
 	updateCurrentCell();
+
+	// Update direction if necessary
 	updateDirection();
+
 	move(movementDirection);
 }
 
+// Call NPC behaviour code/methods that change NPC movementDirection from this method!
+void NPC::changeDirection()
+{
+	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
 
+
+	//PUT STUFF HERE
+
+
+	// Temporary for testing
+	// Changes direction to a random direction until it finds one that isn't a wall
+	while (currentEdge->isWall())
+	{
+		int random = rand() % 4;
+		movementDirection = static_cast<Directions::Direction>(random);
+		currentEdge = currentCell->getEdge(movementDirection);
+	}
+}
+
+
+void NPC::updateDirection()
+{
+	VectorXY currentCellCentre = currentCell->getCentre();
+	// Pointer because of polymorphism
+	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
+
+	// NPC needs to change direction if there is a wall
+	if (currentEdge->isWall())
+	{
+		// Check that the NPC is past the centre of its cell, relative
+		// to its movement direction
+		switch (movementDirection)
+		{
+		case Directions::Direction::NORTH:
+			if (centre.y <= currentCellCentre.y)
+			{
+				centre.y = currentCellCentre.y;
+				changeDirection();
+			}
+			break;
+		case Directions::Direction::EAST:
+			if (centre.x >= currentCellCentre.x)
+			{
+				centre.x = currentCellCentre.x;
+				changeDirection();
+			}
+			break;
+		case Directions::Direction::SOUTH:
+			if (centre.y >= currentCellCentre.y)
+			{
+				centre.y = currentCellCentre.y;
+				changeDirection();
+			}
+			break;
+		case Directions::Direction::WEST:
+			if (centre.x <= currentCellCentre.x)
+			{
+				centre.x = currentCellCentre.x;
+				changeDirection();
+			}
+			break;
+		}
+	}
+}
+
+
+void NPC::updateCurrentCell()
+{
+	currentCell = game->getLevel().getCell(centre.convertWindowToGrid());
+}
+
+
+
+//JAMES: I moved your code into this method for now, as it wasn't compatible with the fix
 void NPC::getNextDirection(LevelCell::Passable blocked)
 {
 	//Checking for passable directions and updateing direction
@@ -111,68 +188,4 @@ void NPC::getNextDirection(LevelCell::Passable blocked)
 	//		move(Directions::Direction::WEST);
 	//	}
 }
-
-
-void NPC::changeDirection()
-{
-	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
-
-	while (currentEdge->isWall())
-	{
-		int random = rand() % 4;
-		movementDirection = static_cast<Directions::Direction>(random);
-		currentEdge = currentCell->getEdge(movementDirection);
-	}
-}
-
-
-void NPC::updateDirection()
-{
-	VectorXY currentCellCentre = currentCell->getCentre();
-	// Pointer because of polymorphism
-	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
-
-	if (currentEdge->isWall())
-	{
-		switch (movementDirection)
-		{
-		case Directions::Direction::NORTH:
-			if (centre.y <= currentCellCentre.y)
-			{
-				centre.y = currentCellCentre.y;
-				changeDirection();
-			}
-			break;
-		case Directions::Direction::EAST:
-			if (centre.x >= currentCellCentre.x)
-			{
-				centre.x = currentCellCentre.x;
-				changeDirection();
-			}
-			break;
-		case Directions::Direction::SOUTH:
-			if (centre.y >= currentCellCentre.y)
-			{
-				centre.y = currentCellCentre.y;
-				changeDirection();
-			}
-			break;
-		case Directions::Direction::WEST:
-			if (centre.x <= currentCellCentre.x)
-			{
-				centre.x = currentCellCentre.x;
-				changeDirection();
-			}
-			break;
-		}
-	}
-	
-}
-
-
-void NPC::updateCurrentCell()
-{
-	currentCell = game->getLevel().getCell(centre.convertWindowToGrid());
-}
-
 
