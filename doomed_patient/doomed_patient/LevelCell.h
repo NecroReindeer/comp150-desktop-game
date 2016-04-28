@@ -29,6 +29,9 @@ public:
 	*/
 	LevelCell(PatientGame* game, VectorXY coordinates);
 
+	// TEMPORARY for visualising corridors during testing
+	LevelCell(PatientGame* game, VectorXY coordinates, Texture* sprite);
+
 	//! Creates a wall on a given side.
 	/*!
 	  This method instantiates and sets up a pointer to a CellWall

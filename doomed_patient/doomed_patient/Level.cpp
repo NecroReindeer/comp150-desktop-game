@@ -7,6 +7,7 @@
 #include "Guard.h"
 #include "Doctor.h"
 #include "Player.h"
+#include "PatientGame.h"
 
 class CellWall;
 class CellPassage;
@@ -107,34 +108,20 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 		std::shared_ptr<LevelCell> nextCell = getCell(nextCellCoordinates);
 		std::shared_ptr<Room> currentCellRoom = currentCell->room.lock();
 				
-
 		// If there isn't a cell in the visted coordinates, create the cell and a passage
 		if (!nextCell)
 		{
+			bool isDoor;
 			// Decide if the passage will be a door by picking random number between 0 and 1
 			double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
-			bool isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
+			isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
 
-			if ((currentIndex - 1) >= 0)
+			if (currentIndex > 0)
 			{
-				auto cameFrom = activeCells[currentIndex - 1];
-				std::shared_ptr<Room> prevCellRoom = cameFrom->room.lock();
-				if (currentCellRoom->corridor && prevCellRoom->corridor)
+				bool doorRequired = assignDoor(currentCellRoom, currentCell, nextCellCoordinates, activeCells[currentIndex - 1]);
+				if (doorRequired)
 				{
-					if (currentCell->getCoordinates().x == cameFrom->getCoordinates().x)
-					{
-						if (nextCellCoordinates.x != currentCell->getCoordinates().x)
-						{
-							isDoor = true;
-						}
-					}
-					else if (currentCell->getCoordinates().y == cameFrom->getCoordinates().y)
-					{
-						if (nextCellCoordinates.y != currentCell->getCoordinates().y)
-						{
-							isDoor = true;
-						}
-					}
+					isDoor = doorRequired;
 				}
 			}
 			
@@ -181,6 +168,31 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 	}
 }
 
+bool Level::assignDoor(std::shared_ptr<Room> currentRoom, std::shared_ptr<LevelCell> currentCell, VectorXY nextCellCoordinates, std::shared_ptr<LevelCell> previousCell)
+{
+	bool isDoor = false;
+	std::shared_ptr<Room> prevCellRoom = previousCell->room.lock();
+
+	if (currentRoom->corridor && prevCellRoom->corridor)
+	{
+		if (currentCell->getCoordinates().x == previousCell->getCoordinates().x)
+		{
+			if (nextCellCoordinates.x != currentCell->getCoordinates().x)
+			{
+				isDoor = true;
+			}
+		}
+		else if (currentCell->getCoordinates().y == previousCell->getCoordinates().y)
+		{
+			if (nextCellCoordinates.y != currentCell->getCoordinates().y)
+			{
+				isDoor = true;
+			}
+		}
+	}
+
+	return isDoor;
+}
 
 void Level::placeExit()
 {
@@ -275,6 +287,14 @@ void Level::render(SDL_Renderer* renderer)
 std::shared_ptr<LevelCell> Level::createCell(VectorXY coordinates, std::shared_ptr<Room> room)
 {
 	cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates);
+
+	// IF statement temporary for testing! visualises corridors
+	if (room->corridor)
+	{
+		cells[coordinates.x][coordinates.y] = nullptr;
+		cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates, game->getCorridorSprite());
+	}
+	
 	cells[coordinates.x][coordinates.y]->assignRoom(room);
 	return cells[coordinates.x][coordinates.y];
 }

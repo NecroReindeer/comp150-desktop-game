@@ -20,6 +20,20 @@ LevelCell::LevelCell(PatientGame* game, VectorXY coordinates)
 	edges[Directions::Direction::SOUTH] = nullptr;
 }
 
+LevelCell::LevelCell(PatientGame* game, VectorXY coordinates, Texture* sprite)
+	: GameObject(game, sprite),				// Call base class constructor
+	gridPosition(coordinates)
+{
+	// Calculate the window position from the grid position
+	centre = gridPosition.convertGridToWindow();
+
+	// Set up empty edges
+	edges[Directions::Direction::NORTH] = nullptr;
+	edges[Directions::Direction::EAST] = nullptr;
+	edges[Directions::Direction::WEST] = nullptr;
+	edges[Directions::Direction::SOUTH] = nullptr;
+}
+
 
 void LevelCell::render(SDL_Renderer* renderer)
 {

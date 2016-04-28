@@ -58,6 +58,7 @@ public:
 	Texture* getExitSprite() { return &exitSprite; }
 	Texture* getHorizontalLockedSprite() { return &horizontalLockedDoorSprite; }
 	Texture* getVerticalLockedSprite() { return &verticalLockedDoorSprite; }
+	Texture* getCorridorSprite() { return &corridorSprite; }
 
 private:
 
@@ -124,6 +125,7 @@ private:
 	Texture doctorSprite;
 	Texture creatureSprite;
 	Texture playerSprite;
+	Texture corridorSprite;
 
 	//! The current level.
 	/*!

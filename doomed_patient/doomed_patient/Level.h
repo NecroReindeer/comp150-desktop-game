@@ -226,6 +226,8 @@ private:
 	*/
 	void clearLevel();
 
+	bool assignDoor(std::shared_ptr<Room> currentRoom, std::shared_ptr<LevelCell> currentCell, VectorXY nextCellCoordinates, std::shared_ptr<LevelCell> previousCell);
+
 	//! The probability that a door will be made.
 	/*!
 	This constant defines the probability that a door
