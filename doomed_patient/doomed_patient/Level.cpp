@@ -112,6 +112,8 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 		if (!nextCell)
 		{
 			bool isDoor;
+			
+			
 			// Decide if the passage will be a door by picking random number between 0 and 1
 			double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
 			isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
@@ -123,6 +125,15 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 				{
 					isDoor = doorRequired;
 				}
+			}
+
+			if (currentCellRoom->getCells().size() < MIN_ROOM_SIZE)
+			{
+				isDoor = false;
+			}
+			else if (currentCellRoom->getCells().size() >= MAX_ROOM_SIZE)
+			{
+				isDoor = true;
 			}
 			
 
@@ -173,6 +184,7 @@ bool Level::assignDoor(std::shared_ptr<Room> currentRoom, std::shared_ptr<LevelC
 	bool isDoor = false;
 	std::shared_ptr<Room> prevCellRoom = previousCell->room.lock();
 
+	
 	if (currentRoom->corridor && prevCellRoom->corridor)
 	{
 		if (currentCell->getCoordinates().x == previousCell->getCoordinates().x)
