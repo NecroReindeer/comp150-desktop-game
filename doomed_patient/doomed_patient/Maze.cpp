@@ -31,6 +31,16 @@ void Maze::generateCells(MazeGenerationManager& generationManager)
 	// Get a random direction that doesn't yet have an edge set
 	generationManager.nextDirection = generationManager.getCurrentCell()->getRandomUninitialisedDirection();
 
+	if (generationManager.activeCells.size() > 1)
+	{
+		if (generationManager.getCurrentRoom()->corridor)
+		{
+			VectorXY currentExplorationDirection = generationManager.getCurrentCell()->getCoordinates() - generationManager.getPreviousCell()->getCoordinates();
+			generationManager.nextDirection = generationManager.getCurrentCell()->getBiasedUninitialisedDirection(Directions::getDirectionFromVector(currentExplorationDirection));
+		}
+	}
+	
+
 	if (containsCoordinates(generationManager.getNextCellCoordinates()))
 	{
 		generationManager.nextCell = getCell(generationManager.getNextCellCoordinates());
@@ -38,20 +48,7 @@ void Maze::generateCells(MazeGenerationManager& generationManager)
 		// If there isn't a cell in the visted coordinates, create the cell and a passage
 		if (!generationManager.nextCell)
 		{
-			bool isDoor;
-
-			// Decide if the passage will be a door by picking random number between 0 and 1
-			double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
-			isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
-
-			if (generationManager.currentIndex > 0)
-			{
-				bool doorRequired = assignDoor(generationManager);
-				if (doorRequired)
-				{
-					isDoor = doorRequired;
-				}
-			}
+			bool isDoor = assignDoor(generationManager);
 
 			if (generationManager.getCurrentRoom()->getCells().size() < MIN_ROOM_SIZE)
 			{
@@ -102,23 +99,29 @@ void Maze::generateCells(MazeGenerationManager& generationManager)
 
 bool Maze::assignDoor(MazeGenerationManager& generationManager)
 {
-	bool isDoor = false;
-	std::shared_ptr<Room> prevCellRoom = generationManager.getPreviousCell()->room.lock();
-
-	if (generationManager.getCurrentRoom()->corridor && prevCellRoom->corridor)
+	// Decide if the passage will be a door by picking random number between 0 and 1
+	double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
+	bool isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
+	
+	if (generationManager.getPreviousCell())
 	{
-		if (generationManager.getCurrentCell()->getCoordinates().x == generationManager.getPreviousCell()->getCoordinates().x)
+		std::shared_ptr<Room> prevCellRoom = generationManager.getPreviousCell()->room.lock();
+
+		if (generationManager.getCurrentRoom()->corridor && prevCellRoom->corridor)
 		{
-			if (generationManager.getNextCellCoordinates().x != generationManager.getCurrentCell()->getCoordinates().x)
+			if (generationManager.getCurrentCell()->getCoordinates().x == generationManager.getPreviousCell()->getCoordinates().x)
 			{
-				isDoor = true;
+				if (generationManager.getNextCellCoordinates().x != generationManager.getCurrentCell()->getCoordinates().x)
+				{
+					isDoor = true;
+				}
 			}
-		}
-		else if (generationManager.getCurrentCell()->getCoordinates().y == generationManager.getPreviousCell()->getCoordinates().y)
-		{
-			if (generationManager.getNextCellCoordinates().y != generationManager.getCurrentCell()->getCoordinates().y)
+			else if (generationManager.getCurrentCell()->getCoordinates().y == generationManager.getPreviousCell()->getCoordinates().y)
 			{
-				isDoor = true;
+				if (generationManager.getNextCellCoordinates().y != generationManager.getCurrentCell()->getCoordinates().y)
+				{
+					isDoor = true;
+				}
 			}
 		}
 	}

@@ -35,6 +35,8 @@ public:
 	*/
 	static VectorXY getDirectionVector(Direction direction);
 
+	static Direction getDirectionFromVector(VectorXY vector);
+
 	//! Return the opposite direction to the given direction
 	/*!
 	  This method returns the direction that is opposite to

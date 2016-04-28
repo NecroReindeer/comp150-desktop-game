@@ -68,6 +68,8 @@ public:
 	*/
 	Directions::Direction getRandomUninitialisedDirection();
 
+	Directions::Direction getBiasedUninitialisedDirection(Directions::Direction direction);
+
 	//! Return the cell's coordinates.
 	/*!
 	  This getter returns the cell's coordinates as GridCoordinate.

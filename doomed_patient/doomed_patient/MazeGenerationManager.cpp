@@ -24,9 +24,13 @@ std::shared_ptr<LevelCell>  MazeGenerationManager::getCurrentCell()
 
 std::shared_ptr<LevelCell>  MazeGenerationManager::getPreviousCell()
 {
-	if (activeCells.size() > 0)
+	if (activeCells.size() > 1)
 	{
 		return activeCells[currentIndex - 1];
+	}
+	else
+	{
+		return nullptr;
 	}
 }
 

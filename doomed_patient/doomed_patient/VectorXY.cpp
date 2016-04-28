@@ -18,6 +18,12 @@ VectorXY VectorXY::operator+(const VectorXY& otherVector)
 	return newVector;
 }
 
+VectorXY VectorXY::operator-(const VectorXY& otherVector)
+{
+	VectorXY newVector(x - otherVector.x, y - otherVector.y);
+	return newVector;
+}
+
 VectorXY VectorXY::operator*(const int& scalar)
 {
 	VectorXY newVector(x * scalar, y * scalar);
