@@ -88,9 +88,7 @@ Directions::Direction LevelCell::getRandomUninitialisedDirection()
 
 Directions::Direction LevelCell::getBiasedUninitialisedDirection(Directions::Direction direction)
 {
-	double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
-	bool sameDirection = (randomNumber < 0.8) ? true : false; 
-	if (!edges[direction] && sameDirection)
+	if (!edges[direction])
 	{
 		return direction;
 	}
