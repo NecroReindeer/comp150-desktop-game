@@ -58,6 +58,8 @@ public:
 	Texture* getVerticalDoorSprite() { return &verticalDoorSprite; }
 	Texture* getExitSprite() { return &exitSprite; }
 
+	Level getLevel() { return level; }
+
 private:
 
 	//! Pointer to the SDL window.

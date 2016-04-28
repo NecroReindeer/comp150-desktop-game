@@ -34,6 +34,40 @@ public:
 
 	virtual void update(LevelCell::Passable passable);
 
+
 private:
 	Directions::Direction movementDirection;
+
+	// The cell the NPC is currently occupying.
+	/*!
+	This method updates the NPCs currentCell pointer to the
+	cell that the game considers the NPC to be occupying.
+	*/
+	std::shared_ptr<LevelCell> currentCell;
+
+	void getNextDirection(LevelCell::Passable passable);
+
+	// Change the direction of the NPC.
+	/*!
+	  This method changes the direction of the NPC.
+	*/
+	void changeDirection();
+
+	// Check if the NPC is in a position to change direction and change if so
+	/*!
+	  This method ensures that the NPC has passed the centre of the cell that
+	  he is currently occupying before changing direction.
+	  It calls changeDirection() if the NPC is past the centre and the edge is
+	  a wall.
+	*/
+	void updateDirection();
+
+	// Update the pointer to the cell the NPC is occupying
+	/*!
+	  This method updates the NPCs currentCell pointer to the
+	  cell that the game considers the NPC to be occupying.
+	  This method should be called before any other methods that
+	  rely on cell position are called (i.e. movement/behaviour)
+	*/
+	void updateCurrentCell();
 };
