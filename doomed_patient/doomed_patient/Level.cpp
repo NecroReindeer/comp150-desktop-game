@@ -94,6 +94,8 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 		return;
 	}
 
+	
+
 	// Get a random direction that doesn't yet have an edge set
 	Directions::Direction randomDirection = currentCell->getRandomUninitialisedDirection();
 
@@ -103,6 +105,8 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 	if (containsCoordinates(nextCellCoordinates))
 	{
 		std::shared_ptr<LevelCell> nextCell = getCell(nextCellCoordinates);
+		std::shared_ptr<Room> currentCellRoom = currentCell->room.lock();
+				
 
 		// If there isn't a cell in the visted coordinates, create the cell and a passage
 		if (!nextCell)
@@ -114,7 +118,8 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 			if ((currentIndex - 1) >= 0)
 			{
 				auto cameFrom = activeCells[currentIndex - 1];
-				if (currentCell->room->corridor && cameFrom->room->corridor)
+				std::shared_ptr<Room> prevCellRoom = cameFrom->room.lock();
+				if (currentCellRoom->corridor && prevCellRoom->corridor)
 				{
 					if (currentCell->getCoordinates().x == cameFrom->getCoordinates().x)
 					{
@@ -138,13 +143,13 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 			if (isDoor)
 			{
 				currentCell->initialiseEdge<CellDoor>(randomDirection);
-				nextCell = createCell(nextCellCoordinates, createRoom(currentCell->room));
+				nextCell = createCell(nextCellCoordinates, createRoom(currentCellRoom));
 				nextCell->initialiseEdge<CellDoor>(Directions::getOpposite(randomDirection));
 			}
 			else
 			{
 				currentCell->initialiseEdge<CellPassage>(randomDirection);
-				nextCell = createCell(nextCellCoordinates, currentCell->room);
+				nextCell = createCell(nextCellCoordinates, currentCellRoom);
 				nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(randomDirection));
 			}
 
@@ -152,16 +157,21 @@ void Level::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 			activeCells.push_back(nextCell);
 		}
 		// If a cell already exists and it's in the same room, create a passage
-		else if (currentCell->room == nextCell->room)
+		else if (nextCell)
 		{
-			currentCell->initialiseEdge<CellPassage>(randomDirection);
-			nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(randomDirection));
-		}
-		// If a cell already exists and isn't in the same room, create a wall
-		else
-		{
-			currentCell->initialiseEdge<CellWall>(randomDirection);
-			nextCell->initialiseEdge<CellWall>(Directions::getOpposite(randomDirection));
+			std::shared_ptr<Room> nextCellRoom = nextCell->room.lock();
+
+			if (currentCellRoom == nextCellRoom)
+			{
+				currentCell->initialiseEdge<CellPassage>(randomDirection);
+				nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(randomDirection));
+			}
+			// If a cell already exists and isn't in the same room, create a wall
+			else
+			{
+				currentCell->initialiseEdge<CellWall>(randomDirection);
+				nextCell->initialiseEdge<CellWall>(Directions::getOpposite(randomDirection));
+			}
 		}
 	}
 	// If the current cell is at the edge of the level, create a wall
@@ -264,7 +274,8 @@ void Level::render(SDL_Renderer* renderer)
 
 std::shared_ptr<LevelCell> Level::createCell(VectorXY coordinates, std::shared_ptr<Room> room)
 {
-	cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates, room);
+	cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates);
+	cells[coordinates.x][coordinates.y]->assignRoom(room);
 	return cells[coordinates.x][coordinates.y];
 }
 

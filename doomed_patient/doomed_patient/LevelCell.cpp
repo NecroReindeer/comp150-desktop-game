@@ -6,12 +6,10 @@
 #include "CellPassage.h"
 #include "Room.h"
 
-LevelCell::LevelCell(PatientGame* game, VectorXY coordinates, std::shared_ptr<Room> room)
+LevelCell::LevelCell(PatientGame* game, VectorXY coordinates)
 	: GameObject(game, game->getFloorSprite()),				// Call base class constructor
-	gridPosition(coordinates),
-	room(room)
+	gridPosition(coordinates)
 {
-	room->addCell(shared_from_this());
 	// Calculate the window position from the grid position
 	centre = gridPosition.convertGridToWindow();
 
@@ -71,4 +69,11 @@ Directions::Direction LevelCell::getRandomUninitialisedDirection()
 			uncheckedDirections.erase(uncheckedDirections.begin() + index);
 		}
 	}
+}
+
+void LevelCell::assignRoom(std::shared_ptr<Room> assignedRoom)
+{
+	room = assignedRoom;
+	std::shared_ptr<Room> cellRoom = room.lock();
+	cellRoom->addCell(shared_from_this());
 }

@@ -27,7 +27,7 @@ public:
 	  window position based on its xy grid coordinates.
 	  It also initialises the edges to nullptr.
 	*/
-	LevelCell(PatientGame* game, VectorXY coordinates, std::shared_ptr<Room> room);
+	LevelCell(PatientGame* game, VectorXY coordinates);
 
 	//! Creates a wall on a given side.
 	/*!
@@ -75,7 +75,7 @@ public:
 	  This field holds a shared pointer to the room
 	  that contains the cell.
 	*/
-	std::shared_ptr<Room> room;
+	std::weak_ptr<Room> room;
 
 	//! Returns a pointer to the edge in the given direction.
 	/*!
@@ -90,6 +90,8 @@ public:
 	  cell has.
 	*/
 	static const int NUMBER_OF_SIDES = 4;
+
+	void assignRoom(std::shared_ptr<Room> assignedRoom);
 
 	//!
 	/*!
