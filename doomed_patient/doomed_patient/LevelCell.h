@@ -13,6 +13,7 @@
 #include "CellWall.h"
 #include "CellPassage.h"
 #include "CellDoor.h"
+#include "Room.h"
 
 class Room;
 

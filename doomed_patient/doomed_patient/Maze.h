@@ -1,5 +1,7 @@
 #pragma once
 #include "VectorXY.h"
+#include "Room.h"
+#include "MazeGenerationManager.h"
 
 class LevelCell;
 class Room;
@@ -46,7 +48,7 @@ private:
 	  generate each cell of the level and the positionings
 	  of walls and doors.
 	*/
-	void generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells);
+	void generateCells(MazeGenerationManager& generationManager);
 
 	//! Check if the given coordinates are in the level.
 	/*!
@@ -67,8 +69,19 @@ private:
 	  This method creates a room and returns a pointer to the
 	  room it has created. Rooms are used to determine where
 	  passages should be placed instead of walls.
+	  The room is set as a corridor if it came from a non-corridor,
+	  and a non-corridor if it came from a corridor.
 	*/
 	std::shared_ptr<Room> createRoom(std::shared_ptr<Room> cameFrom);
+
+	//! Create a room.
+	/*!
+	  This method creates a room and returns a pointer to the
+	  room it has created. Rooms are used to determine where
+	  passages should be placed instead of walls.
+	  This version of the method should be used when the very
+	  first cell is created.
+	*/
 	std::shared_ptr<Room> createRoom();
 
 	//! Returns random coordinates.
@@ -101,7 +114,10 @@ private:
 	*/
 	std::vector<std::shared_ptr<Room>> rooms;
 
-	bool assignDoor(std::shared_ptr<Room> currentRoom, std::shared_ptr<LevelCell> currentCell, VectorXY nextCellCoordinates, std::shared_ptr<LevelCell> previousCell);
+	bool assignDoor(MazeGenerationManager& generationManager);
+
+	void createCellInNewRoom(MazeGenerationManager& generationManager);
+	void createCellInSameRoom(MazeGenerationManager& generationManager);
 
 	//! The probability that a door will be made.
 	/*!

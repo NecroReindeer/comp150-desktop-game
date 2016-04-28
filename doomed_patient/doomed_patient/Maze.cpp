@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "Maze.h"
-#include "Room.h"
 #include "LevelCell.h"
 #include "PatientGame.h"
+#include "MazeGenerationManager.h"
+
 
 Maze::Maze(PatientGame* game)
 	:cells(Level::GRID_SIZE_X, std::vector<std::shared_ptr<LevelCell>>(Level::GRID_SIZE_Y, nullptr)),		// Initialise vector to correct size
@@ -15,54 +16,51 @@ Maze::~Maze()
 {
 }
 
-void Maze::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
+void Maze::generateCells(MazeGenerationManager& generationManager)
 {
 	// Last index. Can be changed (first, middle, or random) to give different results
-	int currentIndex = activeCells.size() - 1;
-	std::shared_ptr<LevelCell> currentCell = activeCells[currentIndex];
+	generationManager.currentIndex = generationManager.activeCells.size() - 1;
+	generationManager.currentCell = generationManager.activeCells[generationManager.currentIndex];
 
 	// Delete the cell from the list of active cell if all edges have been set
-	if (currentCell->allEdgesInitialised())
+	if (generationManager.currentCell->allEdgesInitialised())
 	{
-		activeCells.erase(activeCells.begin() + currentIndex);
+		generationManager.activeCells.erase(generationManager.activeCells.begin() + generationManager.currentIndex);
 		return;
 	}
 
 	// Get a random direction that doesn't yet have an edge set
-	Directions::Direction randomDirection = currentCell->getRandomUninitialisedDirection();
+	generationManager.nextDirection = generationManager.currentCell->getRandomUninitialisedDirection();
 
-	// Calculate the next coordinates to be visited
-	VectorXY nextCellCoordinates = currentCell->getCoordinates() + Directions::getDirectionVector(randomDirection);
-
-	if (containsCoordinates(nextCellCoordinates))
+	if (containsCoordinates(generationManager.getNextCellCoordinates()))
 	{
-		std::shared_ptr<LevelCell> nextCell = getCell(nextCellCoordinates);
-		std::shared_ptr<Room> currentCellRoom = currentCell->room.lock();
+		generationManager.nextCell = getCell(generationManager.getNextCellCoordinates());
+		generationManager.currentRoom = generationManager.currentCell->room.lock();
+
 
 		// If there isn't a cell in the visted coordinates, create the cell and a passage
-		if (!nextCell)
+		if (!generationManager.nextCell)
 		{
 			bool isDoor;
-
 
 			// Decide if the passage will be a door by picking random number between 0 and 1
 			double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
 			isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
 
-			if (currentIndex > 0)
+			if (generationManager.currentIndex > 0)
 			{
-				bool doorRequired = assignDoor(currentCellRoom, currentCell, nextCellCoordinates, activeCells[currentIndex - 1]);
+				bool doorRequired = assignDoor(generationManager);
 				if (doorRequired)
 				{
 					isDoor = doorRequired;
 				}
 			}
 
-			if (currentCellRoom->getCells().size() < MIN_ROOM_SIZE)
+			if (generationManager.currentRoom->getCells().size() < MIN_ROOM_SIZE)
 			{
 				isDoor = false;
 			}
-			else if (currentCellRoom->getCells().size() >= MAX_ROOM_SIZE)
+			else if (generationManager.currentRoom->getCells().size() >= MAX_ROOM_SIZE)
 			{
 				isDoor = true;
 			}
@@ -71,64 +69,59 @@ void Maze::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 			// nextCell is in a new room if there is a door, otherwise it's in the same room
 			if (isDoor)
 			{
-				currentCell->initialiseEdge<CellDoor>(randomDirection);
-				nextCell = createCell(nextCellCoordinates, createRoom(currentCellRoom));
-				nextCell->initialiseEdge<CellDoor>(Directions::getOpposite(randomDirection));
+				createCellInNewRoom(generationManager);
 			}
 			else
 			{
-				currentCell->initialiseEdge<CellPassage>(randomDirection);
-				nextCell = createCell(nextCellCoordinates, currentCellRoom);
-				nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(randomDirection));
+				createCellInSameRoom(generationManager);
 			}
 
 			// Add new cell to list of active cells
-			activeCells.push_back(nextCell);
+			generationManager.activeCells.push_back(generationManager.nextCell);
 		}
 		// If a cell already exists and it's in the same room, create a passage
-		else if (nextCell)
+		else if (generationManager.nextCell)
 		{
-			std::shared_ptr<Room> nextCellRoom = nextCell->room.lock();
+			std::shared_ptr<Room> nextCellRoom = generationManager.nextCell->room.lock();
 
-			if (currentCellRoom == nextCellRoom)
+			if (generationManager.currentRoom == nextCellRoom)
 			{
-				currentCell->initialiseEdge<CellPassage>(randomDirection);
-				nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(randomDirection));
+				generationManager.currentCell->initialiseEdge<CellPassage>(generationManager.nextDirection);
+				generationManager.nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(generationManager.nextDirection));
 			}
 			// If a cell already exists and isn't in the same room, create a wall
 			else
 			{
-				currentCell->initialiseEdge<CellWall>(randomDirection);
-				nextCell->initialiseEdge<CellWall>(Directions::getOpposite(randomDirection));
+				generationManager.currentCell->initialiseEdge<CellWall>(generationManager.nextDirection);
+				generationManager.nextCell->initialiseEdge<CellWall>(Directions::getOpposite(generationManager.nextDirection));
 			}
 		}
 	}
 	// If the current cell is at the edge of the level, create a wall
 	else
 	{
-		currentCell->initialiseEdge<CellWall>(randomDirection);
+		generationManager.currentCell->initialiseEdge<CellWall>(generationManager.nextDirection);
 	}
 }
 
 
-bool Maze::assignDoor(std::shared_ptr<Room> currentRoom, std::shared_ptr<LevelCell> currentCell, VectorXY nextCellCoordinates, std::shared_ptr<LevelCell> previousCell)
+bool Maze::assignDoor(MazeGenerationManager& generationManager)
 {
 	bool isDoor = false;
-	std::shared_ptr<Room> prevCellRoom = previousCell->room.lock();
+	std::shared_ptr<Room> prevCellRoom = generationManager.getPreviousCell()->room.lock();
 
-
-	if (currentRoom->corridor && prevCellRoom->corridor)
+	if (generationManager.currentRoom->corridor && prevCellRoom->corridor)
 	{
-		if (currentCell->getCoordinates().x == previousCell->getCoordinates().x)
+		if (generationManager.currentCell->getCoordinates().x == generationManager.getPreviousCell()->getCoordinates().x)
 		{
-			if (nextCellCoordinates.x != currentCell->getCoordinates().x)
+			if (generationManager.getNextCellCoordinates().x != generationManager.currentCell->getCoordinates().x)
 			{
 				isDoor = true;
 			}
 		}
-		else if (currentCell->getCoordinates().y == previousCell->getCoordinates().y)
+		else if (generationManager.currentCell->getCoordinates().y == generationManager.getPreviousCell()->getCoordinates().y)
 		{
-			if (nextCellCoordinates.y != currentCell->getCoordinates().y)
+			if (generationManager.getNextCellCoordinates().y != generationManager.currentCell->getCoordinates().y)
 			{
 				isDoor = true;
 			}
@@ -146,16 +139,33 @@ void Maze::generate()
 	std::shared_ptr<Room> room = createRoom();
 	VectorXY firstCellCoordinates = getRandomCoordinates();
 	std::shared_ptr<LevelCell> firstCell = createCell(firstCellCoordinates, room);
-	activeCells.push_back(firstCell);
 
-	while (activeCells.size() > 0)
+	MazeGenerationManager generationManager;
+	generationManager.activeCells.push_back(firstCell);
+
+	while (generationManager.activeCells.size() > 0)
 	{
-		generateCells(activeCells);
+		generateCells(generationManager);
 
 		// For testing
 		//render(renderer);
 		//SDL_RenderPresent(renderer);
 	}
+}
+
+void Maze::createCellInNewRoom(MazeGenerationManager& generationManager)
+{
+	generationManager.currentCell->initialiseEdge<CellDoor>(generationManager.nextDirection);
+	generationManager.nextCell = createCell(generationManager.getNextCellCoordinates(), createRoom(generationManager.currentRoom));
+	generationManager.nextCell->initialiseEdge<CellDoor>(Directions::getOpposite(generationManager.nextDirection));
+}
+
+void Maze::createCellInSameRoom(MazeGenerationManager& generationManager)
+{
+	generationManager.currentCell->initialiseEdge<CellPassage>(generationManager.nextDirection);
+	generationManager.nextCell = createCell(generationManager.getNextCellCoordinates(), generationManager.currentRoom);
+	generationManager.nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(generationManager.nextDirection));
+
 }
 
 
