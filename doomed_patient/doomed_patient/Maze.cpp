@@ -20,23 +20,20 @@ void Maze::generateCells(MazeGenerationManager& generationManager)
 {
 	// Last index. Can be changed (first, middle, or random) to give different results
 	generationManager.currentIndex = generationManager.activeCells.size() - 1;
-	generationManager.currentCell = generationManager.activeCells[generationManager.currentIndex];
 
 	// Delete the cell from the list of active cell if all edges have been set
-	if (generationManager.currentCell->allEdgesInitialised())
+	if (generationManager.getCurrentCell()->allEdgesInitialised())
 	{
 		generationManager.activeCells.erase(generationManager.activeCells.begin() + generationManager.currentIndex);
 		return;
 	}
 
 	// Get a random direction that doesn't yet have an edge set
-	generationManager.nextDirection = generationManager.currentCell->getRandomUninitialisedDirection();
+	generationManager.nextDirection = generationManager.getCurrentCell()->getRandomUninitialisedDirection();
 
 	if (containsCoordinates(generationManager.getNextCellCoordinates()))
 	{
 		generationManager.nextCell = getCell(generationManager.getNextCellCoordinates());
-		generationManager.currentRoom = generationManager.currentCell->room.lock();
-
 
 		// If there isn't a cell in the visted coordinates, create the cell and a passage
 		if (!generationManager.nextCell)
@@ -56,15 +53,14 @@ void Maze::generateCells(MazeGenerationManager& generationManager)
 				}
 			}
 
-			if (generationManager.currentRoom->getCells().size() < MIN_ROOM_SIZE)
+			if (generationManager.getCurrentRoom()->getCells().size() < MIN_ROOM_SIZE)
 			{
 				isDoor = false;
 			}
-			else if (generationManager.currentRoom->getCells().size() >= MAX_ROOM_SIZE)
+			else if (generationManager.getCurrentRoom()->getCells().size() >= MAX_ROOM_SIZE)
 			{
 				isDoor = true;
 			}
-
 
 			// nextCell is in a new room if there is a door, otherwise it's in the same room
 			if (isDoor)
@@ -84,23 +80,22 @@ void Maze::generateCells(MazeGenerationManager& generationManager)
 		{
 			std::shared_ptr<Room> nextCellRoom = generationManager.nextCell->room.lock();
 
-			if (generationManager.currentRoom == nextCellRoom)
+			if (generationManager.getCurrentRoom() == nextCellRoom)
 			{
-				generationManager.currentCell->initialiseEdge<CellPassage>(generationManager.nextDirection);
-				generationManager.nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(generationManager.nextDirection));
+				createPassage(generationManager);
 			}
 			// If a cell already exists and isn't in the same room, create a wall
 			else
 			{
-				generationManager.currentCell->initialiseEdge<CellWall>(generationManager.nextDirection);
-				generationManager.nextCell->initialiseEdge<CellWall>(Directions::getOpposite(generationManager.nextDirection));
+				createWall(generationManager);
 			}
 		}
 	}
+
 	// If the current cell is at the edge of the level, create a wall
 	else
 	{
-		generationManager.currentCell->initialiseEdge<CellWall>(generationManager.nextDirection);
+		createWall(generationManager);
 	}
 }
 
@@ -110,18 +105,18 @@ bool Maze::assignDoor(MazeGenerationManager& generationManager)
 	bool isDoor = false;
 	std::shared_ptr<Room> prevCellRoom = generationManager.getPreviousCell()->room.lock();
 
-	if (generationManager.currentRoom->corridor && prevCellRoom->corridor)
+	if (generationManager.getCurrentRoom()->corridor && prevCellRoom->corridor)
 	{
-		if (generationManager.currentCell->getCoordinates().x == generationManager.getPreviousCell()->getCoordinates().x)
+		if (generationManager.getCurrentCell()->getCoordinates().x == generationManager.getPreviousCell()->getCoordinates().x)
 		{
-			if (generationManager.getNextCellCoordinates().x != generationManager.currentCell->getCoordinates().x)
+			if (generationManager.getNextCellCoordinates().x != generationManager.getCurrentCell()->getCoordinates().x)
 			{
 				isDoor = true;
 			}
 		}
-		else if (generationManager.currentCell->getCoordinates().y == generationManager.getPreviousCell()->getCoordinates().y)
+		else if (generationManager.getCurrentCell()->getCoordinates().y == generationManager.getPreviousCell()->getCoordinates().y)
 		{
-			if (generationManager.getNextCellCoordinates().y != generationManager.currentCell->getCoordinates().y)
+			if (generationManager.getNextCellCoordinates().y != generationManager.getCurrentCell()->getCoordinates().y)
 			{
 				isDoor = true;
 			}
@@ -155,17 +150,36 @@ void Maze::generate()
 
 void Maze::createCellInNewRoom(MazeGenerationManager& generationManager)
 {
-	generationManager.currentCell->initialiseEdge<CellDoor>(generationManager.nextDirection);
-	generationManager.nextCell = createCell(generationManager.getNextCellCoordinates(), createRoom(generationManager.currentRoom));
+	generationManager.getCurrentCell()->initialiseEdge<CellDoor>(generationManager.nextDirection);
+	generationManager.nextCell = createCell(generationManager.getNextCellCoordinates(), createRoom(generationManager.getCurrentRoom()));
 	generationManager.nextCell->initialiseEdge<CellDoor>(Directions::getOpposite(generationManager.nextDirection));
 }
 
+
 void Maze::createCellInSameRoom(MazeGenerationManager& generationManager)
 {
-	generationManager.currentCell->initialiseEdge<CellPassage>(generationManager.nextDirection);
-	generationManager.nextCell = createCell(generationManager.getNextCellCoordinates(), generationManager.currentRoom);
+	generationManager.getCurrentCell()->initialiseEdge<CellPassage>(generationManager.nextDirection);
+	generationManager.nextCell = createCell(generationManager.getNextCellCoordinates(), generationManager.getCurrentRoom());
 	generationManager.nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(generationManager.nextDirection));
 
+}
+
+void Maze::createWall(MazeGenerationManager& generationManager)
+{
+	generationManager.getCurrentCell()->initialiseEdge<CellWall>(generationManager.nextDirection);
+
+	// Opposite cell's wall should not be created if currentCell is at the edge
+	if (containsCoordinates(generationManager.getNextCellCoordinates()))
+	{
+		generationManager.nextCell->initialiseEdge<CellWall>(Directions::getOpposite(generationManager.nextDirection));
+	}
+}
+
+
+void Maze::createPassage(MazeGenerationManager& generationManager)
+{
+	generationManager.getCurrentCell()->initialiseEdge<CellPassage>(generationManager.nextDirection);
+	generationManager.nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(generationManager.nextDirection));
 }
 
 

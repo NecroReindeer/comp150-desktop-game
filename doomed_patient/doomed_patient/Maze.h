@@ -118,6 +118,10 @@ private:
 
 	void createCellInNewRoom(MazeGenerationManager& generationManager);
 	void createCellInSameRoom(MazeGenerationManager& generationManager);
+	void createPassage(MazeGenerationManager& generationManager);
+	void createWall(MazeGenerationManager& generationManager);
+
+
 
 	//! The probability that a door will be made.
 	/*!
