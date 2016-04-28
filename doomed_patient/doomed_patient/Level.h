@@ -16,6 +16,7 @@ class Exit;
 class GameObject;
 class Player;
 class Character;
+class Maze;
 
 class Level
 {
@@ -103,36 +104,12 @@ public:
 
 
 private:
-	//! Generate the maze cells.
-	/*!
-	  This method implements the Growing Tree Algorithm to
-	  generate each cell of the level and the positionings 
-	  of walls and doors.
-	*/
-	void generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells);
-
 	//! Check if the given coordinates are in the level.
 	/*!
 	  This method checks if the given coordinates are contained
 	  in the level. If so, it returns true.
 	*/
 	bool containsCoordinates(VectorXY coordinates);
-
-	//! Create a cell.
-	/*!
-	  This method created a cell at the given grid coordinates in the
-	  given room. It returns a pointer to the cell it has created.
-	*/
-	std::shared_ptr<LevelCell> createCell(VectorXY coordinates, std::shared_ptr<Room> room);
-
-	//! Create a room.
-	/*!
-	  This method creates a room and returns a pointer to the
-	  room it has created. Rooms are used to determine where
-	  passages should be placed instead of walls.
-	*/
-	std::shared_ptr<Room> createRoom(std::shared_ptr<Room> cameFrom);
-	std::shared_ptr<Room> createRoom();
 
     //! Returns random coordinates.
 	/*!
@@ -149,14 +126,6 @@ private:
 	*/
 	void placeExit();
 
-	//! Vector that holds pointers to the level's cells.
-	/*!
-	  This private 2d vector holds pointers to the level's
-	  cells. The cells are instantiated and added to the
-	  vector when generate is called.
-	*/
-	std::vector<std::vector<std::shared_ptr<LevelCell>>> cells;
-
 	//! Pointer to the game
 	/*!
 	  This is a pointer to the game, that is used to pass
@@ -164,13 +133,6 @@ private:
 	  sprite.
 	*/
 	PatientGame* game;
-
-	//! Vector of rooms.
-	/*!
-	  This vector stores pointers to all rooms that have been
-	  created using createRoom().
-	*/
-	std::vector<std::shared_ptr<Room>> rooms;
 
 	//! Pointer to the exit.
 	/*!
@@ -226,7 +188,7 @@ private:
 	*/
 	void clearLevel();
 
-	bool assignDoor(std::shared_ptr<Room> currentRoom, std::shared_ptr<LevelCell> currentCell, VectorXY nextCellCoordinates, std::shared_ptr<LevelCell> previousCell);
+	std::unique_ptr<Maze> maze;
 
 	//! The probability that a door will be made.
 	/*!
@@ -240,5 +202,7 @@ private:
 
 	const int MIN_ROOM_SIZE = 10;
 	const int MAX_ROOM_SIZE = 25;
+
+
 };
 

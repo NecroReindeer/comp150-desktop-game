@@ -173,6 +173,7 @@
     <ClInclude Include="InitialisationError.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelCell.h" />
+    <ClInclude Include="Maze.h" />
     <ClInclude Include="PatientGame.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="VectorXY.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="InitialisationError.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelCell.cpp" />
+    <ClCompile Include="Maze.cpp" />
     <ClCompile Include="PatientGame.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="VectorXY.cpp" />
