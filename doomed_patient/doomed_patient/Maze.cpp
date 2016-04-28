@@ -15,17 +15,6 @@ Maze::~Maze()
 {
 }
 
-void Maze::clearMaze()
-{
-	// Clear all the cells from the vector
-	cells.clear();
-	for (int x = 0; x < Level::GRID_SIZE_X; x++)
-	{
-		// Add nullptrs to all the spaces where cells would be
-		cells.push_back(std::vector<std::shared_ptr<LevelCell>>(Level::GRID_SIZE_Y, nullptr));
-	}
-}
-
 void Maze::generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells)
 {
 	// Last index. Can be changed (first, middle, or random) to give different results
@@ -227,9 +216,9 @@ bool Maze::containsCoordinates(VectorXY coordinates)
 
 void Maze::render(SDL_Renderer* renderer)
 {
-	for (int x = 0; x < GRID_SIZE_X; x++)
+	for (int x = 0; x < Level::GRID_SIZE_X; x++)
 	{
-		for (int y = 0; y < GRID_SIZE_Y; y++)
+		for (int y = 0; y < Level::GRID_SIZE_Y; y++)
 		{
 			// Render each cell
 			if (cells[x][y])

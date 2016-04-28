@@ -136,9 +136,9 @@ private:
 
 	//! Pointer to the exit.
 	/*!
-	This is a shared pointer to the exit of the level.
-	The exit is of type Exit, and is created and placed
-	during the level generation process.
+	  This is a shared pointer to the exit of the level.
+	  The exit is of type Exit, and is created and placed
+	  during the level generation process.
 	*/
 	std::shared_ptr<Exit> exit;
 
@@ -189,20 +189,5 @@ private:
 	void clearLevel();
 
 	std::unique_ptr<Maze> maze;
-
-	//! The probability that a door will be made.
-	/*!
-	This constant defines the probability that a door
-	will be made instead of a passage. This value should
-	be between 0 and 1.
-	0 means that doors will never spawn, 1  means that
-	doors will always spawn.
-	*/
-	const double DOOR_PROBABILITY = 0.03;
-
-	const int MIN_ROOM_SIZE = 10;
-	const int MAX_ROOM_SIZE = 25;
-
-
 };
 

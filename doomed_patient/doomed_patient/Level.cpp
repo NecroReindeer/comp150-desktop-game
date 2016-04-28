@@ -25,9 +25,8 @@ Level::Level(PatientGame* game)
 
 Level::~Level()
 {
-	
 }
- 
+
 
 bool Level::containsCoordinates(VectorXY coordinates)
 {
@@ -86,15 +85,12 @@ void Level::placeExit()
 
 void Level::clearLevel()
 {
-	// Clear all the cells from the vector
-	maze->clearMaze();
-
+	maze = std::make_unique<Maze>(game);
 	characters.clear();
 }
 
 void Level::generateMaze()
 {
-	maze = std::make_unique<Maze>(game);
 	clearLevel();
 	maze->generate();
 	
