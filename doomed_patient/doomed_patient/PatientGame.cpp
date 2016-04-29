@@ -6,10 +6,6 @@
 #include "Doctor.h"
 #include "Player.h"
 #include "Exit.h"
-<<<<<<< HEAD
-=======
-#include "LevelCell.h"
->>>>>>> refs/remotes/origin/NPC's
 
 PatientGame::PatientGame()
 	: guardSprite("Sprites\\Guard.png"),
@@ -122,11 +118,10 @@ void PatientGame::handleEvents()
 // Game updates that need to happen every frame go here
 void PatientGame::update()
 {
-<<<<<<< HEAD
 	// Temporary before collision checking is implemented
 	if (player->getCentre() == exit->getCentre())
 		generateLevel();
-=======
+
 	for each (std::shared_ptr<Character> npc in level.characters)
 	{
 		npc->update();
@@ -137,7 +132,6 @@ void PatientGame::update()
 	{
 		generateLevel();
 	}
->>>>>>> refs/remotes/origin/NPC's
 }
 
 
@@ -154,3 +148,4 @@ void PatientGame::render()
 	// Present the newly rendered screen
 	SDL_RenderPresent(renderer);
 }
+

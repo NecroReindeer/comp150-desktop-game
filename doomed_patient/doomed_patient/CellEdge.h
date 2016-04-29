@@ -35,11 +35,8 @@ public:
 	  This pure virtual method should be implemented in the subclasses.
 	  It should return a bool that indicates whether the edge is a wall.
 	*/
-<<<<<<< HEAD
+
 	virtual bool isWall() = 0;
-=======
-	virtual bool isWall();
->>>>>>> refs/remotes/origin/NPC's
 
 protected:
 	//! Direction the egde is on.

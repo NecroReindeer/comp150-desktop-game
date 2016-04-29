@@ -61,7 +61,11 @@ public:
 	Texture* getVerticalLockedSprite() { return &verticalLockedDoorSprite; }
 	Texture* getCorridorSprite() { return &corridorSprite; }
 
-	Level getLevel() { return level; }
+	//! The current level.
+	/*!
+	This stores the level that will be rendered.
+	*/
+	Level level;
 
 private:
 
@@ -130,11 +134,6 @@ private:
 	Texture playerSprite;
 	Texture corridorSprite;
 
-	//! The current level.
-	/*!
-	  This stores the level that will be rendered.
-	*/
-	Level level;
 
 
 	std::shared_ptr<Player> player;
