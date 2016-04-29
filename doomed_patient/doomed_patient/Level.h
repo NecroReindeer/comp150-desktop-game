@@ -17,6 +17,7 @@ class GameObject;
 class Player;
 class Character;
 class Maze;
+class Guard;
 
 class Level
 {
@@ -102,6 +103,14 @@ public:
 	// For testing
 	SDL_Renderer* renderer;
 
+	//! Vector of pointers to characters.
+	/*!
+	This field holds a vector of shared pointers to
+	all instances of characters.
+	Used for rendering etc.
+	*/
+	std::vector<std::shared_ptr<Character>> characters;
+
 
 private:
 	//! Check if the given coordinates are in the level.
@@ -142,13 +151,6 @@ private:
 	*/
 	std::shared_ptr<Exit> exit;
 
-	//! Vector of pointers to characters.
-	/*!
-	  This field holds a vector of shared pointers to
-	  all instances of characters.
-	  Used for rendering etc.
-	*/
-	std::vector<std::shared_ptr<Character>> characters;
 
 	//! Create a character in a random position.
 	/*!
@@ -188,6 +190,18 @@ private:
 	*/
 	void clearLevel();
 
+
 	std::unique_ptr<Maze> maze;
+
+	//! The probability that a door will be made.
+	/*!
+	This constant defines the probability that a door
+	will be made instead of a passage. This value should
+	be between 0 and 1.
+	0 means that doors will never spawn, 1  means that
+	doors will always spawn.
+	*/
+	const double DOOR_PROBABILITY = 0.03;
+
 };
 

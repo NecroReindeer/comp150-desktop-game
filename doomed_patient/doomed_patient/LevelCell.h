@@ -81,7 +81,15 @@ public:
 	  This field holds a shared pointer to the room
 	  that contains the cell.
 	*/
+
 	std::weak_ptr<Room> room;
+
+	//! Returns a pointer to the edge in the given direction.
+	/*!
+	  This method returns a pointer to the cell's edge that's 
+	  in the given Directions::Direction.
+	*/
+	std::shared_ptr<CellEdge> getEdge(Directions::Direction direction) { return edges[direction]; }
 
 	//! Returns a pointer to the edge in the given direction.
 	/*!
@@ -107,7 +115,6 @@ public:
 	{
 		edges[direction] = std::make_shared<EdgeType>(direction, shared_from_this(), game);
 	}
-
 
 private:
 	//! Cell's position on the grid.

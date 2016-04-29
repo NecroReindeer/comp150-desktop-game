@@ -51,3 +51,8 @@ void CellEdge::render(SDL_Renderer* renderer)
 		sprite->render(renderer, centre);
 	}
 }
+
+bool CellEdge::isWall()
+{
+	return false;
+}

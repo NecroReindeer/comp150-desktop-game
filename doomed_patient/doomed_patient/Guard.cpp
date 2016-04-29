@@ -4,6 +4,10 @@
 #include "LevelCell.h"
 
 Guard::Guard(PatientGame* game, VectorXY startCoordinates)
-	: Character(game, startCoordinates, game->getGuardSprite())
+	: NPC(game, startCoordinates, game->getGuardSprite())
 {
+}
+void Guard::move(Directions::Direction direction)
+{
+	centre += Directions::getDirectionVector(direction) * speed;
 }

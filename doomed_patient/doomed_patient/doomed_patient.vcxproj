@@ -175,6 +175,7 @@
     <ClInclude Include="LevelCell.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeGenerationManager.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="PatientGame.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="VectorXY.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="LevelCell.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeGenerationManager.cpp" />
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="PatientGame.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="VectorXY.cpp" />
