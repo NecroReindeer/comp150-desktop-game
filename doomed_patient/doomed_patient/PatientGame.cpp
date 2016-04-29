@@ -118,15 +118,7 @@ void PatientGame::update()
 {
 	for each (std::shared_ptr<Character> npc in level.characters)
 	{
-		// TODO: Bug where centre appears to be checking wrong cell for north and west edges
-		LevelCell::Passable direction = {
-			level.getCell((npc->getCentre()).convertWindowToGrid() )->getEdge(Directions::Direction::NORTH)->isWall(),
-			level.getCell(npc->getCentre().convertWindowToGrid())->getEdge(Directions::Direction::EAST)->isWall(),
-			level.getCell(npc->getCentre().convertWindowToGrid())->getEdge(Directions::Direction::SOUTH)->isWall(),
-			level.getCell((npc->getCentre()).convertWindowToGrid())->getEdge(Directions::Direction::WEST)->isWall()
-		};
-
-		npc->update(direction);
+		npc->update();
 	}
 
 	// Temporary before collision checking is implemented

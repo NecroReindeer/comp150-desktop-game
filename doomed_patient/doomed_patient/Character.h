@@ -45,7 +45,7 @@ public:
 	*/
 	void move(Directions::Direction direction);
 
-	virtual void update(LevelCell::Passable passable);
+	virtual void update();
 
 
 private:

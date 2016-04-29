@@ -32,7 +32,7 @@ public:
 	*/
 	void move(Directions::Direction direction);
 
-	virtual void update(LevelCell::Passable passable);
+	virtual void update();
 
 
 private:
@@ -44,8 +44,6 @@ private:
 	cell that the game considers the NPC to be occupying.
 	*/
 	std::shared_ptr<LevelCell> currentCell;
-
-	void getNextDirection(LevelCell::Passable passable);
 
 	// Change the direction of the NPC.
 	/*!

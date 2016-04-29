@@ -88,15 +88,6 @@ public:
 	*/
 	static const int NUMBER_OF_SIDES = 4;
 
-	struct Passable
-	{
-		bool NORTH;
-		bool EAST;
-		bool SOUTH;
-		bool WEST;
-	};
-
-
 private:
 	//! Cell's position on the grid.
 	/*!

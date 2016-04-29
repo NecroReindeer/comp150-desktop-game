@@ -18,7 +18,7 @@ void Character::move(Directions::Direction direction)
 }
 
 
-void Character::update(LevelCell::Passable passable)
+void Character::update()
 {
 
 }
