@@ -18,6 +18,9 @@ PatientGame::PatientGame()
 	verticalDoorSprite("Sprites\\small\\ver_door.png"),
 	horizontalDoorSprite("Sprites\\small\\horiz_door.png"),
 	exitSprite("Sprites\\small\\exit.png"),
+	verticalLockedDoorSprite("Sprites\\small\\ver_locked.png"),
+	horizontalLockedDoorSprite("Sprites\\small\\horiz_locked.png"),
+	corridorSprite("Sprites\\small\\corridor.png"),
 	level(this)
 
 {

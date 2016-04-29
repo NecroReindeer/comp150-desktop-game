@@ -13,7 +13,7 @@ public:
 	CellEdge constructor and also sets up the sprite and its window
 	position for rendering.
 	*/
-	CellPassage(Directions::Direction direction, std::shared_ptr<LevelCell> cell, PatientGame* game, bool isDoor);
+	CellPassage(Directions::Direction direction, std::shared_ptr<LevelCell> cell, PatientGame* game);
 	~CellPassage();
 
 	//! Defines whether the passage is a door.

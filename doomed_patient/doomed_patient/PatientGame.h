@@ -56,6 +56,9 @@ public:
 	Texture* getHorizontalDoorSprite() { return &horizontalDoorSprite; }
 	Texture* getVerticalDoorSprite() { return &verticalDoorSprite; }
 	Texture* getExitSprite() { return &exitSprite; }
+	Texture* getHorizontalLockedSprite() { return &horizontalLockedDoorSprite; }
+	Texture* getVerticalLockedSprite() { return &verticalLockedDoorSprite; }
+	Texture* getCorridorSprite() { return &corridorSprite; }
 
 private:
 
@@ -115,11 +118,14 @@ private:
 	Texture verticalWallSprite;
 	Texture horizontalDoorSprite;
 	Texture verticalDoorSprite;
+	Texture horizontalLockedDoorSprite;
+	Texture verticalLockedDoorSprite;
 	Texture exitSprite;
 	Texture guardSprite;
 	Texture doctorSprite;
 	Texture creatureSprite;
 	Texture playerSprite;
+	Texture corridorSprite;
 
 	//! The current level.
 	/*!

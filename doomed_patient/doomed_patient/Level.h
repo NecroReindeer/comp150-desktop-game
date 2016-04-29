@@ -16,6 +16,7 @@ class Exit;
 class GameObject;
 class Player;
 class Character;
+class Maze;
 
 class Level
 {
@@ -103,35 +104,12 @@ public:
 
 
 private:
-	//! Generate the maze cells.
-	/*!
-	  This method implements the Growing Tree Algorithm to
-	  generate each cell of the level and the positionings 
-	  of walls and doors.
-	*/
-	void generateCells(std::vector<std::shared_ptr<LevelCell>>& activeCells);
-
 	//! Check if the given coordinates are in the level.
 	/*!
 	  This method checks if the given coordinates are contained
 	  in the level. If so, it returns true.
 	*/
 	bool containsCoordinates(VectorXY coordinates);
-
-	//! Create a cell.
-	/*!
-	  This method created a cell at the given grid coordinates in the
-	  given room. It returns a pointer to the cell it has created.
-	*/
-	std::shared_ptr<LevelCell> createCell(VectorXY coordinates, std::shared_ptr<Room> room);
-
-	//! Create a room.
-	/*!
-	  This method creates a room and returns a pointer to the
-	  room it has created. Rooms are used to determine where
-	  passages should be placed instead of walls.
-	*/
-	std::shared_ptr<Room> createRoom();
 
     //! Returns random coordinates.
 	/*!
@@ -148,14 +126,6 @@ private:
 	*/
 	void placeExit();
 
-	//! Vector that holds pointers to the level's cells.
-	/*!
-	  This private 2d vector holds pointers to the level's
-	  cells. The cells are instantiated and added to the
-	  vector when generate is called.
-	*/
-	std::vector<std::vector<std::shared_ptr<LevelCell>>> cells;
-
 	//! Pointer to the game
 	/*!
 	  This is a pointer to the game, that is used to pass
@@ -164,18 +134,11 @@ private:
 	*/
 	PatientGame* game;
 
-	//! Vector of rooms.
-	/*!
-	  This vector stores pointers to all rooms that have been
-	  created using createRoom().
-	*/
-	std::vector<std::shared_ptr<Room>> rooms;
-
 	//! Pointer to the exit.
 	/*!
-	This is a shared pointer to the exit of the level.
-	The exit is of type Exit, and is created and placed
-	during the level generation process.
+	  This is a shared pointer to the exit of the level.
+	  The exit is of type Exit, and is created and placed
+	  during the level generation process.
 	*/
 	std::shared_ptr<Exit> exit;
 
@@ -225,14 +188,6 @@ private:
 	*/
 	void clearLevel();
 
-	//! The probability that a door will be made.
-	/*!
-	This constant defines the probability that a door
-	will be made instead of a passage. This value should
-	be between 0 and 1.
-	0 means that doors will never spawn, 1  means that
-	doors will always spawn.
-	*/
-	const double DOOR_PROBABILITY = 0.03;
+	std::unique_ptr<Maze> maze;
 };
 

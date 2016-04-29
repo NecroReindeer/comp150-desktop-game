@@ -4,12 +4,25 @@
 #include "Directions.h"
 #include "CellWall.h"
 #include "CellPassage.h"
+#include "Room.h"
 
-
-LevelCell::LevelCell(PatientGame* game, VectorXY coordinates, std::shared_ptr<Room> room)
+LevelCell::LevelCell(PatientGame* game, VectorXY coordinates)
 	: GameObject(game, game->getFloorSprite()),				// Call base class constructor
-	gridPosition(coordinates),
-	room(room)
+	gridPosition(coordinates)
+{
+	// Calculate the window position from the grid position
+	centre = gridPosition.convertGridToWindow();
+
+	// Set up empty edges
+	edges[Directions::Direction::NORTH] = nullptr;
+	edges[Directions::Direction::EAST] = nullptr;
+	edges[Directions::Direction::WEST] = nullptr;
+	edges[Directions::Direction::SOUTH] = nullptr;
+}
+
+LevelCell::LevelCell(PatientGame* game, VectorXY coordinates, Texture* sprite)
+	: GameObject(game, sprite),				// Call base class constructor
+	gridPosition(coordinates)
 {
 	// Calculate the window position from the grid position
 	centre = gridPosition.convertGridToWindow();
@@ -39,7 +52,6 @@ void LevelCell::render(SDL_Renderer* renderer)
 
 bool LevelCell::allEdgesInitialised()
 {
-
 	// Iterate through all map elements and check if edge exists
 	for (auto& element : edges)
 	{
@@ -74,14 +86,22 @@ Directions::Direction LevelCell::getRandomUninitialisedDirection()
 }
 
 
-void LevelCell::createWall(Directions::Direction direction)
+Directions::Direction LevelCell::getBiasedUninitialisedDirection(Directions::Direction direction)
 {
-	// shared_from_this() returns shared pointer to this
-	edges[direction] = std::make_shared<CellWall>(direction, shared_from_this(), game);
+	if (!edges[direction])
+	{
+		return direction;
+	}
+	else
+	{
+		return getRandomUninitialisedDirection();
+	}
 }
 
 
-void LevelCell::createPassage(Directions::Direction direction, bool isDoor)
+void LevelCell::assignRoom(std::shared_ptr<Room> assignedRoom)
 {
-	edges[direction] = std::make_shared<CellPassage>(direction, shared_from_this(), game, isDoor);
+	room = assignedRoom;
+	std::shared_ptr<Room> cellRoom = room.lock();
+	cellRoom->addCell(shared_from_this());
 }
