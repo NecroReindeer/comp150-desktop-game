@@ -72,11 +72,12 @@ void Maze::generateCells(MazeGenerationManager& generationManager)
 			// Add new cell to list of active cells
 			generationManager.activeCells.push_back(generationManager.nextCell);
 		}
-		// If a cell already exists and it's in the same room, create a passage
+
 		else if (generationManager.nextCell)
 		{
 			std::shared_ptr<Room> nextCellRoom = generationManager.nextCell->room.lock();
 
+			// If a cell already exists and it's in the same room, create a passage
 			if (generationManager.getCurrentRoom() == nextCellRoom)
 			{
 				createPassage(generationManager);
@@ -103,6 +104,7 @@ bool Maze::assignDoor(MazeGenerationManager& generationManager)
 	double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
 	bool isDoor = (randomNumber < DOOR_PROBABILITY) ? true : false;
 	
+	// If it's going into a Cell that's perpendicular to current direction, its a door
 	if (generationManager.getPreviousCell())
 	{
 		std::shared_ptr<Room> prevCellRoom = generationManager.getPreviousCell()->room.lock();
