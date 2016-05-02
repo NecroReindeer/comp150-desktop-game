@@ -10,11 +10,6 @@
 #include "PatientGame.h"
 #include "Maze.h"
 
-class CellWall;
-class CellPassage;
-class CellDoor;
-class Maze;
-
 const VectorXY Level::PLAYER_START(0, Level::GRID_SIZE_Y - 1);
 
 Level::Level(PatientGame* game)	
@@ -62,6 +57,7 @@ std::shared_ptr<CharacterType> Level::createCharacter(VectorXY startCoordinates)
 	return character;
 }
 
+
 void Level::placeExit()
 {
 	// Get random 0 or 1. Edge is on right if not on top
@@ -86,12 +82,14 @@ void Level::placeExit()
 void Level::clearLevel()
 {
 	maze = std::make_unique<Maze>(game);
+
 	characters.clear();
 }
 
 void Level::generateMaze()
 {
 	clearLevel();
+
 	maze->generate();
 	
 	placeExit();
@@ -118,6 +116,7 @@ void Level::render(SDL_Renderer* renderer)
 		characters[i]->render(renderer);
 	}
 }
+
 
 VectorXY Level::getUnoccupiedRandomCoords()
 {

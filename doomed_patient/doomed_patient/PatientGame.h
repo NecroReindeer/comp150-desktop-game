@@ -8,6 +8,7 @@
 #pragma once
 #include "Texture.h"
 #include "Level.h"
+#include "LevelCell.h"
 
 class PatientGame
 {
@@ -59,6 +60,12 @@ public:
 	Texture* getHorizontalLockedSprite() { return &horizontalLockedDoorSprite; }
 	Texture* getVerticalLockedSprite() { return &verticalLockedDoorSprite; }
 	Texture* getCorridorSprite() { return &corridorSprite; }
+
+	//! The current level.
+	/*!
+	This stores the level that will be rendered.
+	*/
+	Level level;
 
 private:
 
@@ -127,11 +134,7 @@ private:
 	Texture playerSprite;
 	Texture corridorSprite;
 
-	//! The current level.
-	/*!
-	  This stores the level that will be rendered.
-	*/
-	Level level;
+
 
 	std::shared_ptr<Player> player;
 	std::shared_ptr<Exit> exit;

@@ -22,7 +22,8 @@ public:
 		NORTH,
 		EAST,
 		SOUTH,
-		WEST
+		WEST,
+		RANDOM
 	};
 
 	Directions();
