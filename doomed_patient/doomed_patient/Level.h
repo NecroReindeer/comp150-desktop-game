@@ -176,12 +176,8 @@ private:
 	*/
 	bool positionOccupied(VectorXY coordinates);
 
-	//! Returns random coordinates where an character isn't placed.
-	/*!
-	  This method returns random coordinates that no other character's 
-	  start position is currently occupying.
-	*/
-	VectorXY getUnoccupiedRandomCoords();
+
+	VectorXY getRandomCoordinatesInRoom(std::shared_ptr<Room> room);
 
 	//! Clears all cells and characters from the level.
 	/*!
