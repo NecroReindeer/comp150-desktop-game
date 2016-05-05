@@ -37,6 +37,13 @@ public:
 	*/
 	virtual bool isWall();
 
+	//! Pure virtual method for indicating if edge is door.
+	/*!
+	This pure virtual method should be implemented in the subclasses.
+	It should return a bool that indicates whether the edge is a door.
+	*/
+	virtual bool isDoor();
+
 protected:
 	//! Direction the egde is on.
 	/*!

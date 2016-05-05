@@ -108,8 +108,10 @@ public:
 	all instances of characters.
 	Used for rendering etc.
 	*/
-	std::vector<std::shared_ptr<Character>> characters;
-
+	std::vector<std::shared_ptr<Character>> getCharacters()
+	{
+		return characters;
+	}
 
 private:
 	//! Generate the maze cells.
@@ -188,13 +190,13 @@ private:
 	*/
 	std::shared_ptr<Exit> exit;
 
-//	//! Vector of pointers to characters.
-//	/*!
-//	  This field holds a vector of shared pointers to
-//	  all instances of characters.
-//	  Used for rendering etc.
-//	*/
-//	std::vector<std::shared_ptr<Character>> characters;
+	//! Vector of pointers to characters.
+	/*!
+	  This field holds a vector of shared pointers to
+	  all instances of characters.
+	  Used for rendering etc.
+	*/
+	std::vector<std::shared_ptr<Character>> characters;
 
 	//! Create a character in a random position.
 	/*!

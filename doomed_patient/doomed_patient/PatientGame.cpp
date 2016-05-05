@@ -116,7 +116,7 @@ void PatientGame::handleEvents()
 // Game updates that need to happen every frame go here
 void PatientGame::update()
 {
-	for each (std::shared_ptr<Character> npc in level.characters)
+	for each (std::shared_ptr<Character> npc in level.getCharacters())
 	{
 		npc->update();
 	}

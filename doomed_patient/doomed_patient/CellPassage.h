@@ -29,6 +29,13 @@ public:
 	  CellPassage is not a wall, so should return false.
 	*/
 	bool isWall() { return false; }
+	
+	//! This method returns whether the edge is a door.
+	/*!
+	This method returns a bool indicating whether the edge is a door.
+	CellPassage is not a door, so should return true.
+	*/
+	bool isDoor() { return true; }
 
 private:
 	//! Initialises the sprite.

@@ -40,7 +40,7 @@ void NPC::changeDirection()
 
 	// Temporary for testing
 	// Changes direction to a random direction until it finds one that isn't a wall
-	while (currentEdge->isWall())
+	while (currentEdge->isWall() || currentEdge->isDoor())
 	{
 		int random = rand() % 4;
 		movementDirection = static_cast<Directions::Direction>(random);

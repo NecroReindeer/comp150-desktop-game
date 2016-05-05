@@ -24,6 +24,12 @@ public:
 	*/
 	bool isWall() { return true; }
 
+	//! This method returns whether the edge is a door.
+	/*!
+	This method returns a bool indicating whether the edge is a door.
+	CellWall is a door, so should return false.
+	*/
+	bool isDoor() { return false; }
 
 private:
 	//! Initialises the sprite.
