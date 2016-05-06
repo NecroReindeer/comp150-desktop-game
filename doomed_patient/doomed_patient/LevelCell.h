@@ -10,6 +10,10 @@
 #include "GameObject.h"
 #include "CellEdge.h"
 #include "VectorXY.h"
+#include "CellWall.h"
+#include "CellPassage.h"
+#include "CellDoor.h"
+#include "Room.h"
 
 class Room;
 
@@ -24,14 +28,17 @@ public:
 	  window position based on its xy grid coordinates.
 	  It also initialises the edges to nullptr.
 	*/
-	LevelCell(PatientGame* game, VectorXY coordinates, std::shared_ptr<Room> room);
+	LevelCell(PatientGame* game, VectorXY coordinates);
+
+	// TEMPORARY for visualising corridors during testing
+	LevelCell(PatientGame* game, VectorXY coordinates, Texture* sprite);
 
 	//! Creates a wall on a given side.
 	/*!
 	  This method instantiates and sets up a pointer to a CellWall
 	  as the edge in the given direction relative to the cell.
 	*/
-	void createWall(Directions::Direction direction);
+	//void createWall(Directions::Direction direction);
 
 	//! Creates a passage on a given side.
 	/*!
@@ -39,7 +46,7 @@ public:
 	as the edge in the given direction relative to the cell.
 	Passages may instead be doors, which is specified by the bool isDoor.
 	*/
-	void createPassage(Directions::Direction direction, bool isDoor);
+	//void createPassage(Directions::Direction direction, bool isDoor);
 
 	//! Render the cell.
 	/*!
@@ -61,6 +68,8 @@ public:
 	*/
 	Directions::Direction getRandomUninitialisedDirection();
 
+	Directions::Direction getBiasedUninitialisedDirection(Directions::Direction direction);
+
 	//! Return the cell's coordinates.
 	/*!
 	  This getter returns the cell's coordinates as GridCoordinate.
@@ -72,7 +81,8 @@ public:
 	  This field holds a shared pointer to the room
 	  that contains the cell.
 	*/
-	std::shared_ptr<Room> room;
+
+	std::weak_ptr<Room> room;
 
 	//! Returns a pointer to the edge in the given direction.
 	/*!
@@ -81,12 +91,24 @@ public:
 	*/
 	std::shared_ptr<CellEdge> getEdge(Directions::Direction direction) { return edges[direction]; }
 
+
 	//! The number of sides the cell has.
 	/*!
 	  This constant represents how many edges the 
 	  cell has.
 	*/
 	static const int NUMBER_OF_SIDES = 4;
+
+	void assignRoom(std::shared_ptr<Room> assignedRoom);
+
+	//!
+	/*!
+	  Needs to be defined in header file as other classes call this function.
+	*/
+	template<typename EdgeType> void initialiseEdge(Directions::Direction direction)
+	{
+		edges[direction] = std::make_shared<EdgeType>(direction, shared_from_this(), game);
+	}
 
 private:
 	//! Cell's position on the grid.

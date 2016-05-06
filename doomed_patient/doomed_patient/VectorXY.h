@@ -45,6 +45,14 @@ public:
 	*/
 	VectorXY operator+(const VectorXY& otherVector);
 
+	//! Operator overload for subtracting 2 VectorXY
+	/*!
+	  This operator overload allows two VectorXY
+ 	  instances to be subtracted as per the
+      usual rules of vector subtraction.
+	*/
+	VectorXY operator-(const VectorXY& otherVector);
+
 	//! Operator overload for multiplying by a scalar.
 	/*!
 	  This operator overload allows a VectorXY to be

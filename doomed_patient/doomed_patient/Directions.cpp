@@ -26,6 +26,27 @@ VectorXY Directions::getDirectionVector(Direction direction)
 	}
 }
 
+Directions::Direction Directions::getDirectionFromVector(VectorXY vector)
+{
+	switch (vector.x)
+	{
+	case 0 :
+		switch (vector.y)
+		{
+		case 1:
+			return Directions::Direction::SOUTH;
+		case -1:
+			return Directions::Direction::NORTH;
+		}
+		
+	case 1:
+		return Directions::Direction::EAST;
+	case -1:
+		return Directions::Direction::WEST;
+				
+	}
+}
+
 
 Directions::Direction Directions::getOpposite(Direction direction)
 {

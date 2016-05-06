@@ -6,7 +6,6 @@
 #include "Doctor.h"
 #include "Player.h"
 #include "Exit.h"
-#include "LevelCell.h"
 
 PatientGame::PatientGame()
 	: guardSprite("Sprites\\Guard.png"),
@@ -19,6 +18,9 @@ PatientGame::PatientGame()
 	verticalDoorSprite("Sprites\\small\\ver_door.png"),
 	horizontalDoorSprite("Sprites\\small\\horiz_door.png"),
 	exitSprite("Sprites\\small\\exit.png"),
+	verticalLockedDoorSprite("Sprites\\small\\ver_locked.png"),
+	horizontalLockedDoorSprite("Sprites\\small\\horiz_locked.png"),
+	corridorSprite("Sprites\\small\\corridor.png"),
 	level(this)
 
 {
@@ -123,6 +125,11 @@ void PatientGame::update()
 
 	// Temporary before collision checking is implemented
 	if (player->getCentre() == exit->getCentre())
+		generateLevel();
+
+
+	// Temporary before collision checking is implemented
+	if (player->getCentre() == exit->getCentre())
 	{
 		generateLevel();
 	}
@@ -142,3 +149,4 @@ void PatientGame::render()
 	// Present the newly rendered screen
 	SDL_RenderPresent(renderer);
 }
+

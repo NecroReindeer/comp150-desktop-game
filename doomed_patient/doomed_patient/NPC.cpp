@@ -97,7 +97,7 @@ void NPC::updateDirection()
 
 void NPC::updateCurrentCell()
 {
-	currentCell = game->getLevel().getCell(centre.convertWindowToGrid());
+	currentCell = game->level.getCell(centre.convertWindowToGrid());
 }
 
 

@@ -87,6 +87,15 @@
     <ClInclude Include="VectorXY.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CellDoor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Maze.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MazeGenerationManager.h">
+	<Filter>Source Files</Filter>
+    </ClCompile>
     <ClInclude Include="NPC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -154,6 +163,15 @@
     </ClCompile>
     <ClCompile Include="VectorXY.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CellDoor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Maze.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MazeGenerationManager.cpp">
+	<Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NPC.cpp">
       <Filter>Source Files</Filter>

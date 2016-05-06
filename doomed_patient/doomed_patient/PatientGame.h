@@ -57,8 +57,15 @@ public:
 	Texture* getHorizontalDoorSprite() { return &horizontalDoorSprite; }
 	Texture* getVerticalDoorSprite() { return &verticalDoorSprite; }
 	Texture* getExitSprite() { return &exitSprite; }
+	Texture* getHorizontalLockedSprite() { return &horizontalLockedDoorSprite; }
+	Texture* getVerticalLockedSprite() { return &verticalLockedDoorSprite; }
+	Texture* getCorridorSprite() { return &corridorSprite; }
 
-	Level getLevel() { return level; }
+	//! The current level.
+	/*!
+	This stores the level that will be rendered.
+	*/
+	Level level;
 
 private:
 
@@ -118,17 +125,15 @@ private:
 	Texture verticalWallSprite;
 	Texture horizontalDoorSprite;
 	Texture verticalDoorSprite;
+	Texture horizontalLockedDoorSprite;
+	Texture verticalLockedDoorSprite;
 	Texture exitSprite;
 	Texture guardSprite;
 	Texture doctorSprite;
 	Texture creatureSprite;
 	Texture playerSprite;
+	Texture corridorSprite;
 
-	//! The current level.
-	/*!
-	  This stores the level that will be rendered.
-	*/
-	Level level;
 
 
 	std::shared_ptr<Player> player;
