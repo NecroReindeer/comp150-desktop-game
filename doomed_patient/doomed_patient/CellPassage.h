@@ -35,7 +35,7 @@ public:
 	This method returns a bool indicating whether the edge is a door.
 	CellPassage is not a door, so should return true.
 	*/
-	bool isDoor() { return true; }
+	bool isDoor() { return false; }
 
 private:
 	//! Initialises the sprite.

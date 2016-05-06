@@ -56,8 +56,3 @@ bool CellEdge::isWall()
 {
 	return false;
 }
-
-bool CellEdge::isDoor()
-{
-	return false;
-}
