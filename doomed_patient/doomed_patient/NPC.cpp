@@ -56,7 +56,7 @@ void NPC::updateDirection()
 	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
 
 	// NPC needs to change direction if there is a wall
-	if (currentEdge->isWall())
+	if (currentEdge->isWall() || currentEdge->isDoor())
 	{
 		// Check that the NPC is past the centre of its cell, relative
 		// to its movement direction

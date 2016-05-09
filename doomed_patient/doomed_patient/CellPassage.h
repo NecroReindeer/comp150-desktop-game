@@ -16,13 +16,6 @@ public:
 	CellPassage(Directions::Direction direction, std::shared_ptr<LevelCell> cell, PatientGame* game);
 	~CellPassage();
 
-	//! Defines whether the passage is a door.
-	/*!
-	  If this boolean is true, the passage will be rendered
-	  as a door instead.
-	*/
-	bool isDoor;
-
 	//! This method returns whether the edge is a wall.
 	/*!
 	  This method returns a bool indicating whether the edge is a wall.
