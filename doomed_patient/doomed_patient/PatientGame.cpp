@@ -103,7 +103,11 @@ void PatientGame::handleEvents()
 	} 
 
 	// Check keyboard state
+
+	// Consider an update delay here to prevent fast keying in
+
 	const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
+
 	if (keyboardState[SDL_SCANCODE_UP])
 		player->move(Directions::Direction::NORTH);
 	if (keyboardState[SDL_SCANCODE_DOWN])

@@ -134,8 +134,6 @@ private:
 	Texture playerSprite;
 	Texture corridorSprite;
 
-
-
 	std::shared_ptr<Player> player;
 	std::shared_ptr<Exit> exit;
 
