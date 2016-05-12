@@ -9,14 +9,14 @@ Player::Player(PatientGame* game, VectorXY startCoordinates)
 	: Character(game, startCoordinates, game->getPlayerSprite()),
 	speed(2)
 {
-	currentCell = game->level.getCell(VectorXY(0, 0));
+	currentCell = game->level.getCell(Level::PLAYER_START);
 	centre = currentCell->getCentre();
 }
 
 void Player::resetPosition()
 {
-	centre = Level::PLAYER_START;
-	currentCell = game->level.getCell(VectorXY(0, 0));
+	centre = currentCell->getCentre();
+	currentCell = game->level.getCell(Level::PLAYER_START);
 }
 
 void Player::move(Directions::Direction direction)
