@@ -10,6 +10,7 @@ for any general data.
 #include "VectorXY.h"
 #include "Directions.h"
 #include "LevelCell.h"
+#include "Player.h"
 
 class LevelCell;
 

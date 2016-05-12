@@ -92,6 +92,13 @@ void NPC::updateDirection()
 			break;
 		}
 	}
+
+	VectorXY playerPosition = game->player->getCentre();
+	double distance = sqrt(pow(centre.x - playerPosition.x, 2) + pow(centre.y - playerPosition.y, 2));
+	if (distance < 4)
+	{
+
+	}
 }
 
 
