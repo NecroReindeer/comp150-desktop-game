@@ -97,7 +97,7 @@ void NPC::updateDirection()
 	double distance = sqrt(pow(centre.x - playerPosition.x, 2) + pow(centre.y - playerPosition.y, 2));
 	if (distance < 4)
 	{
-
+		game->player->resetPosition();
 	}
 }
 

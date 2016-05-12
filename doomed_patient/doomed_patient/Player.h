@@ -45,6 +45,8 @@ public:
 	*/
 	std::shared_ptr<LevelCell> currentCell;
 
+	void resetPosition();
+
 private:
 	int movementCount = 0;
 

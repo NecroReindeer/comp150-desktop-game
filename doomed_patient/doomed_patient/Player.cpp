@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "PatientGame.h"
 #include "LevelCell.h"
+#include "Level.h"
+
 
 Player::Player(PatientGame* game, VectorXY startCoordinates)
 	: Character(game, startCoordinates, game->getPlayerSprite()),
@@ -9,6 +11,12 @@ Player::Player(PatientGame* game, VectorXY startCoordinates)
 {
 	currentCell = game->level.getCell(VectorXY(0, 0));
 	centre = currentCell->getCentre();
+}
+
+void Player::resetPosition()
+{
+	centre = Level::PLAYER_START;
+	currentCell = game->level.getCell(VectorXY(0, 0));
 }
 
 void Player::move(Directions::Direction direction)
