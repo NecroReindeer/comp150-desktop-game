@@ -7,7 +7,6 @@ for any general data.
 */
 #pragma once
 
-#include "Character.h"
 #include "VectorXY.h"
 #include "Directions.h"
 #include "NPC.h"

@@ -11,13 +11,6 @@ Character::Character(PatientGame* game, VectorXY startCoordinates, Texture* spri
 	centre = startCoordinates.convertGridToWindow();
 }
 
-
-void Character::move(Directions::Direction direction)
-{
-	centre += Directions::getDirectionVector(direction) * speed;
-}
-
-
 void Character::update()
 {
 

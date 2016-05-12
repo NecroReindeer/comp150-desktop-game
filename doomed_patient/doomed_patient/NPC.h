@@ -34,6 +34,12 @@ public:
 
 	virtual void update();
 
+	//! Speed of the NPC's.
+	/*!
+	This field holds the speed that the NPC's
+	moves.
+	*/
+	int speed = 1;
 
 private:
 	Directions::Direction movementDirection;
