@@ -66,6 +66,7 @@ public:
 	This stores the level that will be rendered.
 	*/
 	Level level;
+	std::shared_ptr<Player> player;
 
 private:
 
@@ -134,7 +135,6 @@ private:
 	Texture playerSprite;
 	Texture corridorSprite;
 
-	std::shared_ptr<Player> player;
 	std::shared_ptr<Exit> exit;
 
 	void generateLevel();
