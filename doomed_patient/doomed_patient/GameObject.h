@@ -40,6 +40,7 @@ public:
 	VectorXY getSpriteSize() { return objectSprite->getSpriteSize(); }
 
 
+
 protected:
 	//! Pointer to the game.
 	/*!
@@ -57,6 +58,8 @@ protected:
 	//int centreX, centreY;
 
 	VectorXY centre;
+
+	void GameObject::updateSprite(Texture* sprite);
 
 private:
 	//! Pointer to the texture.

@@ -8,8 +8,14 @@
 #include "Exit.h"
 
 PatientGame::PatientGame()
-	: guardSprite("Sprites\\Guard.png"),
-	doctorSprite("Sprites\\Doctor.png"),
+	: guardSpriteNorth("Sprites\\Guard_North.png"),
+	guardSpriteEast("Sprites\\Guard_East.png"),
+	guardSpriteSouth("Sprites\\Guard_South.png"),
+	guardSpriteWest("Sprites\\Guard_West.png"),
+	doctorSpriteNorth("Sprites\\Doctor_North.png"),
+	doctorSpriteEast("Sprites\\Doctor_East.png"),
+	doctorSpriteSouth("Sprites\\Doctor_South.png"),
+	doctorSpriteWest("Sprites\\Doctor_West.png"),
 	creatureSprite("Sprites\\Creature.png"),
 	playerSprite("Sprites\\Player.png"),
 	floorSprite("Sprites\\small\\floor.png"),
@@ -103,7 +109,11 @@ void PatientGame::handleEvents()
 	} 
 
 	// Check keyboard state
+
+	// Consider an update delay here to prevent fast keying in
+
 	const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
+
 	if (keyboardState[SDL_SCANCODE_UP])
 		player->move(Directions::Direction::NORTH);
 	if (keyboardState[SDL_SCANCODE_DOWN])
@@ -118,14 +128,15 @@ void PatientGame::handleEvents()
 // Game updates that need to happen every frame go here
 void PatientGame::update()
 {
+	for each (std::shared_ptr<Character> npc in level.getCharacters())
+	{
+		npc->update();
+	}
+
 	// Temporary before collision checking is implemented
 	if (player->getCentre() == exit->getCentre())
 		generateLevel();
 
-	for each (std::shared_ptr<Character> npc in level.characters)
-	{
-		npc->update();
-	}
 
 	// Temporary before collision checking is implemented
 	if (player->getCentre() == exit->getCentre())

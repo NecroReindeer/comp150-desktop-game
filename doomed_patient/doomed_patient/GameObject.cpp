@@ -20,3 +20,8 @@ void GameObject::render(SDL_Renderer* renderer)
 		objectSprite->render(renderer, centre);
 	}
 }
+
+void GameObject::updateSprite(Texture* sprite)
+{
+	objectSprite = sprite;
+}

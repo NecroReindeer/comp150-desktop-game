@@ -47,8 +47,6 @@ public:
 	*/
 	static const int WINDOW_HEIGHT = 768;//1080;
 
-	Texture* getGuardSprite() { return &guardSprite; }
-	Texture* getDoctorSprite() { return &doctorSprite; }
 	Texture* getCreatureSprite() { return &creatureSprite; }
 	Texture* getPlayerSprite() { return &playerSprite; }
 	Texture* getFloorSprite() { return &floorSprite; }
@@ -60,12 +58,23 @@ public:
 	Texture* getHorizontalLockedSprite() { return &horizontalLockedDoorSprite; }
 	Texture* getVerticalLockedSprite() { return &verticalLockedDoorSprite; }
 	Texture* getCorridorSprite() { return &corridorSprite; }
+	//Guard Texture
+	Texture* getGuardSpriteNorth() { return &guardSpriteNorth; }
+	Texture* getGuardSpriteEast() { return &guardSpriteEast; }
+	Texture* getGuardSpriteSouth() { return &guardSpriteSouth; }
+	Texture* getGuardSpriteWest() { return &guardSpriteWest; }
+	//Doctor Texture
+	Texture* getDoctorSpriteNorth() { return &doctorSpriteNorth; }
+	Texture* getDoctorSpriteEast() { return &doctorSpriteEast; }
+	Texture* getDoctorSpriteSouth() { return &doctorSpriteSouth; }
+	Texture* getDoctorSpriteWest() { return &doctorSpriteWest; }
 
 	//! The current level.
 	/*!
 	This stores the level that will be rendered.
 	*/
 	Level level;
+	std::shared_ptr<Player> player;
 
 private:
 
@@ -128,15 +137,20 @@ private:
 	Texture horizontalLockedDoorSprite;
 	Texture verticalLockedDoorSprite;
 	Texture exitSprite;
-	Texture guardSprite;
-	Texture doctorSprite;
 	Texture creatureSprite;
 	Texture playerSprite;
 	Texture corridorSprite;
+	//Guard Texture
+	Texture guardSpriteNorth;
+	Texture guardSpriteEast;
+	Texture guardSpriteSouth;
+	Texture guardSpriteWest;
+	//Doctor Texture
+	Texture doctorSpriteNorth;
+	Texture doctorSpriteEast;
+	Texture doctorSpriteSouth;
+	Texture doctorSpriteWest;
 
-
-
-	std::shared_ptr<Player> player;
 	std::shared_ptr<Exit> exit;
 
 	void generateLevel();

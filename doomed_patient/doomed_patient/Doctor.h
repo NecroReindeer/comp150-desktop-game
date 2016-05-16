@@ -32,5 +32,7 @@ public:
 	direction at the player's speed.
 	*/
 	void move(Directions::Direction direction);
+
+	void changeSpriteDirection();
 };
 

@@ -15,6 +15,13 @@ public:
 	*/
 	bool isWall() { return false; }
 
+	//! This method returns whether the edge is a door.
+	/*!
+	This method returns a bool indicating whether the edge is a door.
+	CellDoor is not a door, so should return true.
+	*/
+	bool isDoor() { return true; }
+
 	bool locked;
 
 private:

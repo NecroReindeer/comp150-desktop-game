@@ -37,4 +37,20 @@ public:
 	  direction at the player's speed.
 	*/
 	void move(Directions::Direction direction);
+
+	//! Cell Position of the Player.
+	/*!
+	This should be made private later on. Pointer to the cell that the player
+	currently occupies.
+	*/
+	std::shared_ptr<LevelCell> currentCell;
+
+	void resetPosition();
+
+private:
+	int movementCount = 0;
+
+	static const int movementDelay = 10;
+
+
 };
