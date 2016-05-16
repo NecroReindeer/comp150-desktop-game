@@ -31,5 +31,7 @@ public:
 	*/
 	void move(Directions::Direction direction);
 
+	void changeSpriteDirection();
+
 };
 

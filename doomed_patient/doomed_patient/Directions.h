@@ -23,7 +23,7 @@ public:
 		EAST,
 		SOUTH,
 		WEST,
-		RANDOM
+		STOP
 	};
 
 	Directions();

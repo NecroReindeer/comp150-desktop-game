@@ -27,6 +27,8 @@ void NPC::update()
 	updateDirection();
 
 	move(movementDirection);
+
+	changeSpriteDirection();
 }
 
 // Call NPC behaviour code/methods that change NPC movementDirection from this method!

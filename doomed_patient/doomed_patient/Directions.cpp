@@ -23,6 +23,8 @@ VectorXY Directions::getDirectionVector(Direction direction)
 		return VectorXY(0, 1);
 	case Directions::Direction::WEST:
 		return VectorXY(-1, 0);
+	case Directions::Direction::STOP:
+		return VectorXY(0, 0);
 	}
 }
 
