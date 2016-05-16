@@ -96,11 +96,19 @@ void Level::generateMaze()
 
 	player = createCharacter<Player>(PLAYER_START);
 
-	// Temporary literal 5 for testing
-	for (int i = 0; i < 20; i++)
+	for (std::shared_ptr<Room> room : maze->getRooms())
 	{
-		createCharacter<Guard>(getUnoccupiedRandomCoords());
-		createCharacter<Doctor>(getUnoccupiedRandomCoords());
+		if (room != maze->getCell(PLAYER_START)->room.lock())
+		{
+			if (room->corridor)
+			{
+				createCharacter<Guard>(getRandomCoordinatesInRoom(room));
+			}
+			else
+			{
+				createCharacter<Doctor>(getRandomCoordinatesInRoom(room));
+			}
+		}	
 	}
 }
 
@@ -118,24 +126,7 @@ void Level::render(SDL_Renderer* renderer)
 }
 
 
-VectorXY Level::getUnoccupiedRandomCoords()
-{
-	bool positionIsValid = false;
 
-	VectorXY unoccupiedCoordinates(rand() % GRID_SIZE_X, rand() % GRID_SIZE_Y);
-
-	if (!characters.empty())
-	{	
-		// Ensure that 2 NPCs aren't spawned in the same place
-		while (positionOccupied(unoccupiedCoordinates))
-		{
-			unoccupiedCoordinates.x = rand() % GRID_SIZE_X;
-			unoccupiedCoordinates.y = rand() % GRID_SIZE_Y;
-		}
-	}
-
-	return unoccupiedCoordinates;
-}
 
 VectorXY Level::getRandomCoordinates()
 {
@@ -143,4 +134,10 @@ VectorXY Level::getRandomCoordinates()
 	coordinates.x = rand() % Level::GRID_SIZE_X;
 	coordinates.y = rand() % Level::GRID_SIZE_Y;
 	return coordinates;
+}
+
+VectorXY Level::getRandomCoordinatesInRoom(std::shared_ptr<Room> room)
+{
+	int randomIndex = rand() % (room->getCells().size());
+	return room->getCells()[randomIndex]->getCoordinates();
 }

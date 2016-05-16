@@ -9,6 +9,8 @@ NPC::NPC(PatientGame* game, VectorXY startCoordinates, Texture * sprite)
 {
 	int random = rand() % 4;
 	movementDirection = static_cast<Directions::Direction>(random);
+	updateCurrentCell();
+	assignedRoom = currentCell->room.lock();
 }
 
 

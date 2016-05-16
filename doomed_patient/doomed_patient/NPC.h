@@ -50,6 +50,8 @@ private:
 	*/
 	std::shared_ptr<LevelCell> currentCell;
 
+	std::shared_ptr<Room> assignedRoom;
+
 	// Change the direction of the NPC.
 	/*!
 	  This method changes the direction of the NPC.

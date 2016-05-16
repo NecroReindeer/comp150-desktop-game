@@ -32,6 +32,8 @@ public:
 	*/
 	std::shared_ptr<LevelCell> getCell(VectorXY coordinates);
 
+	std::vector<std::shared_ptr<Room>> getRooms() { return rooms; }
+
 	//! Size of each level cell.
 	/*!
 	  This static member represents the size of each
