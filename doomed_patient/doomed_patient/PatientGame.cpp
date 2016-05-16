@@ -8,16 +8,23 @@
 #include "Exit.h"
 
 PatientGame::PatientGame()
+	//Guard Texture
 	: guardSpriteNorth("Sprites\\Guard_North.png"),
 	guardSpriteEast("Sprites\\Guard_East.png"),
 	guardSpriteSouth("Sprites\\Guard_South.png"),
 	guardSpriteWest("Sprites\\Guard_West.png"),
+	//Doctor Texture
 	doctorSpriteNorth("Sprites\\Doctor_North.png"),
 	doctorSpriteEast("Sprites\\Doctor_East.png"),
 	doctorSpriteSouth("Sprites\\Doctor_South.png"),
 	doctorSpriteWest("Sprites\\Doctor_West.png"),
 	creatureSprite("Sprites\\Creature.png"),
-	playerSprite("Sprites\\Player.png"),
+	//Player Texture
+	playerSpriteNorth("Sprites\\Player_North.png"),
+	playerSpriteEast("Sprites\\Player_East.png"),
+	playerSpriteSouth("Sprites\\Player_South.png"),
+	playerSpriteWest("Sprites\\Player_West.png"),
+	//Other Textures
 	floorSprite("Sprites\\small\\floor.png"),
 	verticalWallSprite("Sprites\\small\\ver_wall.png"),
 	horizontalWallSprite("Sprites\\small\\horiz_wall.png"),
