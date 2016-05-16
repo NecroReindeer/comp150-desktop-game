@@ -97,7 +97,7 @@ void Level::generateMaze()
 	player = createCharacter<Player>(PLAYER_START);
 
 	// Temporary literal 5 for testing
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		createCharacter<Guard>(getUnoccupiedRandomCoords());
 		createCharacter<Doctor>(getUnoccupiedRandomCoords());

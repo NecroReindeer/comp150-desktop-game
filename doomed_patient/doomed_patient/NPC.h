@@ -10,6 +10,7 @@ for any general data.
 #include "VectorXY.h"
 #include "Directions.h"
 #include "LevelCell.h"
+#include "Player.h"
 
 class LevelCell;
 
@@ -34,9 +35,13 @@ public:
 
 	virtual void update();
 
+	virtual void changeSpriteDirection() = 0;
+
+protected:
+	
+	Directions::Direction movementDirection;
 
 private:
-	Directions::Direction movementDirection;
 
 	// The cell the NPC is currently occupying.
 	/*!

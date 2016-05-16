@@ -27,6 +27,8 @@ void NPC::update()
 	updateDirection();
 
 	move(movementDirection);
+
+	changeSpriteDirection();
 }
 
 // Call NPC behaviour code/methods that change NPC movementDirection from this method!
@@ -40,7 +42,7 @@ void NPC::changeDirection()
 
 	// Temporary for testing
 	// Changes direction to a random direction until it finds one that isn't a wall
-	while (currentEdge->isWall())
+	while (currentEdge->isWall() || currentEdge->isDoor())
 	{
 		int random = rand() % 4;
 		movementDirection = static_cast<Directions::Direction>(random);
@@ -56,7 +58,7 @@ void NPC::updateDirection()
 	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
 
 	// NPC needs to change direction if there is a wall
-	if (currentEdge->isWall())
+	if (currentEdge->isWall() || currentEdge->isDoor())
 	{
 		// Check that the NPC is past the centre of its cell, relative
 		// to its movement direction
@@ -91,6 +93,13 @@ void NPC::updateDirection()
 			}
 			break;
 		}
+	}
+
+	VectorXY playerPosition = game->player->getCentre();
+	double distance = sqrt(pow(centre.x - playerPosition.x, 2) + pow(centre.y - playerPosition.y, 2));
+	if (distance < 4)
+	{
+		game->player->resetPosition();
 	}
 }
 

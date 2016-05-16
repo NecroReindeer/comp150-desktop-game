@@ -24,13 +24,14 @@ public:
 	  Character, and passes its sprite in.
 	*/
 	Guard(PatientGame* game, VectorXY startCoordinates);
-
 	//! Moves the player.
 	/*!
 	This method moves the player in the specified
 	direction at the player's speed.
 	*/
 	void move(Directions::Direction direction);
+
+	void changeSpriteDirection();
 
 };
 
