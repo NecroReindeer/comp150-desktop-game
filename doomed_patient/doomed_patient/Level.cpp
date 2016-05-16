@@ -98,7 +98,7 @@ void Level::generateMaze()
 
 	for (std::shared_ptr<Room> room : maze->getRooms())
 	{
-		if (room != maze->getCell(PLAYER_START)->room.lock())
+		if (room != maze->getCell(PLAYER_START)->room.lock() && room->getCells().size() > 1)
 		{
 			if (room->corridor)
 			{
