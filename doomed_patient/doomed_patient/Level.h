@@ -1,51 +1,42 @@
 //! Class for the level.
 /*!
   This class stores data about the level and
-  manages the level generation process. 
-  It also holds pointers to all the instances that
-  the generator creates, including characters.
+  initiates the level generation process - that
+  includes the maze and characters.
+  It also holds pointers to all characters and the
+  maze.
 */
 
 #pragma once
 #include "VectorXY.h"
+#include "Maze.h"
 
-class Room;
-class LevelCell;
 class PatientGame;
+class Room;
 class Exit;
-class GameObject;
 class Player;
 class Character;
-class Maze;
-class Guard;
 
 class Level
 {
 public:
 	//! Constructor for the level.
 	/*!
-	  This is the constructor for the level. It takes a pointer
-	  to the game to initialise that field, and also initialises the
-	  vector of cells to contain nullptr.
+	  This is the constructor for the level. 
+	  It takes a pointer to the game in order to access the sprites.
 	*/
 	Level(PatientGame* game);
 
-	//! Destructor for the level.
-	/*!
-	  The destructor deletes the cells that the cells
-	  vector points to.
-	*/
-	~Level();
-
 	//! Generates the level.
 	/*!
-	  This method begins the level generation process.
+	  This method begins the level generation process and
+	  generates the maze and characters.
 	*/
 	void generateMaze();
 
 	//! Render the level.
 	/*!
-	This method renders the cells in the level and the exit.
+		This method renders the maze, exit and characters.
 	*/
 	void render(SDL_Renderer* renderer);
 
@@ -53,6 +44,8 @@ public:
 	/*!
 	  This method returns a pointer to the cell located
 	  at the given coordinates.
+	  The coordinates should be supplied as a VectorXY 
+	  representing the grid coordinates.
 	*/
 	std::shared_ptr<LevelCell> getCell(VectorXY coordinates);
 
@@ -100,14 +93,11 @@ public:
 	*/
 	static const VectorXY PLAYER_START;
 	
-	// For testing
-	SDL_Renderer* renderer;
-
 	//! Vector of pointers to characters.
 	/*!
-	This field holds a vector of shared pointers to
-	all instances of characters.
-	Used for rendering etc.
+	  This field holds a vector of shared pointers to
+      all instances of characters, which includes the
+	  NPCs and the player. Used for rendering etc.
 	*/
 	std::vector<std::shared_ptr<Character>> getCharacters()
 	{
@@ -148,7 +138,7 @@ private:
 	//! Pointer to the exit.
 	/*!
 	  This is a shared pointer to the exit of the level.
-	  The exit is of type Exit, and is created and placed
+	  The exit is created and placed
 	  during the level generation process.
 	*/
 	std::shared_ptr<Exit> exit;
@@ -181,11 +171,16 @@ private:
 	/*!
 	  This method checks if any character has its starting
 	  position at the given grid coordinates, and if so,
-	  it returns true.
+	  it returns true. This is to ensure that two characters
+	  don't get placed in the same position.
 	*/
 	bool positionOccupied(VectorXY coordinates);
 
-
+	//! Returns coordinates of a random cell in the given room
+	/*!
+	  This method returns the coordinates of a randomly selected cell
+	  that is contained in the given room.
+	*/
 	VectorXY getRandomCoordinatesInRoom(std::shared_ptr<Room> room);
 
 	//! Clears all cells and characters from the level.
@@ -195,7 +190,14 @@ private:
 	*/
 	void clearLevel();
 
-
+	//! Pointer to the maze
+	/*!
+	  This is a pointer to the maze. The maze
+	  stores data about the cells and implements the
+	  generation algorithm. 
+	  It is a unique pointer as only the level should have
+	  direct access to the maze.
+	*/
 	std::unique_ptr<Maze> maze;
 
 	//! The probability that a door will be made.
@@ -208,5 +210,11 @@ private:
 	*/
 	const double DOOR_PROBABILITY = 0.03;
 
+	//! Int defining how sparsely the NPCs will be placed.
+	/*!
+	  There will never be more than 1/NPC_SPACING of the cells in
+	  a room occupied by NPCs.
+	*/
+	const int NPC_SPACING = 5;
 };
 
