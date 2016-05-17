@@ -29,19 +29,19 @@ void Maze::generateCells(MazeGenerationManager& generationManager)
 
 	if (generationManager.activeCells.size() > 1)
 	{
+		// Make corridors be more likely to be straight
 		if (generationManager.getCurrentRoom()->corridor)
 		{
 			VectorXY currentExplorationDirection = generationManager.getCurrentCell()->getCoordinates() - generationManager.getPreviousCell()->getCoordinates();
 			generationManager.nextDirection = generationManager.getCurrentCell()->getBiasedUninitialisedDirection(Directions::getDirectionFromVector(currentExplorationDirection));
 		}
 	}
-	
 
 	if (containsCoordinates(generationManager.getNextCellCoordinates()))
 	{
 		generationManager.nextCell = getCell(generationManager.getNextCellCoordinates());
 
-		// If there isn't a cell in the visted coordinates, create the cell and a passage
+		// If there isn't a cell in the visted coordinates, create the cell and a passage/door
 		if (!generationManager.nextCell)
 		{
 			bool isDoor = assignDoor(generationManager);

@@ -80,12 +80,12 @@ void Level::generateMaze()
 	placeExit();
 	player = createCharacter<Player>(PLAYER_START);
 
-
-	// Place NPCs in their correct rooms
 	for (std::shared_ptr<Room> room : maze->getRooms())
 	{
+		// No NPCs to start in same room as player
 		if (room != maze->getCell(PLAYER_START)->room.lock())
 		{
+			// Guards in corridors
 			if (room->corridor)
 			{
 				// There will never be more than 1/NPC_SPACING cells of the room occupied by NPCs
@@ -95,6 +95,7 @@ void Level::generateMaze()
 					createCharacter<Guard>(getRandomCoordinatesInRoom(room));
 				}	
 			}
+			// Doctors in rooms
 			else
 			{
 				for (int i = 0; i < (rand() % room->getCells().size()) / NPC_SPACING; i++)
