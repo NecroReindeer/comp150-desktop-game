@@ -6,6 +6,8 @@ class LevelCell;
 class Room
 {
 public:
+	Room();
+
 	//! Whether the room is a corridor or not.
 	/*!
 	  This bool indicates whether the room is a corridor 
@@ -34,5 +36,7 @@ private:
 	  are contained in this room.
 	*/
 	std::vector<std::shared_ptr<LevelCell>> containedCells;
+
+	int doorCount;
 };
 

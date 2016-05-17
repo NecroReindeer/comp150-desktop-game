@@ -95,9 +95,9 @@ void Level::generateMaze()
 					createCharacter<Guard>(getRandomCoordinatesInRoom(room));
 				}	
 			}
-			// Doctors in rooms
 			else
 			{
+				// Doctors in rooms
 				for (int i = 0; i < (rand() % room->getCells().size()) / NPC_SPACING; i++)
 				{
 					createCharacter<Doctor>(getRandomCoordinatesInRoom(room));
