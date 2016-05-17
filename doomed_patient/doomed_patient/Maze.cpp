@@ -12,10 +12,6 @@ Maze::Maze(PatientGame* game)
 }
 
 
-Maze::~Maze()
-{
-}
-
 void Maze::generateCells(MazeGenerationManager& generationManager)
 {
 	// Last index. Can be changed (first, middle, or random) to give different results
@@ -33,6 +29,7 @@ void Maze::generateCells(MazeGenerationManager& generationManager)
 
 	if (generationManager.activeCells.size() > 1)
 	{
+		// Make corridors be more likely to be straight
 		if (generationManager.getCurrentRoom()->corridor)
 		{
 			VectorXY currentExplorationDirection = generationManager.getCurrentCell()->getCoordinates() - generationManager.getPreviousCell()->getCoordinates();
@@ -146,10 +143,6 @@ void Maze::generate()
 	while (generationManager.activeCells.size() > 0)
 	{
 		generateCells(generationManager);
-
-		// For testing
-		//render(renderer);
-		//SDL_RenderPresent(renderer);
 	}
 }
 
@@ -166,8 +159,8 @@ void Maze::createCellInSameRoom(MazeGenerationManager& generationManager)
 	generationManager.getCurrentCell()->initialiseEdge<CellPassage>(generationManager.nextDirection);
 	generationManager.nextCell = createCell(generationManager.getNextCellCoordinates(), generationManager.getCurrentRoom());
 	generationManager.nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(generationManager.nextDirection));
-
 }
+
 
 void Maze::createWall(MazeGenerationManager& generationManager)
 {
@@ -202,7 +195,7 @@ std::shared_ptr<Room> Maze::createRoom(std::shared_ptr<Room> cameFrom)
 std::shared_ptr<Room> Maze::createRoom()
 {
 	// Create a room and add a pointer to it to the vector of rooms
-	std::shared_ptr<Room> room = std::make_shared<Room>();
+	std::shared_ptr<Room> room = std::make_shared<Room>(game);
 	rooms.push_back(room);
 	return room;
 }
@@ -223,6 +216,7 @@ std::shared_ptr<LevelCell> Maze::createCell(VectorXY coordinates, std::shared_pt
 	return cells[coordinates.x][coordinates.y];
 }
 
+
 std::shared_ptr<LevelCell> Maze::getCell(VectorXY coordinates)
 {
 	return cells[coordinates.x][coordinates.y];
@@ -237,11 +231,13 @@ VectorXY Maze::getRandomCoordinates()
 	return coordinates;
 }
 
+
 bool Maze::containsCoordinates(VectorXY coordinates)
 {
 	// Check if given coordinates are within the level size
 	return (0 <= coordinates.x && coordinates.x < Level::GRID_SIZE_X && 0 <= coordinates.y && coordinates.y < Level::GRID_SIZE_Y);
 }
+
 
 void Maze::render(SDL_Renderer* renderer)
 {

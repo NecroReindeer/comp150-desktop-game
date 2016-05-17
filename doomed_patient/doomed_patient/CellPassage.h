@@ -25,8 +25,8 @@ public:
 	
 	//! This method returns whether the edge is a door.
 	/*!
-	This method returns a bool indicating whether the edge is a door.
-	CellPassage is not a door, so should return true.
+	  This method returns a bool indicating whether the edge is a door.
+	  CellPassage is not a door, so should return true.
 	*/
 	bool isDoor() { return false; }
 

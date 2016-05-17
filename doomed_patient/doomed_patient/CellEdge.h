@@ -30,6 +30,8 @@ public:
 	*/
 	void render(SDL_Renderer* renderer);
 
+	Directions::Direction getDirection() { return direction; }
+
 	//! Pure virtual method for indicating if edge is wall.
 	/*!
 	  This pure virtual method should be implemented in the subclasses.
