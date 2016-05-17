@@ -74,6 +74,8 @@ public:
 		return characters;
 	}
 
+	bool containsCoordinates(VectorXY coordinates) { return maze->containsCoordinates(coordinates); }
+
 	//! Width of the level.
 	/*!
 	  This static member represents the width of

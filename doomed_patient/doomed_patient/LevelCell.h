@@ -88,9 +88,14 @@ public:
 	/*!
 	  This method returns a pointer to the cell's edge that's 
 	  in the given Directions::Direction.
-	*/
+	*/ 
 	std::shared_ptr<CellEdge> getEdge(Directions::Direction direction) { return edges[direction]; }
 
+	bool hasDoor();
+
+	std::shared_ptr<CellEdge> getRandomWall();
+
+	int getWallCount();
 
 	//! The number of sides the cell has.
 	/*!
@@ -103,7 +108,8 @@ public:
 
 	//!
 	/*!
-	  Needs to be defined in header file as other classes call this function.
+	  Needs to be defined in header file as other classes call this function, because
+	  of behaviour of template methods.
 	*/
 	template<typename EdgeType> void initialiseEdge(Directions::Direction direction)
 	{

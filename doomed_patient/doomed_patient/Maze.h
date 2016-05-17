@@ -48,6 +48,13 @@ public:
 	*/
 	std::vector<std::shared_ptr<Room>> getRooms() { return rooms; }
 
+	//! Check if the given coordinates are in the level.
+	/*!
+	This method checks if the given coordinates are contained
+	in the level. If so, it returns true.
+	*/
+	bool containsCoordinates(VectorXY coordinates);
+
 private:
 	//! Generate the maze cells.
 	/*!
@@ -57,12 +64,6 @@ private:
 	*/
 	void generateCells(MazeGenerationManager& generationManager);
 
-	//! Check if the given coordinates are in the level.
-	/*!
-	  This method checks if the given coordinates are contained
-	  in the level. If so, it returns true.
-	*/
-	bool containsCoordinates(VectorXY coordinates);
 
 	//! Create a cell.
 	/*!

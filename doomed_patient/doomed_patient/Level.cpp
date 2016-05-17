@@ -82,6 +82,8 @@ void Level::generateMaze()
 
 	for (std::shared_ptr<Room> room : maze->getRooms())
 	{
+		room->checkContainedCells();
+
 		// No NPCs to start in same room as player
 		if (room != maze->getCell(PLAYER_START)->room.lock())
 		{

@@ -195,7 +195,7 @@ std::shared_ptr<Room> Maze::createRoom(std::shared_ptr<Room> cameFrom)
 std::shared_ptr<Room> Maze::createRoom()
 {
 	// Create a room and add a pointer to it to the vector of rooms
-	std::shared_ptr<Room> room = std::make_shared<Room>();
+	std::shared_ptr<Room> room = std::make_shared<Room>(game);
 	rooms.push_back(room);
 	return room;
 }

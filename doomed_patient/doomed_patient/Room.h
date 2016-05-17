@@ -1,12 +1,11 @@
 #pragma once
+#include "LevelCell.h"
 
-
-class LevelCell;
 
 class Room
 {
 public:
-	Room();
+	Room(PatientGame* game);
 
 	//! Whether the room is a corridor or not.
 	/*!
@@ -29,6 +28,10 @@ public:
 	*/
 	void addCell(std::shared_ptr<LevelCell> cell);
 
+	void addExtraDoors();
+
+	void checkContainedCells();
+
 private:
 	//! A vector of all cells contained in the room.
 	/*!
@@ -38,5 +41,12 @@ private:
 	std::vector<std::shared_ptr<LevelCell>> containedCells;
 
 	int doorCount;
+
+	std::vector<std::shared_ptr<LevelCell>> walledCells;
+
+	PatientGame* game;
+
+	const int MIN_DOORS = 3;
+
 };
 
