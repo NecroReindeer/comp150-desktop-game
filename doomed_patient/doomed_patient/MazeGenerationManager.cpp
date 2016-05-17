@@ -2,16 +2,6 @@
 #include "MazeGenerationManager.h"
 
 
-MazeGenerationManager::MazeGenerationManager()
-{
-}
-
-
-MazeGenerationManager::~MazeGenerationManager()
-{
-}
-
-
 VectorXY MazeGenerationManager::getNextCellCoordinates()
 {
 	return getCurrentCell()->getCoordinates() + Directions::getDirectionVector(nextDirection);

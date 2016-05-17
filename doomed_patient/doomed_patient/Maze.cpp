@@ -142,10 +142,6 @@ void Maze::generate()
 	while (generationManager.activeCells.size() > 0)
 	{
 		generateCells(generationManager);
-
-		// For testing
-		//render(renderer);
-		//SDL_RenderPresent(renderer);
 	}
 }
 
