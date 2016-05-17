@@ -1,13 +1,9 @@
 #include "stdafx.h"
 #include "Level.h"
-#include "Directions.h"
-#include "LevelCell.h"
-#include "Room.h"
+#include "Character.h"
 #include "Exit.h"
 #include "Guard.h"
 #include "Doctor.h"
-#include "Player.h"
-#include "PatientGame.h"
 
 // Start in bottom left corner
 const VectorXY Level::PLAYER_START(0, Level::GRID_SIZE_Y - 1);
@@ -15,13 +11,6 @@ const VectorXY Level::PLAYER_START(0, Level::GRID_SIZE_Y - 1);
 Level::Level(PatientGame* game)	
 	:game(game)
 {
-}
-
-
-bool Level::containsCoordinates(VectorXY coordinates)
-{
-	// Check if given coordinates are within the level size
-	return (0 <= coordinates.x && coordinates.x < GRID_SIZE_X && 0 <= coordinates.y && coordinates.y < GRID_SIZE_Y);
 }
 
 
@@ -127,15 +116,6 @@ void Level::render(SDL_Renderer* renderer)
 	{
 		characters[i]->render(renderer);
 	}
-}
-
-
-VectorXY Level::getRandomCoordinates()
-{
-	VectorXY coordinates;
-	coordinates.x = rand() % Level::GRID_SIZE_X;
-	coordinates.y = rand() % Level::GRID_SIZE_Y;
-	return coordinates;
 }
 
 

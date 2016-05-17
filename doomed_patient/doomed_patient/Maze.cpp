@@ -12,10 +12,6 @@ Maze::Maze(PatientGame* game)
 }
 
 
-Maze::~Maze()
-{
-}
-
 void Maze::generateCells(MazeGenerationManager& generationManager)
 {
 	// Last index. Can be changed (first, middle, or random) to give different results
@@ -166,8 +162,8 @@ void Maze::createCellInSameRoom(MazeGenerationManager& generationManager)
 	generationManager.getCurrentCell()->initialiseEdge<CellPassage>(generationManager.nextDirection);
 	generationManager.nextCell = createCell(generationManager.getNextCellCoordinates(), generationManager.getCurrentRoom());
 	generationManager.nextCell->initialiseEdge<CellPassage>(Directions::getOpposite(generationManager.nextDirection));
-
 }
+
 
 void Maze::createWall(MazeGenerationManager& generationManager)
 {
@@ -223,6 +219,7 @@ std::shared_ptr<LevelCell> Maze::createCell(VectorXY coordinates, std::shared_pt
 	return cells[coordinates.x][coordinates.y];
 }
 
+
 std::shared_ptr<LevelCell> Maze::getCell(VectorXY coordinates)
 {
 	return cells[coordinates.x][coordinates.y];
@@ -237,11 +234,13 @@ VectorXY Maze::getRandomCoordinates()
 	return coordinates;
 }
 
+
 bool Maze::containsCoordinates(VectorXY coordinates)
 {
 	// Check if given coordinates are within the level size
 	return (0 <= coordinates.x && coordinates.x < Level::GRID_SIZE_X && 0 <= coordinates.y && coordinates.y < Level::GRID_SIZE_Y);
 }
+
 
 void Maze::render(SDL_Renderer* renderer)
 {

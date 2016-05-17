@@ -63,6 +63,17 @@ public:
 	*/
 	std::shared_ptr<Exit> getExit() { return exit; }
 
+	//! Vector of pointers to characters.
+	/*!
+	This field holds a vector of shared pointers to
+	all instances of characters, which includes the
+	NPCs and the player. Used for rendering etc.
+	*/
+	std::vector<std::shared_ptr<Character>> getCharacters()
+	{
+		return characters;
+	}
+
 	//! Width of the level.
 	/*!
 	  This static member represents the width of
@@ -93,32 +104,8 @@ public:
 	*/
 	static const VectorXY PLAYER_START;
 	
-	//! Vector of pointers to characters.
-	/*!
-	  This field holds a vector of shared pointers to
-      all instances of characters, which includes the
-	  NPCs and the player. Used for rendering etc.
-	*/
-	std::vector<std::shared_ptr<Character>> getCharacters()
-	{
-		return characters;
-	}
 
 private:
-	//! Check if the given coordinates are in the level.
-	/*!
-	  This method checks if the given coordinates are contained
-	  in the level. If so, it returns true.
-	*/
-	bool containsCoordinates(VectorXY coordinates);
-
-    //! Returns random coordinates.
-	/*!
-	  This method returns random grid coordinates that
-	  are contained in the level.
-	*/
-	VectorXY getRandomCoordinates();
-
 	//! Add the exit to the level.
 	/*!
 	  This method creates an instance of the exit and
