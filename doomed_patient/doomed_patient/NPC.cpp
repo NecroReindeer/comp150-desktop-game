@@ -31,6 +31,12 @@ void NPC::update()
 	move(movementDirection);
 
 	changeSpriteDirection();
+
+	double distance = euclideanDistance();
+	if (distance < 35)
+	{
+		game->player->resetPosition();
+	}
 }
 
 // Call NPC behaviour code/methods that change NPC movementDirection from this method!
@@ -38,18 +44,7 @@ void NPC::changeDirection()
 {
 	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
 
-
-	//PUT STUFF HERE
-
-
-	// Temporary for testing
-	// Changes direction to a random direction until it finds one that isn't a wall
-	while (currentEdge->isWall() || currentEdge->isDoor())
-	{
-		int random = rand() % 4;
-		movementDirection = static_cast<Directions::Direction>(random);
-		currentEdge = currentCell->getEdge(movementDirection);
-	}
+	npcWall();
 }
 
 
@@ -60,7 +55,7 @@ void NPC::updateDirection()
 	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
 
 	// NPC needs to change direction if there is a wall
-	if (currentEdge->isWall() || currentEdge->isDoor())
+	if (currentEdge->isWall() || currentEdge->isDoor() || closeToPlayer())
 	{
 		// Check that the NPC is past the centre of its cell, relative
 		// to its movement direction
@@ -96,33 +91,59 @@ void NPC::updateDirection()
 			break;
 		}
 	}
-	double distance = euclideanDistance();
-	if (distance < 35)
-	{
-		game->player->resetPosition();
-	}
+}
 
-	if (distance < 200)
+void NPC::npcWall()
+{
+	if (closeToPlayer())
 	{
-		movementDirection = Directions::Direction::NORTH;
+		followPlayer();
 	}
+}
+
+bool NPC::closeToPlayer()
+{
+	return euclideanDistance() < 200;
 }
 
 void NPC::followPlayer()
 {
+	std::vector<std::shared_ptr<CellEdge>>passages = currentCell->getPassages();
 
+	double shortest = 1000000;
+	Directions::Direction shortestDirection;
+	for each (std::shared_ptr<CellEdge> passage in passages)
+	{
+		Directions::Direction clear = passage->getDirection();
+		std::shared_ptr<LevelCell> adjacentCell = game->level.getCell(currentCell->getCoordinates() + Directions::getDirectionVector(clear));
+
+		double distance = euclideanDistanceDirection(adjacentCell->getCentre());
+
+		if (distance < shortest)
+		{
+			shortest = distance;
+			shortestDirection = clear;
+		}
+	}
+
+	movementDirection = shortestDirection;
 }
 
-//std::vector<std::shared_ptr<CellEdge>>NPC::getPassableDirection()
-//{
-//	return;
-//}
+
 
 double NPC::euclideanDistance()
 {
 	VectorXY playerPosition = game->player->getCentre();
 	double dx = playerPosition.x - centre.x;
 	double dy = playerPosition.y - centre.y;
+	return sqrt(dx*dx + dy*dy);
+}
+
+double NPC::euclideanDistanceDirection(VectorXY cellcoords)
+{
+	VectorXY playerPosition = game->player->getCentre();
+	double dx = playerPosition.x - cellcoords.x;
+	double dy = playerPosition.y - cellcoords.y;
 	return sqrt(dx*dx + dy*dy);
 }
 

@@ -39,9 +39,13 @@ public:
 
 	double euclideanDistance();
 
+	double euclideanDistanceDirection(VectorXY cellcoords);
+
 	void followPlayer();
 
-	//std::vector<std::shared_ptr<CellEdge>>NPC::getPassableDirection();
+	void npcWall();
+
+	bool closeToPlayer();
 
 protected:
 	
