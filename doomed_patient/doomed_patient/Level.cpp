@@ -1,32 +1,16 @@
 #include "stdafx.h"
 #include "Level.h"
-#include "Directions.h"
-#include "LevelCell.h"
-#include "Room.h"
+#include "Character.h"
 #include "Exit.h"
 #include "Guard.h"
 #include "Doctor.h"
-#include "Player.h"
-#include "PatientGame.h"
-#include "Maze.h"
 
+// Start in bottom left corner
 const VectorXY Level::PLAYER_START(0, Level::GRID_SIZE_Y - 1);
 
 Level::Level(PatientGame* game)	
 	:game(game)
 {
-}
-
-
-Level::~Level()
-{
-}
-
-
-bool Level::containsCoordinates(VectorXY coordinates)
-{
-	// Check if given coordinates are within the level size
-	return (0 <= coordinates.x && coordinates.x < GRID_SIZE_X && 0 <= coordinates.y && coordinates.y < GRID_SIZE_Y);
 }
 
 
@@ -38,9 +22,9 @@ std::shared_ptr<LevelCell> Level::getCell(VectorXY coordinates)
 
 bool Level::positionOccupied(VectorXY coordinates)
 {
-	for each (std::shared_ptr<Character> npc in characters)
+	for each (std::shared_ptr<Character> character in characters)
 	{
-		if (coordinates == npc->getStartCoordinates())
+		if (coordinates == character->getStartCoordinates())
 		{
 			return true;
 		}
@@ -79,34 +63,47 @@ void Level::placeExit()
 	exit = std::make_shared<Exit>(game, exitCoords);
 }
 
+
 void Level::clearLevel()
 {
+	// Old maze will automatically get destoyed as level no longer points to it
 	maze = std::make_unique<Maze>(game);
-
 	characters.clear();
 }
 
+
 void Level::generateMaze()
 {
+	// Ensure level is empty
 	clearLevel();
-
 	maze->generate();
-	
 	placeExit();
-
 	player = createCharacter<Player>(PLAYER_START);
 
 	for (std::shared_ptr<Room> room : maze->getRooms())
 	{
-		if (room != maze->getCell(PLAYER_START)->room.lock() && room->getCells().size() > 1)
+		room->checkContainedCells();
+
+		// No NPCs to start in same room as player
+		if (room != maze->getCell(PLAYER_START)->room.lock())
 		{
+			// Guards in corridors
 			if (room->corridor)
 			{
-				createCharacter<Guard>(getRandomCoordinatesInRoom(room));
+				// There will never be more than 1/NPC_SPACING cells of the room occupied by NPCs
+				// This also means that no NPCs will spawn in rooms NPC_SPACING cells large or smaller
+				for (int i = 0; i < (rand() % room->getCells().size()) / NPC_SPACING; i++)
+				{
+					createCharacter<Guard>(getRandomCoordinatesInRoom(room));
+				}	
 			}
 			else
 			{
-				createCharacter<Doctor>(getRandomCoordinatesInRoom(room));
+				// Doctors in rooms
+				for (int i = 0; i < (rand() % room->getCells().size()) / NPC_SPACING; i++)
+				{
+					createCharacter<Doctor>(getRandomCoordinatesInRoom(room));
+				}
 			}
 		}	
 	}
@@ -116,7 +113,6 @@ void Level::generateMaze()
 void Level::render(SDL_Renderer* renderer)
 {
 	maze->render(renderer);
-
 	exit->render(renderer);
 
 	for (int i = 0; i < characters.size(); i++)
@@ -125,16 +121,6 @@ void Level::render(SDL_Renderer* renderer)
 	}
 }
 
-
-
-
-VectorXY Level::getRandomCoordinates()
-{
-	VectorXY coordinates;
-	coordinates.x = rand() % Level::GRID_SIZE_X;
-	coordinates.y = rand() % Level::GRID_SIZE_Y;
-	return coordinates;
-}
 
 VectorXY Level::getRandomCoordinatesInRoom(std::shared_ptr<Room> room)
 {

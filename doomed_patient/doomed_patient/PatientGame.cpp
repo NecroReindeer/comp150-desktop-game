@@ -59,10 +59,6 @@ PatientGame::PatientGame()
 	{
 		throw InitialisationError("SDL_CreateRenderer failed");
 	}
-
-
-	// For testing
-	level.renderer = renderer;
 }
 
 

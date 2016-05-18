@@ -10,12 +10,21 @@ class PatientGame;
 class Maze
 {
 public:
+	//! Constructor for the maze.
+	/*!
+	  This is the constructor for the maze.
+	  It takes a pointer to the game in order to
+	  access the sprites.
+	  It also sets up the vector of cells to be
+	  filled with nullptrs up to the level size.
+	*/
 	Maze(PatientGame* game);
-	~Maze();
 
 	//! Generates the maze.
 	/*!
 	  This method begins the maze generation process.
+	  The maze is generated using a modified version
+	  of the Growing Tree Algorithm.
 	*/
 	void generate();
 
@@ -32,16 +41,19 @@ public:
 	*/
 	std::shared_ptr<LevelCell> getCell(VectorXY coordinates);
 
+	//! Return pointers to the rooms in the maze.
+	/*!
+	  This method returns a vector of pointers to the
+	  rooms generated in the maze.
+	*/
 	std::vector<std::shared_ptr<Room>> getRooms() { return rooms; }
 
-	//! Size of each level cell.
+	//! Check if the given coordinates are in the level.
 	/*!
-	  This static member represents the size of each
-	  cell of the level, which corresponds to the size of
-	  the sprite. Used to convert grid coordinates to
-	  window coordinates and vice versa.
+	This method checks if the given coordinates are contained
+	in the level. If so, it returns true.
 	*/
-	static const int CELL_SIZE = 64;
+	bool containsCoordinates(VectorXY coordinates);
 
 private:
 	//! Generate the maze cells.
@@ -52,16 +64,10 @@ private:
 	*/
 	void generateCells(MazeGenerationManager& generationManager);
 
-	//! Check if the given coordinates are in the level.
-	/*!
-	  This method checks if the given coordinates are contained
-	  in the level. If so, it returns true.
-	*/
-	bool containsCoordinates(VectorXY coordinates);
 
 	//! Create a cell.
 	/*!
-	  This method created a cell at the given grid coordinates in the
+	  This method creates a cell at the given grid coordinates in the
 	  given room. It returns a pointer to the cell it has created.
 	*/
 	std::shared_ptr<LevelCell> createCell(VectorXY coordinates, std::shared_ptr<Room> room);
@@ -71,6 +77,8 @@ private:
 	  This method creates a room and returns a pointer to the
 	  room it has created. Rooms are used to determine where
 	  passages should be placed instead of walls.
+	  It takes a pointer to the previous room in the generation process
+	  in order to assign whether it's a corridor or non-corridor.
 	  The room is set as a corridor if it came from a non-corridor,
 	  and a non-corridor if it came from a corridor.
 	*/
@@ -82,7 +90,7 @@ private:
 	  room it has created. Rooms are used to determine where
 	  passages should be placed instead of walls.
 	  This version of the method should be used when the very
-	  first cell is created.
+	  first cell is created, as there is no previous room.
 	*/
 	std::shared_ptr<Room> createRoom();
 
@@ -116,14 +124,44 @@ private:
 	*/
 	std::vector<std::shared_ptr<Room>> rooms;
 
+	//! Returns whether the passage should be a door or not.
+	/*!
+	  This method decides whether a passage should be a door or not.
+	  If moving perpendicular from the current direction in a corridor, 
+	  a door is forced in order to keep corridors fairly straight.
+	  Otherwise, whether a door is there is selected randomly.
+	*/
 	bool assignDoor(MazeGenerationManager& generationManager);
 
+	//! Creates a new cell in a new room
+	/*!
+	  This method creates a new cell in a new room and sets the
+	  edge between the new cell and generationManager's currentCell
+	  to be a door.
+	*/
 	void createCellInNewRoom(MazeGenerationManager& generationManager);
+
+	//! Creates a new cell in the current room
+	/*!
+	  This method creates a new cell in the current room and sets the
+	  edge between the new cell and generationManager's currentCell
+	  to be a passage.
+	*/
 	void createCellInSameRoom(MazeGenerationManager& generationManager);
+
+	//! Create a passage between current and next cell.
+	/*!
+	  This method creates a passage between two cells in generationManager's
+	  nextDirection relative to generationManager's currentCell
+	*/
 	void createPassage(MazeGenerationManager& generationManager);
+
+	//! Create a wall between current and next cell.
+	/*!
+	  This method creates a wall between two cells in generationManager's
+	  nextDirection relative to generationManager's currentCell 
+	*/
 	void createWall(MazeGenerationManager& generationManager);
-
-
 
 	//! The probability that a door will be made.
 	/*!
