@@ -157,3 +157,19 @@ int LevelCell::getWallCount()
 
 	return wallCount;
 }
+
+std::vector<std::shared_ptr<CellEdge>> LevelCell::getPassages()
+{
+	std::vector<std::shared_ptr<CellEdge>> passages;
+
+	for (auto& element : edges)
+	{
+		std::shared_ptr<CellEdge> edge = element.second;
+		if (!(edge->isWall() || edge->isDoor()))
+		{
+			passages.push_back(edge);
+		}
+	}
+
+	return passages;
+}

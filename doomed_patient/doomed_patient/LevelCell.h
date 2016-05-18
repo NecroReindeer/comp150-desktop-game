@@ -116,6 +116,8 @@ public:
 		edges[direction] = std::make_shared<EdgeType>(direction, shared_from_this(), game);
 	}
 
+	std::vector<std::shared_ptr<CellEdge>> getPassages();
+
 private:
 	//! Cell's position on the grid.
 	/*!
