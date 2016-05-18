@@ -46,6 +46,8 @@ public:
 	*/
 	virtual bool isDoor() = 0;
 
+	virtual bool isPassage() = 0;
+
 protected:
 	//! Direction the egde is on.
 	/*!

@@ -2,13 +2,14 @@
 #include "NPC.h"
 #include "PatientGame.h"
 #include "LevelCell.h"
-
+#include "InitialisationError.h"
 
 NPC::NPC(PatientGame* game, VectorXY startCoordinates, Texture * sprite)
 	: Character(game, startCoordinates, sprite)
 {
 	int random = rand() % 4;
 	movementDirection = static_cast<Directions::Direction>(random);
+	nextDirection = movementDirection;
 	updateCurrentCell();
 	assignedRoom = currentCell->room.lock();
 }
@@ -24,6 +25,8 @@ void NPC::update()
 {
 	// Makes sure NPC's grid position is up to date
 	updateCurrentCell();
+
+	setNextDirection();
 
 	// Update direction if necessary
 	updateDirection();
@@ -42,56 +45,81 @@ void NPC::update()
 // Call NPC behaviour code/methods that change NPC movementDirection from this method!
 void NPC::changeDirection()
 {
+	movementDirection = nextDirection;
+}
+
+
+void NPC::setNextDirection()
+{
 	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
 
-	npcWall();
+	if (!closeToPlayer())
+	{
+		while (currentEdge->isWall() || currentEdge->isDoor())
+		{
+			int random = rand() % 4;
+			nextDirection = static_cast<Directions::Direction>(random);
+			currentEdge = currentCell->getEdge(nextDirection);
+		}
+	}
+	else
+	{
+		npcWall();
+	}
 }
 
 
 void NPC::updateDirection()
 {
-	VectorXY currentCellCentre = currentCell->getCentre();
-	// Pointer because of polymorphism
-	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
-
-	// NPC needs to change direction if there is a wall
-	if (currentEdge->isWall() || currentEdge->isDoor() || closeToPlayer())
+	if (nextDirection != movementDirection)
 	{
-		// Check that the NPC is past the centre of its cell, relative
-		// to its movement direction
-		switch (movementDirection)
+		std::shared_ptr<LevelCell> nextCell = game->level.getCell(currentCell->getCoordinates() + Directions::getDirectionVector(nextDirection));
+		VectorXY currentCellCentre = currentCell->getCentre();
+		// Pointer because of polymorphism
+		std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(nextDirection);
+
+		if (currentEdge->isPassage())
 		{
-		case Directions::Direction::NORTH:
-			if (centre.y <= currentCellCentre.y)
+			// Check that the NPC is past the centre of its cell, relative
+			// to its movement direction
+			switch (movementDirection)
 			{
-				centre.y = currentCellCentre.y;
-				changeDirection();
+			case Directions::Direction::NORTH:
+				if (centre.y <= currentCellCentre.y)
+				{
+					centre.y = currentCellCentre.y;
+					changeDirection();
+				}
+				break;
+
+			case Directions::Direction::EAST:
+				if (centre.x >= currentCellCentre.x)
+				{
+					centre.x = currentCellCentre.x;
+					changeDirection();
+				}
+				break;
+
+			case Directions::Direction::SOUTH:
+				if (centre.y >= currentCellCentre.y)
+				{
+					centre.y = currentCellCentre.y;
+					changeDirection();
+				}
+				break;
+
+			case Directions::Direction::WEST:
+				if (centre.x <= currentCellCentre.x)
+				{
+					centre.x = currentCellCentre.x;
+					changeDirection();
+				}
+				break;
 			}
-			break;
-		case Directions::Direction::EAST:
-			if (centre.x >= currentCellCentre.x)
-			{
-				centre.x = currentCellCentre.x;
-				changeDirection();
-			}
-			break;
-		case Directions::Direction::SOUTH:
-			if (centre.y >= currentCellCentre.y)
-			{
-				centre.y = currentCellCentre.y;
-				changeDirection();
-			}
-			break;
-		case Directions::Direction::WEST:
-			if (centre.x <= currentCellCentre.x)
-			{
-				centre.x = currentCellCentre.x;
-				changeDirection();
-			}
-			break;
 		}
-	}
+	}		
 }
+
 
 void NPC::npcWall()
 {
@@ -103,32 +131,40 @@ void NPC::npcWall()
 
 bool NPC::closeToPlayer()
 {
-	return euclideanDistance() < 200;
+	return (euclideanDistance() < 200);
 }
 
 void NPC::followPlayer()
 {
-	std::vector<std::shared_ptr<CellEdge>>passages = currentCell->getPassages();
+	std::vector<Directions::Direction> clearDirections = currentCell->getPassageDirections();
 
-	double shortest = 1000000;
+	double shortest = 0;
 	Directions::Direction shortestDirection;
-	for each (std::shared_ptr<CellEdge> passage in passages)
+
+	if (clearDirections.size() < 1)
 	{
-		Directions::Direction clear = passage->getDirection();
-		std::shared_ptr<LevelCell> adjacentCell = game->level.getCell(currentCell->getCoordinates() + Directions::getDirectionVector(clear));
+		throw InitialisationError("SAD");
+	}
 
-		double distance = euclideanDistanceDirection(adjacentCell->getCentre());
+	for each (Directions::Direction clearDirection in clearDirections)
+	{
+		std::shared_ptr<LevelCell> adjacentCell = game->level.getCell(currentCell->getCoordinates() + Directions::getDirectionVector(clearDirection));
 
-		if (distance < shortest)
+		if (adjacentCell)
 		{
-			shortest = distance;
-			shortestDirection = clear;
+			double distance = euclideanDistanceDirection(adjacentCell->getCoordinates());
+
+			// If first is true, other one won't be checked
+			if ((distance <= shortest) || shortest == 0)
+			{
+				shortest = distance;
+				shortestDirection = clearDirection;
+			}
 		}
 	}
 
-	movementDirection = shortestDirection;
+	nextDirection = shortestDirection;
 }
-
 
 
 double NPC::euclideanDistance()
@@ -141,7 +177,7 @@ double NPC::euclideanDistance()
 
 double NPC::euclideanDistanceDirection(VectorXY cellcoords)
 {
-	VectorXY playerPosition = game->player->getCentre();
+	VectorXY playerPosition = game->player->currentCell->getCoordinates();
 	double dx = playerPosition.x - cellcoords.x;
 	double dy = playerPosition.y - cellcoords.y;
 	return sqrt(dx*dx + dy*dy);

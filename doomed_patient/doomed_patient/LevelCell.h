@@ -118,6 +118,9 @@ public:
 
 	std::vector<std::shared_ptr<CellEdge>> getPassages();
 
+	std::vector<Directions::Direction> getPassageDirections();
+
+
 private:
 	//! Cell's position on the grid.
 	/*!

@@ -21,6 +21,7 @@ public:
 	CellDoor is not a door, so should return true.
 	*/
 	bool isDoor() { return true; }
+	bool isPassage() { return false; }
 
 	bool locked;
 

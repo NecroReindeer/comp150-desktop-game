@@ -51,6 +51,8 @@ protected:
 	
 	Directions::Direction movementDirection;
 
+	Directions::Direction nextDirection;
+
 private:
 
 	// The cell the NPC is currently occupying.
@@ -85,4 +87,7 @@ private:
 	  rely on cell position are called (i.e. movement/behaviour)
 	*/
 	void updateCurrentCell();
+
+	void setNextDirection();
+
 };

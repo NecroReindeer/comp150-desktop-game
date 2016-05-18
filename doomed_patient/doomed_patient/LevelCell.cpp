@@ -165,9 +165,26 @@ std::vector<std::shared_ptr<CellEdge>> LevelCell::getPassages()
 	for (auto& element : edges)
 	{
 		std::shared_ptr<CellEdge> edge = element.second;
-		if (!(edge->isWall() || edge->isDoor()))
+		if (edge->isPassage())
 		{
 			passages.push_back(edge);
+		}
+	}
+
+	return passages;
+}
+
+
+std::vector<Directions::Direction> LevelCell::getPassageDirections()
+{
+	std::vector<Directions::Direction> passages;
+
+	for (auto& element : edges)
+	{
+		std::shared_ptr<CellEdge> edge = element.second;
+		if (edge->isPassage())
+		{
+			passages.push_back(edge->getDirection());
 		}
 	}
 
