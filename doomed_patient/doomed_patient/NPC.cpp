@@ -2,7 +2,6 @@
 #include "NPC.h"
 #include "PatientGame.h"
 #include "LevelCell.h"
-#include "InitialisationError.h"
 
 NPC::NPC(PatientGame* game, VectorXY startCoordinates, Texture * sprite)
 	: Character(game, startCoordinates, sprite)
@@ -120,7 +119,6 @@ void NPC::updateDirection()
 	}		
 }
 
-
 void NPC::npcWall()
 {
 	if (closeToPlayer())
@@ -138,13 +136,8 @@ void NPC::followPlayer()
 {
 	std::vector<Directions::Direction> clearDirections = currentCell->getPassageDirections();
 
-	double shortest = 0;
+	double shortest = MAXINT;
 	Directions::Direction shortestDirection;
-
-	if (clearDirections.size() < 1)
-	{
-		throw InitialisationError("SAD");
-	}
 
 	for each (Directions::Direction clearDirection in clearDirections)
 	{
@@ -155,7 +148,7 @@ void NPC::followPlayer()
 			double distance = euclideanDistanceDirection(adjacentCell->getCoordinates());
 
 			// If first is true, other one won't be checked
-			if ((distance <= shortest) || shortest == 0)
+			if ((distance <= shortest) || shortest == MAXINT)
 			{
 				shortest = distance;
 				shortestDirection = clearDirection;
