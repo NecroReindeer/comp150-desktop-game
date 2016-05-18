@@ -135,13 +135,8 @@ void PatientGame::update()
 	{
 		npc->update();
 	}
-
-	// Temporary before collision checking is implemented
-	if (player->getCentre() == exit->getCentre())
-		generateLevel();
-
-
-	// Temporary before collision checking is implemented
+	
+	// Go to next level
 	if (player->getCentre() == exit->getCentre())
 	{
 		generateLevel();

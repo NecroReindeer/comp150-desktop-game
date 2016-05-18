@@ -37,6 +37,12 @@ public:
 
 	virtual void changeSpriteDirection() = 0;
 
+	double euclideanDistance();
+
+	void followPlayer();
+
+	//std::vector<std::shared_ptr<CellEdge>>NPC::getPassableDirection();
+
 protected:
 	
 	Directions::Direction movementDirection;

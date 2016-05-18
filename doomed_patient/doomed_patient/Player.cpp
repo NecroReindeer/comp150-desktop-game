@@ -6,8 +6,7 @@
 
 
 Player::Player(PatientGame* game, VectorXY startCoordinates)
-	: Character(game, startCoordinates, game->getPlayerSpriteEast()),
-	speed(2)
+	: Character(game, startCoordinates, game->getPlayerSpriteEast())
 {
 	currentCell = game->level.getCell(Level::PLAYER_START);
 	centre = currentCell->getCentre();

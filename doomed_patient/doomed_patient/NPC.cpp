@@ -96,15 +96,35 @@ void NPC::updateDirection()
 			break;
 		}
 	}
-
-	VectorXY playerPosition = game->player->getCentre();
-	double distance = sqrt(pow(centre.x - playerPosition.x, 2) + pow(centre.y - playerPosition.y, 2));
-	if (distance < 4)
+	double distance = euclideanDistance();
+	if (distance < 35)
 	{
 		game->player->resetPosition();
 	}
+
+	if (distance < 200)
+	{
+		movementDirection = Directions::Direction::NORTH;
+	}
 }
 
+void NPC::followPlayer()
+{
+
+}
+
+//std::vector<std::shared_ptr<CellEdge>>NPC::getPassableDirection()
+//{
+//	return;
+//}
+
+double NPC::euclideanDistance()
+{
+	VectorXY playerPosition = game->player->getCentre();
+	double dx = playerPosition.x - centre.x;
+	double dy = playerPosition.y - centre.y;
+	return sqrt(dx*dx + dy*dy);
+}
 
 void NPC::updateCurrentCell()
 {
