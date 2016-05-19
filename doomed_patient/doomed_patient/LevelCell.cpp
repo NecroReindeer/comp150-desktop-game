@@ -125,20 +125,23 @@ std::shared_ptr<CellEdge> LevelCell::getRandomWall()
 	std::vector<Directions::Direction> uncheckedDirections = { Directions::Direction::NORTH, Directions::Direction::EAST,
 		Directions::Direction::WEST, Directions::Direction::SOUTH };
 
-	for (;;)
+	if (uncheckedDirections.size() > 0)
 	{
-		int index = rand() % (uncheckedDirections.size());
+		for (;;)
+		{
+			int index = rand() % (uncheckedDirections.size());
 
-		if (edges[uncheckedDirections[index]]->isWall())
-		{
-			return edges[uncheckedDirections[index]];
-		}
-		else
-		{
-			uncheckedDirections.erase(uncheckedDirections.begin() + index);
+			if (edges[uncheckedDirections[index]]->isWall())
+			{
+				return edges[uncheckedDirections[index]];
+			}
+			else
+			{
+				uncheckedDirections.erase(uncheckedDirections.begin() + index);
+			}
 		}
 	}
-
+	
 	return nullptr;
 }
 

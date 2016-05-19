@@ -51,8 +51,10 @@ void Room::addExtraDoors()
 
 void Room::checkContainedCells()
 {
+	doorCount = 0;
 	for each (std::shared_ptr<LevelCell> cell in containedCells)
 	{
+		
 		if (cell->hasDoor())
 		{
 			doorCount++;
@@ -63,8 +65,9 @@ void Room::checkContainedCells()
 		}
 	}
 
-	if (doorCount < MIN_DOORS)
+	if ((doorCount < MIN_DOORS) && (containedCells.size() > MIN_DOORS))
 	{
 		addExtraDoors();
+		checkContainedCells();
 	}
 }
