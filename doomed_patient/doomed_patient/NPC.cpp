@@ -7,11 +7,19 @@ NPC::NPC(PatientGame* game, VectorXY startCoordinates, Texture * sprite)
 	: Character(game, startCoordinates, sprite)
 {
 	int random = rand() % 4;
+
+	// Set the NPC's movement direction to random at
+	// the start of the game.
 	movementDirection = static_cast<Directions::Direction>(random);
+
 	nextDirection = movementDirection;
+
 	updateCurrentCell();
+
+	// Prevent the NPC from spawning in a
+	// room thats too small.
 	assignedRoom = currentCell->room.lock();
-	
+
 }
 
 void NPC::move(Directions::Direction direction)
@@ -24,17 +32,18 @@ void NPC::update()
 	// Makes sure NPC's grid position is up to date.
 	updateCurrentCell();
 
-	// Sets the next direction for the NPC to move.
 	setNextDirection();
 
-	// Update direction if necessary.
 	updateDirection();
 
 	// Updates the NPC's movement Direction.
 	move(movementDirection);
 
+	// Changes the direction the sprite is facing.
 	changeSpriteDirection();
 
+	// If the NPC distance is less than the tolerated amount
+	// the Player is sent back to the begining.
 	double distance = euclideanDistance();
 	if (distance < COLLISION_DISTANCE)
 	{
@@ -42,7 +51,8 @@ void NPC::update()
 	}
 }
 
-// Call NPC behaviour code/methods that change NPC movementDirection from this method!
+// Change the NPC's direction to the next direction
+// to follow the Player.
 void NPC::changeDirection()
 {
 	movementDirection = nextDirection;
@@ -52,6 +62,7 @@ void NPC::setNextDirection()
 {
 	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
 
+	// Keeping the NPC's on patrol while not close to the Player.
 	if (!closeToPlayer())
 	{
 		while (currentEdge->isWall() || currentEdge->isDoor())
@@ -63,6 +74,7 @@ void NPC::setNextDirection()
 	}
 	else
 	{
+		// Detect if the Player is too close.
 		npcPlayerDetection();
 	}
 }
@@ -158,7 +170,8 @@ void NPC::followPlayer()
 	nextDirection = shortestDirection;
 }
 
-//
+// Calculate the distance between the
+// Player and NPC's.
 double NPC::euclideanDistance()
 {
 	VectorXY playerPosition = game->player->getCentre();
@@ -167,6 +180,8 @@ double NPC::euclideanDistance()
 	return sqrt(dx*dx + dy*dy);
 }
 
+// Calculate the distance between the
+// Player and NPC's returning a Vector.
 double NPC::euclideanDistanceDirection(VectorXY cellcoords)
 {
 	VectorXY playerPosition = game->player->currentCell->getCoordinates();

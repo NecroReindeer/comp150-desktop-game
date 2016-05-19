@@ -104,8 +104,18 @@ class NPC : public Character
 	
 	private:
 	
+		//!Constant for collision detection
+		/*!
+		This method sets the didtance that the NPC needs
+		to be to casue the Player to restart.
+		*/
 		int const COLLISION_DISTANCE = 35;
 
+		//!Constant for detection
+		/*!
+		This method sets the didtance that the 
+		NPC needs to be to follow the Player.
+		*/
 		int const DETECTION_DISTANCE = 200;
 
 		//!The cell the NPC is currently occupying.
