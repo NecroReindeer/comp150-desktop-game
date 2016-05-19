@@ -22,8 +22,6 @@ public:
 	*/
 	bool isDoor() { return true; }
 
-	bool locked;
-
 private:
 	void initialiseSprite(PatientGame* game);
 };

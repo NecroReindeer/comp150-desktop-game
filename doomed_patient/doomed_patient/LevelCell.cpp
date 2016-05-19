@@ -20,19 +20,7 @@ LevelCell::LevelCell(PatientGame* game, VectorXY coordinates)
 	edges[Directions::Direction::SOUTH] = nullptr;
 }
 
-LevelCell::LevelCell(PatientGame* game, VectorXY coordinates, Texture* sprite)
-	: GameObject(game, sprite),				// Call base class constructor
-	gridPosition(coordinates)
-{
-	// Calculate the window position from the grid position
-	centre = gridPosition.convertGridToWindow();
 
-	// Set up empty edges
-	edges[Directions::Direction::NORTH] = nullptr;
-	edges[Directions::Direction::EAST] = nullptr;
-	edges[Directions::Direction::WEST] = nullptr;
-	edges[Directions::Direction::SOUTH] = nullptr;
-}
 
 
 void LevelCell::render(SDL_Renderer* renderer)
@@ -70,7 +58,7 @@ Directions::Direction LevelCell::getRandomUninitialisedDirection()
 	std::vector<Directions::Direction> uncheckedDirections = {Directions::Direction::NORTH, Directions::Direction::EAST, 
 															  Directions::Direction::WEST, Directions::Direction::SOUTH};
 
-	for (;;)
+	while (uncheckedDirections.size() > 0)
 	{
 		int index = rand() % (uncheckedDirections.size());
 
@@ -125,20 +113,18 @@ std::shared_ptr<CellEdge> LevelCell::getRandomWall()
 	std::vector<Directions::Direction> uncheckedDirections = { Directions::Direction::NORTH, Directions::Direction::EAST,
 		Directions::Direction::WEST, Directions::Direction::SOUTH };
 
-	if (uncheckedDirections.size() > 0)
-	{
-		for (;;)
-		{
-			int index = rand() % (uncheckedDirections.size());
 
-			if (edges[uncheckedDirections[index]]->isWall())
-			{
-				return edges[uncheckedDirections[index]];
-			}
-			else
-			{
-				uncheckedDirections.erase(uncheckedDirections.begin() + index);
-			}
+	while (uncheckedDirections.size() > 0)
+	{
+		int index = rand() % (uncheckedDirections.size());
+
+		if (edges[uncheckedDirections[index]]->isWall())
+		{
+			return edges[uncheckedDirections[index]];
+		}
+		else
+		{
+			uncheckedDirections.erase(uncheckedDirections.begin() + index);
 		}
 	}
 	

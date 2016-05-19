@@ -41,7 +41,7 @@ void Room::addExtraDoors()
 			}
 			else
 			{
-				walledCells.erase(walledCells.begin() + i);
+				walledCells.erase(walledCells.begin()  + i);
 				addExtraDoors();
 			}
 			
