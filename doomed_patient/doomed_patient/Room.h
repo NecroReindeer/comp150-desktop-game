@@ -5,6 +5,7 @@
   and which cells are contained within it.
 */
 
+
 #pragma once
 #include "LevelCell.h"
 
@@ -12,6 +13,11 @@
 class Room
 {
 public:
+	//! Constructor for the room.
+	/*!
+	  The constructor for the room ensures that a pointer
+	  to the game is stored in the class's game field.
+	*/
 	Room(PatientGame* game);
 
 	//! Whether the room is a corridor or not.
@@ -35,20 +41,24 @@ public:
 	*/
 	void addCell(std::shared_ptr<LevelCell> cell);
 
-
-	//! Add additional doors to a random cell.
+	//! Check whether the room contains enough cells with doors
 	/*!
-	  This method replaces a random wall of a random cell
-	  that doesn't already contain a door with a door.
-	*/
-	void addExtraDoors();
-
-	//!
-	/*!
+	  This method checks whether the room contains enough cells
+	  with doors, according to MIN_DOORS.
+	  If it doesn't then it will add extra doors to the room,
+	  provided its size is greater than MIN_DOORS.
 	*/
 	void checkContainedCells();
 
+
 private:
+	//! Add additional doors to a random cell.
+	/*!
+	This method replaces a random wall of a random cell
+	that doesn't already contain a door with a door.
+	*/
+	void addExtraDoors();
+
 	//! A vector of all cells contained in the room.
 	/*!
 	  This is a vector of shared pointers to all cells that
@@ -56,18 +66,24 @@ private:
 	*/
 	std::vector<std::shared_ptr<LevelCell>> containedCells;
 
-	//!
+	//! How many doors the room has.
 	/*!
+	  This field keeps track of how many doors the room has.
 	*/
 	int doorCount;
 
-	//!
+	//! List of cells which have walls
 	/*!
+	  This vector of pointers to cells contains all cells in
+	  the room that have at least one wall, and no doors.
+	  Used when adding extra doors to the room.
 	*/
 	std::vector<std::shared_ptr<LevelCell>> walledCells;
 
-	//!
+	//! Pointer to the game
 	/*!
+	  This is a pointer to the game, so that the room can have 
+	  access to the level.
 	*/
 	PatientGame* game;
 

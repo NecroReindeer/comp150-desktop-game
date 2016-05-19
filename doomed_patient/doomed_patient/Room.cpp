@@ -18,43 +18,37 @@ void Room::addExtraDoors()
 {
 	if (walledCells.size() > 0)
 	{
+		// Get a random cell to replace the wall of
 		int i = rand() % walledCells.size();
 		std::shared_ptr<LevelCell> chosenCell = walledCells[i];
 		std::shared_ptr<CellEdge> wall = chosenCell->getRandomWall();
+		Directions::Direction wallDirection = wall->getDirection();
+		VectorXY adjacentCellCoords = chosenCell->getCoordinates() + Directions::getDirectionVector(wallDirection);
 
-		if (!wall)
+		if (game->level.containsCoordinates(adjacentCellCoords))
 		{
-			walledCells.erase(walledCells.begin() + i);
-			addExtraDoors();
+			std::shared_ptr<LevelCell> adjacentCell = game->level.getCell(adjacentCellCoords);
+			chosenCell->initialiseEdge<CellDoor>(wallDirection);
+			adjacentCell->initialiseEdge<CellDoor>(Directions::getOpposite(wallDirection));
+
+			if (chosenCell->getWallCount() < 1)
+				walledCells.erase(walledCells.begin() + i);
 		}
 		else
 		{
-			Directions::Direction wallDirection = wall->getDirection();
-			
-			VectorXY adjacentCellCoords = chosenCell->getCoordinates() + Directions::getDirectionVector(wallDirection);
-
-			if (game->level.containsCoordinates(adjacentCellCoords))
-			{
-				std::shared_ptr<LevelCell> adjacentCell = game->level.getCell(adjacentCellCoords);
-				chosenCell->initialiseEdge<CellDoor>(wallDirection);
-				adjacentCell->initialiseEdge<CellDoor>(Directions::getOpposite(wallDirection));
-			}
-			else
-			{
-				walledCells.erase(walledCells.begin()  + i);
-				addExtraDoors();
-			}
-			
+			// Can't add door if cell is at edge, choose different cell
+			walledCells.erase(walledCells.begin()  + i);
+			addExtraDoors();
 		}
 	}
 }
+
 
 void Room::checkContainedCells()
 {
 	doorCount = 0;
 	for each (std::shared_ptr<LevelCell> cell in containedCells)
 	{
-		
 		if (cell->hasDoor())
 		{
 			doorCount++;

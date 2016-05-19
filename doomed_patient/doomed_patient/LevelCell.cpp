@@ -6,6 +6,7 @@
 #include "CellPassage.h"
 #include "Room.h"
 
+
 LevelCell::LevelCell(PatientGame* game, VectorXY coordinates)
 	: GameObject(game, game->getFloorSprite()),				// Call base class constructor
 	gridPosition(coordinates)
@@ -56,6 +57,7 @@ Directions::Direction LevelCell::getRandomUninitialisedDirection()
 	std::vector<Directions::Direction> uncheckedDirections = {Directions::Direction::NORTH, Directions::Direction::EAST, 
 															  Directions::Direction::WEST, Directions::Direction::SOUTH};
 
+	// Loop through all directions and remove after it's been checked
 	while (uncheckedDirections.size() > 0)
 	{
 		int index = rand() % (uncheckedDirections.size());
@@ -74,6 +76,7 @@ Directions::Direction LevelCell::getRandomUninitialisedDirection()
 
 Directions::Direction LevelCell::getBiasedUninitialisedDirection(Directions::Direction direction)
 {
+	// Given direction is returned if it's uninitialised, otherwise random
 	if (!edges[direction])
 	{
 		return direction;
@@ -110,8 +113,7 @@ bool LevelCell::hasDoor()
 std::shared_ptr<CellEdge> LevelCell::getRandomWall()
 {
 	std::vector<Directions::Direction> uncheckedDirections = { Directions::Direction::NORTH, Directions::Direction::EAST,
-		Directions::Direction::WEST, Directions::Direction::SOUTH };
-
+															   Directions::Direction::WEST, Directions::Direction::SOUTH };
 
 	while (uncheckedDirections.size() > 0)
 	{
