@@ -11,31 +11,32 @@ NPC::NPC(PatientGame* game, VectorXY startCoordinates, Texture * sprite)
 	nextDirection = movementDirection;
 	updateCurrentCell();
 	assignedRoom = currentCell->room.lock();
+	
 }
-
 
 void NPC::move(Directions::Direction direction)
 {
 	centre += Directions::getDirectionVector(direction) * speed;
 }
 
-
 void NPC::update()
 {
-	// Makes sure NPC's grid position is up to date
+	// Makes sure NPC's grid position is up to date.
 	updateCurrentCell();
 
+	// Sets the next direction for the NPC to move.
 	setNextDirection();
 
-	// Update direction if necessary
+	// Update direction if necessary.
 	updateDirection();
 
+	// Updates the NPC's movement Direction.
 	move(movementDirection);
 
 	changeSpriteDirection();
 
 	double distance = euclideanDistance();
-	if (distance < 35)
+	if (distance < COLLISION_DISTANCE)
 	{
 		game->player->resetPosition();
 	}
@@ -46,7 +47,6 @@ void NPC::changeDirection()
 {
 	movementDirection = nextDirection;
 }
-
 
 void NPC::setNextDirection()
 {
@@ -63,10 +63,9 @@ void NPC::setNextDirection()
 	}
 	else
 	{
-		npcWall();
+		npcPlayerDetection();
 	}
 }
-
 
 void NPC::updateDirection()
 {
@@ -119,7 +118,7 @@ void NPC::updateDirection()
 	}		
 }
 
-void NPC::npcWall()
+void NPC::npcPlayerDetection()
 {
 	if (closeToPlayer())
 	{
@@ -129,7 +128,7 @@ void NPC::npcWall()
 
 bool NPC::closeToPlayer()
 {
-	return (euclideanDistance() < 200);
+	return (euclideanDistance() < DETECTION_DISTANCE);
 }
 
 void NPC::followPlayer()
@@ -159,7 +158,7 @@ void NPC::followPlayer()
 	nextDirection = shortestDirection;
 }
 
-
+//
 double NPC::euclideanDistance()
 {
 	VectorXY playerPosition = game->player->getCentre();
@@ -180,5 +179,3 @@ void NPC::updateCurrentCell()
 {
 	currentCell = game->level.getCell(centre.convertWindowToGrid());
 }
-
-
