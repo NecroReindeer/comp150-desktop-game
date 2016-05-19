@@ -47,7 +47,7 @@ public:
 	  The coordinates should be supplied as a VectorXY 
 	  representing the grid coordinates.
 	*/
-	std::shared_ptr<LevelCell> getCell(VectorXY coordinates);
+	std::shared_ptr<LevelCell> getCell(VectorXY coordinates) { return maze->getCell(coordinates); };
 
 	//! Returns a pointer to the player.
 	/*!
@@ -74,6 +74,11 @@ public:
 		return characters;
 	}
 
+	//! Check if the given coordinates are in the level.
+	/*!
+	  This method checks if the given coordinates are contained
+	  in the level. If so, it returns true.
+	*/
 	bool containsCoordinates(VectorXY coordinates) { return maze->containsCoordinates(coordinates); }
 
 	//! Width of the level.
@@ -156,15 +161,6 @@ private:
 	*/
 	std::shared_ptr<Player> player;
 
-	//! Checks if a character starts at the given coordinates.
-	/*!
-	  This method checks if any character has its starting
-	  position at the given grid coordinates, and if so,
-	  it returns true. This is to ensure that two characters
-	  don't get placed in the same position.
-	*/
-	bool positionOccupied(VectorXY coordinates);
-
 	//! Returns coordinates of a random cell in the given room
 	/*!
 	  This method returns the coordinates of a randomly selected cell
@@ -191,11 +187,11 @@ private:
 
 	//! The probability that a door will be made.
 	/*!
-	This constant defines the probability that a door
-	will be made instead of a passage. This value should
-	be between 0 and 1.
-	0 means that doors will never spawn, 1  means that
-	doors will always spawn.
+	  This constant defines the probability that a door
+	  will be made instead of a passage. This value should
+	  be between 0 and 1.
+	  0 means that doors will never spawn, 1  means that
+	  doors will always spawn.
 	*/
 	const double DOOR_PROBABILITY = 0.03;
 

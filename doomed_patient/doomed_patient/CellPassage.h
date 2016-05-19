@@ -14,7 +14,6 @@ public:
 	position for rendering.
 	*/
 	CellPassage(Directions::Direction direction, std::shared_ptr<LevelCell> cell, PatientGame* game);
-	~CellPassage();
 
 	//! This method returns whether the edge is a wall.
 	/*!
@@ -26,16 +25,15 @@ public:
 	//! This method returns whether the edge is a door.
 	/*!
 	  This method returns a bool indicating whether the edge is a door.
-	  CellPassage is not a door, so should return true.
+	  CellPassage is not a door, so should return false.
 	*/
 	bool isDoor() { return false; }
 
 private:
 	//! Initialises the sprite.
 	/*!
-	This method sets the sprite to the door sprite of
-	the appropriate orientation, or nullptr if the edge
-	is not a door.
+	  This method sets the sprite to nullptr, as a
+	  passage does not require any visualisation.
 	*/
 	void initialiseSprite(PatientGame* game);
 

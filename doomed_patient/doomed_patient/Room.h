@@ -1,3 +1,10 @@
+//! Class for managing rooms.
+/*!
+  This class manages the rooms of the level, including
+  storing what type of room it is, how many doors it has, 
+  and which cells are contained within it.
+*/
+
 #pragma once
 #include "LevelCell.h"
 
@@ -28,8 +35,17 @@ public:
 	*/
 	void addCell(std::shared_ptr<LevelCell> cell);
 
+
+	//! Add additional doors to a random cell.
+	/*!
+	  This method replaces a random wall of a random cell
+	  that doesn't already contain a door with a door.
+	*/
 	void addExtraDoors();
 
+	//!
+	/*!
+	*/
 	void checkContainedCells();
 
 private:
@@ -40,13 +56,27 @@ private:
 	*/
 	std::vector<std::shared_ptr<LevelCell>> containedCells;
 
+	//!
+	/*!
+	*/
 	int doorCount;
 
+	//!
+	/*!
+	*/
 	std::vector<std::shared_ptr<LevelCell>> walledCells;
 
+	//!
+	/*!
+	*/
 	PatientGame* game;
 
+	//! Minimum amount of doors that a room is allowed to have
+	/*!
+	  This constant represents the minimum number of doors that a
+	  room must have leading from/into it, provided that the
+	  room is more than MIN_DOORS big.
+	*/
 	const int MIN_DOORS = 3;
-
 };
 

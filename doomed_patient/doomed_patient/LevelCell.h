@@ -33,21 +33,6 @@ public:
 	// TEMPORARY for visualising corridors during testing
 	LevelCell(PatientGame* game, VectorXY coordinates, Texture* sprite);
 
-	//! Creates a wall on a given side.
-	/*!
-	  This method instantiates and sets up a pointer to a CellWall
-	  as the edge in the given direction relative to the cell.
-	*/
-	//void createWall(Directions::Direction direction);
-
-	//! Creates a passage on a given side.
-	/*!
-	This method instantiates and sets up a pointer to a CellPassage
-	as the edge in the given direction relative to the cell.
-	Passages may instead be doors, which is specified by the bool isDoor.
-	*/
-	//void createPassage(Directions::Direction direction, bool isDoor);
-
 	//! Render the cell.
 	/*!
 	This method renders the cell and all of its edges.
@@ -68,20 +53,22 @@ public:
 	*/
 	Directions::Direction getRandomUninitialisedDirection();
 
+	//!
+	/*!
+	*/
 	Directions::Direction getBiasedUninitialisedDirection(Directions::Direction direction);
 
 	//! Return the cell's coordinates.
 	/*!
-	  This getter returns the cell's coordinates as GridCoordinate.
+	  This getter returns the cell's grid coordinates.
 	*/
 	VectorXY getCoordinates() { return gridPosition; }
 
 	//! Pointer to the room the cell is in.
 	/*!
-	  This field holds a shared pointer to the room
+	  This field holds a weak pointer to the room
 	  that contains the cell.
 	*/
-
 	std::weak_ptr<Room> room;
 
 	//! Returns a pointer to the edge in the given direction.
@@ -91,10 +78,19 @@ public:
 	*/ 
 	std::shared_ptr<CellEdge> getEdge(Directions::Direction direction) { return edges[direction]; }
 
+	//!
+	/*!
+	*/
 	bool hasDoor();
 
+	//!
+	/*!
+	*/
 	std::shared_ptr<CellEdge> getRandomWall();
 
+	//!
+	/*!
+	*/
 	int getWallCount();
 
 	//! The number of sides the cell has.
@@ -104,6 +100,9 @@ public:
 	*/
 	static const int NUMBER_OF_SIDES = 4;
 
+	//!
+	/*!
+	*/
 	void assignRoom(std::shared_ptr<Room> assignedRoom);
 
 	//!

@@ -66,6 +66,5 @@ public:
 	  current cell belongs to.
 	*/
 	std::shared_ptr<Room> getCurrentRoom();
-	
 };
 
