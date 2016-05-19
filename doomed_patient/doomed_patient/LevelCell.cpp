@@ -21,8 +21,6 @@ LevelCell::LevelCell(PatientGame* game, VectorXY coordinates)
 }
 
 
-
-
 void LevelCell::render(SDL_Renderer* renderer)
 {
 	// Render the cell
@@ -94,6 +92,7 @@ void LevelCell::assignRoom(std::shared_ptr<Room> assignedRoom)
 	cellRoom->addCell(shared_from_this());
 }
 
+
 bool LevelCell::hasDoor()
 {
 	for (auto& element : edges)
@@ -104,9 +103,9 @@ bool LevelCell::hasDoor()
 			return true;
 		}
 	}
-
 	return false;
 }
+
 
 std::shared_ptr<CellEdge> LevelCell::getRandomWall()
 {
@@ -127,9 +126,8 @@ std::shared_ptr<CellEdge> LevelCell::getRandomWall()
 			uncheckedDirections.erase(uncheckedDirections.begin() + index);
 		}
 	}
-	
-	return nullptr;
 }
+
 
 int LevelCell::getWallCount()
 {
@@ -143,6 +141,5 @@ int LevelCell::getWallCount()
 			wallCount++;
 		}
 	}
-
 	return wallCount;
 }

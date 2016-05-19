@@ -3,7 +3,7 @@
   This class manages the individual cells of a level.
   Each cell is responsible for creating its edges, and
   holds pointers to its edges. The cells also store their
-  position in the grid.
+  position in the grid and the room they are in
 */
 
 #pragma once
@@ -30,7 +30,6 @@ public:
 	*/
 	LevelCell(PatientGame* game, VectorXY coordinates);
 
-
 	//! Render the cell.
 	/*!
 	This method renders the cell and all of its edges.
@@ -51,8 +50,11 @@ public:
 	*/
 	Directions::Direction getRandomUninitialisedDirection();
 
-	//!
+	//! Return a direction without an edge biased to the given direction
 	/*!
+	  If the supplied direction is not initialised, this method will always
+	  return that direction. Otherwise, it will return a random uninitialised
+	  direction.
 	*/
 	Directions::Direction getBiasedUninitialisedDirection(Directions::Direction direction);
 
@@ -76,18 +78,24 @@ public:
 	*/ 
 	std::shared_ptr<CellEdge> getEdge(Directions::Direction direction) { return edges[direction]; }
 
-	//!
+	//! Return whether the cell has a door
 	/*!
+	  This method returns true if the cell has at least
+	  one door.
 	*/
 	bool hasDoor();
 
-	//!
+	//! Return a random wall
 	/*!
+	  This method returns a shared pointer to a 
+	  random edge that is a wall.
 	*/
 	std::shared_ptr<CellEdge> getRandomWall();
 
-	//!
+	//! Return the number of walls.
 	/*!
+	  This method returns the number of walls
+	  the cell has.
 	*/
 	int getWallCount();
 
@@ -98,15 +106,21 @@ public:
 	*/
 	static const int NUMBER_OF_SIDES = 4;
 
-	//!
+	//! Assign the cell to a room.
 	/*!
+	  This method adds a weak pointer to LevelCell pointing to
+	  the room the cell is in, as well as adding a shared pointer
+	  to the room it is in that points to this LevelCell.
+	  It takes its assigned room as an argument.
 	*/
 	void assignRoom(std::shared_ptr<Room> assignedRoom);
 
-	//!
+	//! Template method to initialise edges.
 	/*!
-	  Needs to be defined in header file as other classes call this function, because
-	  of behaviour of template methods.
+	  Initialise the edge to the type supplied into the template method.
+	  The type should be a subclass of CellEdge.
+	  Note: Needs to be defined in header file as other classes call this function, 
+	  because of behaviour of template methods.
 	*/
 	template<typename EdgeType> void initialiseEdge(Directions::Direction direction)
 	{
