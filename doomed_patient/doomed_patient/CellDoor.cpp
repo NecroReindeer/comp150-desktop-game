@@ -8,9 +8,6 @@ CellDoor::CellDoor(Directions::Direction direction, std::shared_ptr<LevelCell> c
 {
 	initialiseSprite(game);
 	initialisePosition();
-
-	//Currently creates locked doors randomly
-	locked = rand() % 2;
 }
 
 
@@ -23,17 +20,11 @@ void CellDoor::initialiseSprite(PatientGame* game)
 {
 	if (direction == Directions::Direction::NORTH || direction == Directions::Direction::SOUTH)
 	{
-		if (locked)
-			sprite = game->getHorizontalLockedSprite();
-		else
 			sprite = game->getHorizontalDoorSprite();
 	}
 
 	else if (direction == Directions::Direction::EAST || direction == Directions::Direction::WEST)
 	{
-		if (locked)
-			sprite = game->getVerticalDoorSprite();
-		else
 			sprite = game->getVerticalDoorSprite();
 	}
 }

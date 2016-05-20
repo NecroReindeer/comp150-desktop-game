@@ -173,7 +173,14 @@ private:
 	*/
 	const double DOOR_PROBABILITY = 0.03;
 
+	//!
+	/*!
+	*/
 	const int MIN_ROOM_SIZE = 15;
+
+	//!
+	/*!
+	*/
 	const int MAX_ROOM_SIZE = 30;
 };
 

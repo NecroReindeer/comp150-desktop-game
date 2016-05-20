@@ -11,9 +11,6 @@ CellPassage::CellPassage(Directions::Direction direction, std::shared_ptr<LevelC
 	initialisePosition();
 }
 
-CellPassage::~CellPassage()
-{
-}
 
 void CellPassage::initialiseSprite(PatientGame* game)
 {

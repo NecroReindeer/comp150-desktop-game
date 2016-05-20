@@ -14,25 +14,6 @@ Level::Level(PatientGame* game)
 }
 
 
-std::shared_ptr<LevelCell> Level::getCell(VectorXY coordinates)
-{
-	return maze->getCell(coordinates);
-}
-
-
-bool Level::positionOccupied(VectorXY coordinates)
-{
-	for each (std::shared_ptr<Character> character in characters)
-	{
-		if (coordinates == character->getStartCoordinates())
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-
 template<typename CharacterType>
 std::shared_ptr<CharacterType> Level::createCharacter(VectorXY startCoordinates)
 {

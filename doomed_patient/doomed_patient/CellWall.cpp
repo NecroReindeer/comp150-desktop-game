@@ -12,12 +12,6 @@ CellWall::CellWall(Directions::Direction direction, std::shared_ptr<LevelCell> c
 }
 
 
-CellWall::~CellWall()
-{
-
-}
-
-
 void CellWall::initialiseSprite(PatientGame* game)
 {
 
