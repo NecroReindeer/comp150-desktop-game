@@ -22,7 +22,6 @@ public:
 	  cell.
 	*/
 	CellEdge(Directions::Direction direction, std::shared_ptr<LevelCell> cell);
-	~CellEdge();
 
 	//! Render the edge.
 	/*!
@@ -30,6 +29,11 @@ public:
 	*/
 	void render(SDL_Renderer* renderer);
 
+	//! Return the direction of the side of the cell the edge is on.
+	/*!
+	  This method returns the direction of the side of the cell that
+	  the edge is on.
+	*/
 	Directions::Direction getDirection() { return direction; }
 
 	//! Pure virtual method for indicating if edge is wall.
@@ -55,21 +59,12 @@ protected:
 	  the edge is on.
 	*/
 	Directions::Direction direction;
-	
-	//! The centre x of the edge.
+
+	//! The centre  of the edge.
 	/*!
-	  This is the x position that the centre of the
+	  This is the position that the centre of the
 	  edge is located at. It is used when rendering.
 	*/
-	int centreX;
-
-	//! The centre y of the edge.
-	/*!
-	This is the y position that the centre of the
-	edge is located at. It is used when rendering.
-	*/
-	int centreY;
-
 	VectorXY centre;
 
 	//! Pointer to the texture.

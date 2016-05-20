@@ -23,8 +23,6 @@ public:
 	bool isDoor() { return true; }
 	bool isPassage() { return false; }
 
-	bool locked;
-
 private:
 	void initialiseSprite(PatientGame* game);
 };

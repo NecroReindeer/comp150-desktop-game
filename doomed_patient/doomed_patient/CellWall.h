@@ -15,7 +15,6 @@ public:
 	position for rendering.
 	*/
 	CellWall(Directions::Direction direction, std::shared_ptr<LevelCell> cell, PatientGame* game);
-	~CellWall();
 
 	//! This method returns whether the edge is a wall.
 	/*!
@@ -27,7 +26,7 @@ public:
 	//! This method returns whether the edge is a door.
 	/*!
 	This method returns a bool indicating whether the edge is a door.
-	CellPassage is not a door, so should return false.
+	CellWall is not a door, so should return false.
 	*/
 	bool isDoor() { return false; }
 

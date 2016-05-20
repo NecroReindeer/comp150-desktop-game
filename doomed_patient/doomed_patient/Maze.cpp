@@ -204,14 +204,6 @@ std::shared_ptr<Room> Maze::createRoom()
 std::shared_ptr<LevelCell> Maze::createCell(VectorXY coordinates, std::shared_ptr<Room> room)
 {
 	cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates);
-
-	// IF statement temporary for testing! visualises corridors
-	if (room->corridor)
-	{
-		cells[coordinates.x][coordinates.y] = nullptr;
-		cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates, game->getCorridorSprite());
-	}
-
 	cells[coordinates.x][coordinates.y]->assignRoom(room);
 	return cells[coordinates.x][coordinates.y];
 }

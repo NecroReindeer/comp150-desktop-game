@@ -10,9 +10,6 @@ CellEdge::CellEdge(Directions::Direction direction, std::shared_ptr<LevelCell> c
 {
 }
 
-CellEdge::~CellEdge()
-{
-}
 
 void CellEdge::initialisePosition()
 {
