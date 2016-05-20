@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "PatientGame.h"
 #include "InitialisationError.h"
-#include "Creature.h"
 #include "Guard.h"
 #include "Doctor.h"
 #include "Player.h"
