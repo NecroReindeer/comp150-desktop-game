@@ -48,7 +48,6 @@ public:
 	static const int WINDOW_HEIGHT = 768;//1080;
 
 	Texture* getCreatureSprite() { return &creatureSprite; }
-	Texture* getPlayerSprite() { return &playerSprite; }
 	Texture* getFloorSprite() { return &floorSprite; }
 	Texture* getHorizontalWallSprite() { return &horizontalWallSprite;  }
 	Texture* getVerticalWallSprite() { return &verticalWallSprite; }
@@ -58,6 +57,11 @@ public:
 	Texture* getHorizontalLockedSprite() { return &horizontalLockedDoorSprite; }
 	Texture* getVerticalLockedSprite() { return &verticalLockedDoorSprite; }
 	Texture* getCorridorSprite() { return &corridorSprite; }
+	//Player Texture
+	Texture* getPlayerSpriteNorth() { return &playerSpriteNorth; }
+	Texture* getPlayerSpriteEast() { return &playerSpriteEast; }
+	Texture* getPlayerSpriteSouth() { return &playerSpriteSouth; }
+	Texture* getPlayerSpriteWest() { return &playerSpriteWest; }
 	//Guard Texture
 	Texture* getGuardSpriteNorth() { return &guardSpriteNorth; }
 	Texture* getGuardSpriteEast() { return &guardSpriteEast; }
@@ -138,7 +142,6 @@ private:
 	Texture verticalLockedDoorSprite;
 	Texture exitSprite;
 	Texture creatureSprite;
-	Texture playerSprite;
 	Texture corridorSprite;
 	//Guard Texture
 	Texture guardSpriteNorth;
@@ -150,7 +153,11 @@ private:
 	Texture doctorSpriteEast;
 	Texture doctorSpriteSouth;
 	Texture doctorSpriteWest;
-
+	//Player Texture
+	Texture playerSpriteNorth;
+	Texture playerSpriteEast;
+	Texture playerSpriteSouth;
+	Texture playerSpriteWest;
 	std::shared_ptr<Exit> exit;
 
 	void generateLevel();

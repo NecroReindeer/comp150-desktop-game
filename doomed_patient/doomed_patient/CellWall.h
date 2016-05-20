@@ -30,6 +30,7 @@ public:
 	*/
 	bool isDoor() { return false; }
 
+	bool isPassage() { return false; }
 
 private:
 	//! Initialises the sprite.

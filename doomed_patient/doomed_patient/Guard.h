@@ -16,6 +16,7 @@ class LevelCell;
 class Guard : public NPC
 {
 public:
+
 	//!Constructor for the Guard
 	/*!
 	  The constructor takes a pointer to the game and its
@@ -24,13 +25,12 @@ public:
 	  Character, and passes its sprite in.
 	*/
 	Guard(PatientGame* game, VectorXY startCoordinates);
-	//! Moves the player.
-	/*!
-	This method moves the player in the specified
-	direction at the player's speed.
-	*/
-	void move(Directions::Direction direction);
 
+	//!Changes the Direction of the Sprite.
+	/*!
+	This method changes the direction that the sprite
+	is faceing depending on which direction it is moving.
+	*/
 	void changeSpriteDirection();
 
 };

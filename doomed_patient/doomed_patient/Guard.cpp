@@ -6,10 +6,7 @@
 Guard::Guard(PatientGame* game, VectorXY startCoordinates)
 	: NPC(game, startCoordinates, game->getGuardSpriteEast())
 {
-}
-void Guard::move(Directions::Direction direction)
-{
-	centre += Directions::getDirectionVector(direction) * speed;
+
 }
 
 void Guard::changeSpriteDirection()

@@ -29,6 +29,8 @@ public:
 	*/
 	bool isDoor() { return false; }
 
+	bool isPassage() { return true; }
+
 private:
 	//! Initialises the sprite.
 	/*!

@@ -154,12 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Character.h" />
-    <ClInclude Include="Crature_Behaviour.h" />
-    <ClInclude Include="Creature.h" />
     <ClInclude Include="Doctor.h" />
     <ClInclude Include="CellEdge.h" />
     <ClInclude Include="CellPassage.h" />
@@ -187,8 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
-    <ClCompile Include="Crature_Behaviour.cpp" />
-    <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Doctor.cpp" />
     <ClCompile Include="CellEdge.cpp" />
     <ClCompile Include="CellPassage.cpp" />
@@ -216,13 +209,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Texture.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="doomed_patient.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="doomed_patient.ico" />
-    <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -6,17 +6,15 @@
 
 
 Player::Player(PatientGame* game, VectorXY startCoordinates)
-	: Character(game, startCoordinates, game->getPlayerSprite()),
-	speed(2)
+	: Character(game, startCoordinates, game->getPlayerSpriteEast())
 {
-	currentCell = game->level.getCell(Level::PLAYER_START);
-	centre = currentCell->getCentre();
+	resetPosition();
 }
 
 void Player::resetPosition()
 {
-	centre = currentCell->getCentre();
 	currentCell = game->level.getCell(Level::PLAYER_START);
+	centre = currentCell->getCentre();
 }
 
 void Player::move(Directions::Direction direction)
@@ -36,7 +34,27 @@ void Player::move(Directions::Direction direction)
 		centre = currentCell->getCentre();
 		
 		movementCount = 0;
-	
+
 	}
+	changeSpriteDirection(direction);
 	//centre += Directions::getDirectionVector(direction) * speed;
+}
+
+void Player::changeSpriteDirection(Directions::Direction movementDirection)
+{
+	switch (movementDirection)
+	{
+	case Directions::Direction::NORTH:
+		updateSprite(game->getPlayerSpriteNorth());
+		break;
+	case Directions::Direction::EAST:
+		updateSprite(game->getPlayerSpriteEast());
+		break;
+	case Directions::Direction::SOUTH:
+		updateSprite(game->getPlayerSpriteSouth());
+		break;
+	case Directions::Direction::WEST:
+		updateSprite(game->getPlayerSpriteWest());
+		break;
+	}
 }
