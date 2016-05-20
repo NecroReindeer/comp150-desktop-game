@@ -210,6 +210,9 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\comp150-desktop-game-NPC%27s\doomed_patient\doomed_patient\ClassDiagram.cd" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

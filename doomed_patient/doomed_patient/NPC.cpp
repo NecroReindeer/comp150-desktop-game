@@ -45,6 +45,7 @@ void NPC::update()
 	// If the NPC distance is less than the tolerated amount
 	// the Player is sent back to the begining.
 	double distance = euclideanDistance();
+
 	if (distance < COLLISION_DISTANCE)
 	{
 		game->player->resetPosition();
@@ -72,6 +73,7 @@ void NPC::setNextDirection()
 			currentEdge = currentCell->getEdge(nextDirection);
 		}
 	}
+
 	else
 	{
 		// Detect if the Player is too close.
@@ -84,12 +86,15 @@ void NPC::updateDirection()
 	if (nextDirection != movementDirection)
 	{
 		std::shared_ptr<LevelCell> nextCell = game->level.getCell(currentCell->getCoordinates() + Directions::getDirectionVector(nextDirection));
+
 		VectorXY currentCellCentre = currentCell->getCentre();
+
 		// Pointer because of polymorphism
 		std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(nextDirection);
 
 		if (currentEdge->isPassage())
 		{
+
 			// Check that the NPC is past the centre of its cell, relative
 			// to its movement direction
 			switch (movementDirection)

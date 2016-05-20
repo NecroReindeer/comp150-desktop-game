@@ -49,43 +49,6 @@ class NPC : public Character
 		*/
 		virtual void changeSpriteDirection() = 0;
 	
-		//!Calculate the euclidean distance.
-		/*!
-		Calculate the euclidean distance
-		between the NPC's and Player.
-		*/
-		double euclideanDistance();
-	
-		//!Calculate the euclidean distance.
-		/*!
-		Calculate the euclidean distance between
-		the NPC's and Player and returning a Vector.
-		*/
-		double euclideanDistanceDirection(VectorXY cellcoords);
-	
-		//!Follow the Player
-		/*!
-		Function to allow the NPC's to calculate the shortest
-		distance between the NPC anf the Player.
-		Then changes the movement direction to follow
-		the Player.
-		*/
-		void followPlayer();
-	
-		//!Detects the proximity of the Player.
-		/*!
-		If the Player is too close to the NPC
-		the NPC will follow.
-		*/
-		void npcPlayerDetection();
-	
-		//!Detects the proximity of the Player as a bool.
-		/*!
-		Returns a true/false depending on the Player
-		proximity to the NPC.
-		*/
-		bool closeToPlayer();
-	
 	protected:
 	
 		//!Movement direction of the NPC.
@@ -163,4 +126,41 @@ class NPC : public Character
 		NPC	will move depending on the shortest distance.
 		*/
 		void setNextDirection();
+
+		//!Calculate the euclidean distance.
+		/*!
+		Calculate the euclidean distance
+		between the NPC's and Player.
+		*/
+		double euclideanDistance();
+
+		//!Calculate the euclidean distance.
+		/*!
+		Calculate the euclidean distance between
+		the NPC's and Player and returning a Vector.
+		*/
+		double euclideanDistanceDirection(VectorXY cellcoords);
+
+		//!Follow the Player
+		/*!
+		Function to allow the NPC's to calculate the shortest
+		distance between the NPC anf the Player.
+		Then changes the movement direction to follow
+		the Player.
+		*/
+		void followPlayer();
+
+		//!Detects the proximity of the Player.
+		/*!
+		If the Player is too close to the NPC
+		the NPC will follow.
+		*/
+		void npcPlayerDetection();
+
+		//!Detects the proximity of the Player as a bool.
+		/*!
+		Returns a true/false depending on the Player
+		proximity to the NPC.
+		*/
+		bool closeToPlayer();
 };

@@ -52,4 +52,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\comp150-desktop-game-NPC%27s\doomed_patient\doomed_patient\ClassDiagram.cd" />
+  </ItemGroup>
 </Project>
