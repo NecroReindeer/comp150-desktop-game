@@ -6,10 +6,7 @@
 Doctor::Doctor(PatientGame* game, VectorXY startCoordinates)
 	:NPC(game, startCoordinates, game->getDoctorSpriteEast())
 {
-}
-void Doctor::move(Directions::Direction direction)
-{
-	centre += Directions::getDirectionVector(direction) * speed;
+
 }
 
 void Doctor::changeSpriteDirection()

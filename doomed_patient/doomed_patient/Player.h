@@ -11,6 +11,7 @@ for any general data.
 #include "Level.h"
 #include "Directions.h"
 
+
 class LevelCell;
 
 class Player : public Character
@@ -47,10 +48,15 @@ public:
 
 	void resetPosition();
 
+	void changeSpriteDirection(Directions::Direction movementDirection);
+
+protected:
+
+	Directions::Direction movementDirection;
+
 private:
 	int movementCount = 0;
 
 	static const int movementDelay = 10;
-
 
 };
