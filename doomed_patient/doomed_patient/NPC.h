@@ -11,7 +11,9 @@ for any general data.
 #include "Directions.h"
 #include "LevelCell.h"
 #include "Player.h"
-
+/////////////////////////////////////////////////////////////////////////////////////
+//This code was Pair Programmed by James and Herriet 
+//with James driving and Harriet navigating.
 class LevelCell;
 
 class NPC : public Character
@@ -132,14 +134,14 @@ class NPC : public Character
 		Calculate the euclidean distance
 		between the NPC's and Player.
 		*/
-		double euclideanDistance();
+		double findDistance();
 
 		//!Calculate the euclidean distance.
 		/*!
 		Calculate the euclidean distance between
 		the NPC's and Player and returning a Vector.
 		*/
-		double euclideanDistanceDirection(VectorXY cellcoords);
+		double findDistanceVector(VectorXY cellcoords);
 
 		//!Follow the Player
 		/*!
@@ -155,7 +157,7 @@ class NPC : public Character
 		If the Player is too close to the NPC
 		the NPC will follow.
 		*/
-		void npcPlayerDetection();
+		void isPlayerClose();
 
 		//!Detects the proximity of the Player as a bool.
 		/*!

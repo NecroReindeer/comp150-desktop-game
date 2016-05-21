@@ -17,13 +17,13 @@
     <ClCompile Include="LevelCell.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeGenerationManager.cpp" />
-    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="PatientGame.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="VectorXY.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="NPC.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
@@ -42,7 +42,6 @@
     <ClInclude Include="LevelCell.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeGenerationManager.h" />
-    <ClInclude Include="NPC.h" />
     <ClInclude Include="PatientGame.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="VectorXY.h" />
@@ -51,8 +50,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\comp150-desktop-game-NPC%27s\doomed_patient\doomed_patient\ClassDiagram.cd" />
+    <ClInclude Include="NPC.h" />
   </ItemGroup>
 </Project>
