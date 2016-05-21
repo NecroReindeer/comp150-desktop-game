@@ -5,13 +5,14 @@ and storing any unique data.
 It inherits from th GameObject class
 for any general data.
 */
+
+
 #pragma once
 #include "Character.h"
 #include "VectorXY.h"
 #include "Directions.h"
 #include "NPC.h"
 
-class LevelCell;
 
 class Guard : public NPC
 {

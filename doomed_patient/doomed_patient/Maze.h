@@ -1,3 +1,9 @@
+//! Class for the maze.
+/*!
+  This class generates and stores data
+  relating to the maze layout of the level.
+*/
+
 #pragma once
 #include "VectorXY.h"
 #include "Room.h"
@@ -173,13 +179,20 @@ private:
 	*/
 	const double DOOR_PROBABILITY = 0.03;
 
-	//!
+	//! Minimum primary size of a room being explored
 	/*!
+	  This constant defines the minimum number of cells that the
+	  room **currently being explored** must reach before a door can be
+	  placed.
+	  Note: Rooms smaller than this can still appear on the level, created
+	  as a side effect of the exploration around it
 	*/
 	const int MIN_ROOM_SIZE = 15;
 
-	//!
+	//! Maximum primary size of a room being explored
 	/*!
+	  This constant defines the maximum number of cells that can be in the
+	  room **currently being explored** before a door **must** be placed.
 	*/
 	const int MAX_ROOM_SIZE = 30;
 };

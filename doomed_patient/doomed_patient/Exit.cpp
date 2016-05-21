@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Exit.h"
 #include "PatientGame.h"
-#include "LevelCell.h"
 
 
 Exit::Exit(PatientGame* game, VectorXY gridCoordinates)
@@ -9,9 +8,4 @@ Exit::Exit(PatientGame* game, VectorXY gridCoordinates)
 {
 	// Calculate the window position from the grid position
 	centre = gridCoordinates.convertGridToWindow();
-}
-
-
-Exit::~Exit()
-{
 }

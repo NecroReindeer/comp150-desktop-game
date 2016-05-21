@@ -24,7 +24,7 @@ std::shared_ptr<LevelCell>  MazeGenerationManager::getPreviousCell()
 	}
 }
 
-std::shared_ptr<Room>  MazeGenerationManager::getCurrentRoom()
+std::shared_ptr<Room> MazeGenerationManager::getCurrentRoom()
 {
 	std::shared_ptr<Room> room = getCurrentCell()->room.lock();
 	return room;

@@ -3,6 +3,7 @@
 #include "Directions.h"
 #include "PatientGame.h"
 
+
 Room::Room(PatientGame* game)
 	:game(game)
 {
@@ -14,11 +15,12 @@ void Room::addCell(std::shared_ptr<LevelCell> cell)
 	containedCells.push_back(cell);
 }
 
+
 void Room::addExtraDoors()
 {
 	if (walledCells.size() > 0)
 	{
-		// Get a random cell to replace the wall of
+		// Get a random cell to replace a random wall of with a door
 		int i = rand() % walledCells.size();
 		std::shared_ptr<LevelCell> chosenCell = walledCells[i];
 		std::shared_ptr<CellEdge> wall = chosenCell->getRandomWall();
