@@ -38,6 +38,5 @@ private:
 	  passage does not require any visualisation.
 	*/
 	void initialiseSprite(PatientGame* game);
-
 };
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "CellEdge.h"
-#include "Directions.h"
 
 class PatientGame;
 

@@ -45,11 +45,16 @@ public:
 
 	//! Pure virtual method for indicating if edge is door.
 	/*!
-	This pure virtual method should be implemented in the subclasses.
-	It should return a bool that indicates whether the edge is a door.
+	  This pure virtual method should be implemented in the subclasses.
+	  It should return a bool that indicates whether the edge is a door.
 	*/
 	virtual bool isDoor() = 0;
 
+	//! Pure virtual method for indicating if edge is passage.
+	/*!
+	  This pure virtual method should be implemented in the subclasses.
+	  It should return a bool that indicates whether the edge is a passage.
+	*/
 	virtual bool isPassage() = 0;
 
 protected:
@@ -75,10 +80,10 @@ protected:
 
 	//! Set the position of the edge on the window
 	/*!
-	This method sets the position of the edge on the window, for
-	rendering purposes. It should be called after the sprite has
-	been initialised, as it uses the sprite's size.
-	to the edge.
+	  This method sets the position of the edge on the window, for
+	  rendering purposes. It should be called after the sprite has
+	  been initialised, as it uses the sprite's size.
+	  to the edge.
 	*/
 	void initialisePosition();
 
