@@ -2,7 +2,9 @@
 #include "NPC.h"
 #include "PatientGame.h"
 #include "LevelCell.h"
-
+/////////////////////////////////////////////////////////////////////////////////////
+//This code was Pair Programmed by James and Herriet 
+//with James driving and Harriet navigating.
 NPC::NPC(PatientGame* game, VectorXY startCoordinates, Texture * sprite)
 	: Character(game, startCoordinates, sprite)
 {
@@ -44,7 +46,8 @@ void NPC::update()
 
 	// If the NPC distance is less than the tolerated amount
 	// the Player is sent back to the begining.
-	double distance = euclideanDistance();
+	double distance = findDistance();
+
 	if (distance < COLLISION_DISTANCE)
 	{
 		game->player->resetPosition();
@@ -57,7 +60,7 @@ void NPC::changeDirection()
 {
 	movementDirection = nextDirection;
 }
-
+//////////////////////////////////////Harriet's Code Begins///////////////////////////////////////////////
 void NPC::setNextDirection()
 {
 	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
@@ -72,10 +75,11 @@ void NPC::setNextDirection()
 			currentEdge = currentCell->getEdge(nextDirection);
 		}
 	}
+
 	else
 	{
 		// Detect if the Player is too close.
-		npcPlayerDetection();
+		isPlayerClose();
 	}
 }
 
@@ -84,12 +88,15 @@ void NPC::updateDirection()
 	if (nextDirection != movementDirection)
 	{
 		std::shared_ptr<LevelCell> nextCell = game->level.getCell(currentCell->getCoordinates() + Directions::getDirectionVector(nextDirection));
+
 		VectorXY currentCellCentre = currentCell->getCentre();
+
 		// Pointer because of polymorphism
 		std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(nextDirection);
 
 		if (currentEdge->isPassage())
 		{
+
 			// Check that the NPC is past the centre of its cell, relative
 			// to its movement direction
 			switch (movementDirection)
@@ -129,8 +136,9 @@ void NPC::updateDirection()
 		}
 	}		
 }
+//////////////////////////////////////Harriet's Code Ends///////////////////////////////////////////////
 
-void NPC::npcPlayerDetection()
+void NPC::isPlayerClose()
 {
 	if (closeToPlayer())
 	{
@@ -140,7 +148,7 @@ void NPC::npcPlayerDetection()
 
 bool NPC::closeToPlayer()
 {
-	return (euclideanDistance() < DETECTION_DISTANCE);
+	return (findDistance() < DETECTION_DISTANCE);
 }
 
 void NPC::followPlayer()
@@ -156,7 +164,7 @@ void NPC::followPlayer()
 
 		if (adjacentCell)
 		{
-			double distance = euclideanDistanceDirection(adjacentCell->getCoordinates());
+			double distance = findDistanceVector(adjacentCell->getCoordinates());
 
 			// If first is true, other one won't be checked
 			if ((distance <= shortest) || shortest == MAXINT)
@@ -172,7 +180,7 @@ void NPC::followPlayer()
 
 // Calculate the distance between the
 // Player and NPC's.
-double NPC::euclideanDistance()
+double NPC::findDistance()
 {
 	VectorXY playerPosition = game->player->getCentre();
 	double dx = playerPosition.x - centre.x;
@@ -182,7 +190,7 @@ double NPC::euclideanDistance()
 
 // Calculate the distance between the
 // Player and NPC's returning a Vector.
-double NPC::euclideanDistanceDirection(VectorXY cellcoords)
+double NPC::findDistanceVector(VectorXY cellcoords)
 {
 	VectorXY playerPosition = game->player->currentCell->getCoordinates();
 	double dx = playerPosition.x - cellcoords.x;

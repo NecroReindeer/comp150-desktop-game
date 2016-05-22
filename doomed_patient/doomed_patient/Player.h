@@ -46,15 +46,31 @@ public:
 	*/
 	std::shared_ptr<LevelCell> currentCell;
 
+	//!Resets the Player position.
+	/*!
+	This method restarts the player when an NPC
+	collides with the Player.
+	*/
 	void resetPosition();
 
+	//!Changes the Direction of the Sprite.
+	/*!
+	This method changes the direction that the sprite
+	is faceing depending on which direction it is moving.
+	*/
 	void changeSpriteDirection(Directions::Direction movementDirection);
 
 protected:
 
+	//!Movement direction of the Player.
+	/*!
+	This will change the direction of
+	the Player.
+	*/
 	Directions::Direction movementDirection;
 
 private:
+
 	int movementCount = 0;
 
 	static const int movementDelay = 10;

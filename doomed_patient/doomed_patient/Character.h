@@ -36,7 +36,7 @@ public:
 	This field holds the speed that the character
 	moves.
 	*/
-	int speed = 1;
+	int speed = 2;
 
 	//! Moves the character.
 	/*!
@@ -45,6 +45,11 @@ public:
 	*/
 	void move(Directions::Direction direction);
 
+	//!Updates the Characters.
+	/*!
+	This method updates the Characters using the specified
+	functions.
+	*/
 	virtual void update();
 
 
