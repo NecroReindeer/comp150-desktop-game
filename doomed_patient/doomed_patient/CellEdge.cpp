@@ -18,6 +18,7 @@ void CellEdge::initialisePosition()
 	{
 		std::shared_ptr<LevelCell> cell = containingCell.lock();
 
+		// Ensure it's positioned on the cell correctly
 		switch (direction)
 		{
 		case Directions::Direction::NORTH:
@@ -40,6 +41,7 @@ void CellEdge::initialisePosition()
 	}
 
 }
+
 
 void CellEdge::render(SDL_Renderer* renderer)
 {

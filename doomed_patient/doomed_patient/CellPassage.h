@@ -1,3 +1,10 @@
+//! Class for passages.
+/*!
+  This class represents the passage of the cells.
+  It inherits from CellEdge and implements the method
+  for setting the sprite.
+*/
+
 #pragma once
 #include "CellEdge.h"
 
@@ -38,6 +45,5 @@ private:
 	  passage does not require any visualisation.
 	*/
 	void initialiseSprite(PatientGame* game);
-
 };
 

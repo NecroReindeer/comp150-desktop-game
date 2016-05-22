@@ -43,12 +43,14 @@ public:
 
 	//! Check whether the room contains enough cells with doors
 	/*!
+	  The room is valid if it contains more than MIN_DOORS doors
+	  in separate cells.
 	  This method checks whether the room contains enough cells
 	  with doors, according to MIN_DOORS.
 	  If it doesn't then it will add extra doors to the room,
 	  provided its size is greater than MIN_DOORS.
 	*/
-	void checkContainedCells();
+	void checkRoomValidity();
 
 
 private:

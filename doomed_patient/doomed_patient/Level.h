@@ -121,6 +121,13 @@ private:
 	*/
 	void placeExit();
 
+	//! Place an NPC in the given room.
+	/*!
+	  This method places an NPC in a random position in
+	  the given room.
+	*/
+	void Level::placeNPC(std::shared_ptr<Room> room);
+
 	//! Pointer to the game
 	/*!
 	  This is a pointer to the game, that is used to pass
