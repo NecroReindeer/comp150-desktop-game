@@ -56,7 +56,7 @@ class NPC : public Character
 		//!Movement direction of the NPC.
 		/*!
 		This will change the direction of
-		esch NPC.
+		each NPC.
 		*/
 		Directions::Direction movementDirection;
 	

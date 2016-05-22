@@ -36,6 +36,11 @@ public:
 	*/
 	bool isDoor() { return false; }
 
+	//! This method returns whether the edge is a passage.
+	/*!
+	This method returns a bool indicating whether the edge is a passage.
+	if is a passage, should return true.
+	*/
 	bool isPassage() { return true; }
 
 private:
