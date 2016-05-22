@@ -1,6 +1,7 @@
-﻿# comp150-desktop-game
+# COMP150 Desktop Game
 A desktop game made collaboratively using C++ and SDL.
 
+##Doomed Patient of WW2
 
 ##Target market
 This game is aimed at people that enjoy roguelites as well as people that enjoy darkly themed, yet non-traditional, horror games that elicit feelings of tension.
@@ -14,7 +15,7 @@ This game intends to create feelings of tension and fear of the unknown.
 * The player has limited view, so must decide which direction to travel without knowing exactly what lies ahead
 * Levels are randomly generated, which means that the player doesn't know what to expect each time they play
 * The game's dark theme of being trapped in a Nazi hospital also adds feelings of horror and fear
-=======
+
 #Sprint 1
 There were some struggles at the beginning of the project due to a differing level of experience between team members. In order to overcome this, we did a lot of pair programming in this sprint. 
 James and Harriet used pair programming in order to create classes for the NPCs and make them appear in the game. This proved effective, as we managed to complete all of the user stories on our to-do list.
