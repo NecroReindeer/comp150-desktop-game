@@ -2,6 +2,10 @@
 A desktop game made collaboratively using C++ and SDL.
 
 ##Trello Board
+####Label Colour Key
+![Labels](https://github.com/NecroReindeer/comp150-desktop-game/blob/master/Trello/Labels.png)
+
+####Trello Board After Final Sprint
 ![Trello](https://github.com/NecroReindeer/comp150-desktop-game/blob/master/Trello/Trello%20Sprints.png)
 
 ## Sprint Reports
