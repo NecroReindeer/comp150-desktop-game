@@ -8,7 +8,6 @@
 #pragma once
 #include "Texture.h"
 #include "Level.h"
-#include "LevelCell.h"
 
 class PatientGame
 {
@@ -38,35 +37,35 @@ public:
 	   This is a static member for storing the width of the
 	   window as an integer.
 	*/
-	static const int WINDOW_WIDTH = 1366;//1920;
+	static const int WINDOW_WIDTH = 1366;
 
 	//! A public static member for storing window height.
 	/*!
 	  This is a static member for storing the height of the
 	  window as an integer.
 	*/
-	static const int WINDOW_HEIGHT = 768;//1080;
+	static const int WINDOW_HEIGHT = 768;
 
-	Texture* getCreatureSprite() { return &creatureSprite; }
+	//Level Texture
 	Texture* getFloorSprite() { return &floorSprite; }
 	Texture* getHorizontalWallSprite() { return &horizontalWallSprite;  }
 	Texture* getVerticalWallSprite() { return &verticalWallSprite; }
 	Texture* getHorizontalDoorSprite() { return &horizontalDoorSprite; }
 	Texture* getVerticalDoorSprite() { return &verticalDoorSprite; }
 	Texture* getExitSprite() { return &exitSprite; }
-	Texture* getHorizontalLockedSprite() { return &horizontalLockedDoorSprite; }
-	Texture* getVerticalLockedSprite() { return &verticalLockedDoorSprite; }
-	Texture* getCorridorSprite() { return &corridorSprite; }
+
 	//Player Texture
 	Texture* getPlayerSpriteNorth() { return &playerSpriteNorth; }
 	Texture* getPlayerSpriteEast() { return &playerSpriteEast; }
 	Texture* getPlayerSpriteSouth() { return &playerSpriteSouth; }
 	Texture* getPlayerSpriteWest() { return &playerSpriteWest; }
+
 	//Guard Texture
 	Texture* getGuardSpriteNorth() { return &guardSpriteNorth; }
 	Texture* getGuardSpriteEast() { return &guardSpriteEast; }
 	Texture* getGuardSpriteSouth() { return &guardSpriteSouth; }
 	Texture* getGuardSpriteWest() { return &guardSpriteWest; }
+
 	//Doctor Texture
 	Texture* getDoctorSpriteNorth() { return &doctorSpriteNorth; }
 	Texture* getDoctorSpriteEast() { return &doctorSpriteEast; }
@@ -75,9 +74,17 @@ public:
 
 	//! The current level.
 	/*!
-	This stores the level that will be rendered.
+	   This stores the level that will be generated and rendered.
 	*/
 	Level level;
+
+	//! Pointer to the player
+	/*!
+	  This is a shared pointer to the player, that
+	  is created during the level generation process.
+	  Used to give other classes access to the player and 
+	  to move the player.
+	*/
 	std::shared_ptr<Player> player;
 
 private:
@@ -127,40 +134,49 @@ private:
 	*/
 	void render();
 
-	//! Texture for the floor.
+	//! Generate the level.
 	/*!
-	  This variable stores the texture that will be used
-	  for the floor. It is initialised in the initialiser
-	  list of the constructor.
+	  This method begins the level generation process.
+	  It should be called before updates commence.
+	*/
+	void generateLevel();
+
+	//! Textures.
+	/*!
+	  These variables are to store the textures
+	  to be used for various sprites in the game.
 	*/
 	Texture floorSprite;
 	Texture horizontalWallSprite;
 	Texture verticalWallSprite;
 	Texture horizontalDoorSprite;
 	Texture verticalDoorSprite;
-	Texture horizontalLockedDoorSprite;
-	Texture verticalLockedDoorSprite;
 	Texture exitSprite;
-	Texture creatureSprite;
-	Texture corridorSprite;
+
 	//Guard Texture
 	Texture guardSpriteNorth;
 	Texture guardSpriteEast;
 	Texture guardSpriteSouth;
 	Texture guardSpriteWest;
+
 	//Doctor Texture
 	Texture doctorSpriteNorth;
 	Texture doctorSpriteEast;
 	Texture doctorSpriteSouth;
 	Texture doctorSpriteWest;
+
 	//Player Texture
 	Texture playerSpriteNorth;
 	Texture playerSpriteEast;
 	Texture playerSpriteSouth;
 	Texture playerSpriteWest;
-	std::shared_ptr<Exit> exit;
 
-	void generateLevel();
-	
+	//! Pointer to the exit
+	/*!
+	  This is a shared pointer to the exit, that is
+	  created in the level generation process.
+	  It is used to check if the player has reached the exit.
+	*/
+	std::shared_ptr<Exit> exit;
 };
 
