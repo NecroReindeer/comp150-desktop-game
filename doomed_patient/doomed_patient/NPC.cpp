@@ -2,9 +2,8 @@
 #include "NPC.h"
 #include "PatientGame.h"
 #include "LevelCell.h"
-/////////////////////////////////////////////////////////////////////////////////////
-//This code was Pair Programmed by James and Herriet 
-//with James driving and Harriet navigating.
+
+
 NPC::NPC(PatientGame* game, VectorXY startCoordinates, Texture * sprite)
 	: Character(game, startCoordinates, sprite)
 {
@@ -60,7 +59,8 @@ void NPC::changeDirection()
 {
 	movementDirection = nextDirection;
 }
-//////////////////////////////////////Harriet's Code Begins///////////////////////////////////////////////
+
+
 void NPC::setNextDirection()
 {
 	std::shared_ptr<CellEdge> currentEdge = currentCell->getEdge(movementDirection);
@@ -82,6 +82,7 @@ void NPC::setNextDirection()
 		isPlayerClose();
 	}
 }
+
 
 void NPC::updateDirection()
 {
@@ -136,7 +137,7 @@ void NPC::updateDirection()
 		}
 	}		
 }
-//////////////////////////////////////Harriet's Code Ends///////////////////////////////////////////////
+
 
 void NPC::isPlayerClose()
 {

@@ -36,7 +36,7 @@ public:
 	This field holds the speed that the character
 	moves.
 	*/
-	int speed = 2;
+	int speed = 1;
 
 	//! Moves the character.
 	/*!
