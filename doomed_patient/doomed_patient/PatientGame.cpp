@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "PatientGame.h"
 #include "InitialisationError.h"
-#include "Guard.h"
-#include "Doctor.h"
 #include "Player.h"
 #include "Exit.h"
 
@@ -17,7 +15,6 @@ PatientGame::PatientGame()
 	doctorSpriteEast("Sprites\\Doctor_East.png"),
 	doctorSpriteSouth("Sprites\\Doctor_South.png"),
 	doctorSpriteWest("Sprites\\Doctor_West.png"),
-	creatureSprite("Sprites\\Creature.png"),
 	//Player Texture
 	playerSpriteNorth("Sprites\\Player_North.png"),
 	playerSpriteEast("Sprites\\Player_East.png"),
@@ -30,13 +27,8 @@ PatientGame::PatientGame()
 	verticalDoorSprite("Sprites\\small\\ver_door.png"),
 	horizontalDoorSprite("Sprites\\small\\horiz_door.png"),
 	exitSprite("Sprites\\small\\exit.png"),
-	verticalLockedDoorSprite("Sprites\\small\\ver_locked.png"),
-	horizontalLockedDoorSprite("Sprites\\small\\horiz_locked.png"),
-	corridorSprite("Sprites\\small\\corridor.png"),
 	level(this)
-
 {
-
 	// Initialise SDL video system
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -111,11 +103,7 @@ void PatientGame::handleEvents()
 	} 
 
 	// Check keyboard state
-
-	// Consider an update delay here to prevent fast keying in
-
 	const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
-
 	if (keyboardState[SDL_SCANCODE_UP])
 		player->move(Directions::Direction::NORTH);
 	if (keyboardState[SDL_SCANCODE_DOWN])
@@ -130,9 +118,9 @@ void PatientGame::handleEvents()
 // Game updates that need to happen every frame go here
 void PatientGame::update()
 {
-	for each (std::shared_ptr<Character> npc in level.getCharacters())
+	for each (std::shared_ptr<Character> character in level.getCharacters())
 	{
-		npc->update();
+		character->update();
 	}
 	
 	// Go to next level
