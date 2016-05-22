@@ -42,9 +42,11 @@ In order to avoid time being wasted by being stumped by a difficult problem, ask
 We didn’t achieve many of the user stories during this sprint, due to a lack of communication over the Easter holidays, until the week of the sprint review.
 Harriet continued working on the level generation and split the level into rooms and corridors, whilst James worked on beginning to implement the behaviour for the NPCs’ movement.
 
-It is important that the team maintains regular communication in future in order to 
+It is important that the team maintains regular communication in future, in order to maintain an efficient workflow. We will be working on this issue for the last few weeks of work.
 
 
 ###Sprint 4
-Milly worked on implementing collision detection during this sprint. After struggling to implement it, he asked the tutors and other team members for help. This allowed a solution to the problem to be found, so now the player cannot travel through walls, and restarts when colliding with an NPC
+Milly worked on implementing collision detection during this sprint. After struggling to implement it, he asked the tutors and other team members for help. This allowed a solution to the problem to be found, so now the player cannot travel through walls, and restarts when colliding with an NPC.
+
+After some refactoring and tidying up of the codebase, we believe that the game is ready for submitting. Though it has not got everything we had hoped to implement, we have learnt a great deal about what we can do and our limitations. Scoping was an issue for us, in the future we may want to pull back on the quantity of content we wish to implement.  
 
