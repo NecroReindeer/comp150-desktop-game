@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Guard.h"
 #include "PatientGame.h"
+#include "LevelCell.h"
 
 Guard::Guard(PatientGame* game, VectorXY startCoordinates)
 	: NPC(game, startCoordinates, game->getGuardSpriteEast())

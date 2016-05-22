@@ -45,6 +45,11 @@ public:
 	*/
 	void move(Directions::Direction direction);
 
+	//!Updates the Characters.
+	/*!
+	This method updates the Characters using the specified
+	functions.
+	*/
 	virtual void update();
 
 
