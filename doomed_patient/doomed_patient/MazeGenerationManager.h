@@ -1,3 +1,12 @@
+//! Class for managing maze generation
+/*!
+  This class is used for managing maze generation.
+  It stores the next cell, current index and the active cells list,
+  as well as providing access to the previous cell and current cell and
+  room.
+*/
+
+
 #pragma once
 #include "Directions.h"
 #include "LevelCell.h"

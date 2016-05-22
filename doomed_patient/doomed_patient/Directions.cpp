@@ -2,15 +2,6 @@
 #include "Directions.h"
 #include "VectorXY.h"
 
-Directions::Directions()
-{
-}
-
-
-Directions::~Directions()
-{
-}
-
 VectorXY Directions::getDirectionVector(Direction direction)
 {
 	switch (direction)
@@ -25,6 +16,7 @@ VectorXY Directions::getDirectionVector(Direction direction)
 		return VectorXY(-1, 0);
 	}
 }
+
 
 Directions::Direction Directions::getDirectionFromVector(VectorXY vector)
 {

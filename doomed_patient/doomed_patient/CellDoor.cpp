@@ -10,12 +10,6 @@ CellDoor::CellDoor(Directions::Direction direction, std::shared_ptr<LevelCell> c
 	initialisePosition();
 }
 
-
-CellDoor::~CellDoor()
-{
-}
-
-
 void CellDoor::initialiseSprite(PatientGame* game)
 {
 	if (direction == Directions::Direction::NORTH || direction == Directions::Direction::SOUTH)

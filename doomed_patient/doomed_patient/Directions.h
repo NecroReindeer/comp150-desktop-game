@@ -23,11 +23,7 @@ public:
 		EAST,
 		SOUTH,
 		WEST,
-		STOP
 	};
-
-	Directions();
-	~Directions();
 
 	//! Return the vector representative of the given direction
 	/*!
@@ -36,6 +32,11 @@ public:
 	*/
 	static VectorXY getDirectionVector(Direction direction);
 
+	//! Return the direction corresponding to the given vector
+	/*!
+	  This method returns the direction representative of the
+	  given unit vector
+	*/
 	static Direction getDirectionFromVector(VectorXY vector);
 
 	//! Return the opposite direction to the given direction
