@@ -47,12 +47,14 @@ void Level::placeExit()
 
 void Level::placeNPC(std::shared_ptr<Room> room)
 {
+	// There will never be more than 1/NPC_SPACING cells of the room occupied by NPCs
+	// This also means that no NPCs will spawn in rooms NPC_SPACING cells large or smaller
+	int randomCellIndex = (rand() % room->getCells().size()) / NPC_SPACING;
+
 	// Guards in corridors
 	if (room->corridor)
 	{
-		// There will never be more than 1/NPC_SPACING cells of the room occupied by NPCs
-		// This also means that no NPCs will spawn in rooms NPC_SPACING cells large or smaller
-		for (int i = 0; i < (rand() % room->getCells().size()) / NPC_SPACING; i++)
+		for (int i = 0; i < randomCellIndex; i++)
 		{
 			createCharacter<Guard>(getRandomCoordinatesInRoom(room));
 		}
@@ -60,7 +62,7 @@ void Level::placeNPC(std::shared_ptr<Room> room)
 	// Doctors in rooms
 	else
 	{
-		for (int i = 0; i < (rand() % room->getCells().size()) / NPC_SPACING; i++)
+		for (int i = 0; i < randomCellIndex; i++)
 		{
 			createCharacter<Doctor>(getRandomCoordinatesInRoom(room));
 		}
@@ -86,7 +88,7 @@ void Level::generateMaze()
 
 	for (std::shared_ptr<Room> room : maze->getRooms())
 	{
-		room->checkContainedCells();
+		room->checkRoomValidity();
 
 		// No NPCs to start in same room as player
 		if (room != maze->getCell(PLAYER_START)->room.lock())
