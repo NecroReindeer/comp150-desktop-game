@@ -38,7 +38,7 @@ public:
 	/*!
 		This method renders the maze, exit and characters.
 	*/
-	void render(SDL_Renderer* renderer);
+	void render();
 
 	//! Returns the cell at the given coordinates.
 	/*!
@@ -110,6 +110,18 @@ public:
 	  the player starts in.
 	*/
 	static const VectorXY PLAYER_START;
+
+	SDL_Renderer* renderer;
+
+	//! Pointer to the maze
+	/*!
+	This is a pointer to the maze. The maze
+	stores data about the cells and implements the
+	generation algorithm.
+	It is a unique pointer as only the level should have
+	direct access to the maze.
+	*/
+	std::unique_ptr<Maze> maze;
 	
 
 private:
@@ -182,15 +194,7 @@ private:
 	*/
 	void clearLevel();
 
-	//! Pointer to the maze
-	/*!
-	  This is a pointer to the maze. The maze
-	  stores data about the cells and implements the
-	  generation algorithm. 
-	  It is a unique pointer as only the level should have
-	  direct access to the maze.
-	*/
-	std::unique_ptr<Maze> maze;
+
 
 	//! The probability that a door will be made.
 	/*!
@@ -208,5 +212,8 @@ private:
 	  a room occupied by NPCs.
 	*/
 	const int NPC_SPACING = 5;
+
+
+	void renderMaze();
 };
 

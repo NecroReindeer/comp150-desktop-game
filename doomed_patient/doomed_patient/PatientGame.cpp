@@ -27,6 +27,7 @@ PatientGame::PatientGame()
 	verticalDoorSprite("Sprites\\small\\ver_door.png"),
 	horizontalDoorSprite("Sprites\\small\\horiz_door.png"),
 	exitSprite("Sprites\\small\\exit.png"),
+	corridorSprite("Sprites\\small\\corridor.png"),
 	level(this)
 {
 	// Initialise SDL video system
@@ -36,7 +37,7 @@ PatientGame::PatientGame()
 	}
 
 	// Create window for the game
-	window = SDL_CreateWindow("The Doomed Patient", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+	window = SDL_CreateWindow("The Doomed Patient", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 	// Check if window was successfully created
 	if (window == nullptr)
 	{
@@ -64,13 +65,13 @@ PatientGame::~PatientGame()
 void PatientGame::run()
 {
 	running = true;
+	level.renderer = renderer;
 	generateLevel();
 
 	// Main game loop
 	while (running)
 	{
 		handleEvents();
-		update();
 		render();
 	}
 }
@@ -102,32 +103,18 @@ void PatientGame::handleEvents()
 		}
 	} 
 
-	// Check keyboard state
+
 	const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
-	if (keyboardState[SDL_SCANCODE_UP])
-		player->move(Directions::Direction::NORTH);
-	if (keyboardState[SDL_SCANCODE_DOWN])
-		player->move(Directions::Direction::SOUTH);
-	if (keyboardState[SDL_SCANCODE_LEFT])
-		player->move(Directions::Direction::WEST);
-	if (keyboardState[SDL_SCANCODE_RIGHT])
-		player->move(Directions::Direction::EAST);
+
+	if (keyboardState[SDL_SCANCODE_SPACE])
+		level.generateMaze();
 }
 
 
 // Game updates that need to happen every frame go here
 void PatientGame::update()
 {
-	for each (std::shared_ptr<Character> character in level.getCharacters())
-	{
-		character->update();
-	}
-	
-	// Go to next level
-	if (player->getCentre() == exit->getCentre())
-	{
-		generateLevel();
-	}
+
 }
 
 
@@ -139,7 +126,7 @@ void PatientGame::render()
 	SDL_RenderClear(renderer);
 
 	//Render game objects here
-	level.render(renderer);
+	level.render();
 
 	// Present the newly rendered screen
 	SDL_RenderPresent(renderer);

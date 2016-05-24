@@ -18,6 +18,7 @@ void Room::addCell(std::shared_ptr<LevelCell> cell)
 
 void Room::addExtraDoors()
 {
+	
 	if (walledCells.size() > 0)
 	{
 		// Get a random cell to replace a random wall of with a door
@@ -32,6 +33,11 @@ void Room::addExtraDoors()
 			std::shared_ptr<LevelCell> adjacentCell = game->level.getCell(adjacentCellCoords);
 			chosenCell->initialiseEdge<CellDoor>(wallDirection);
 			adjacentCell->initialiseEdge<CellDoor>(Directions::getOpposite(wallDirection));
+
+			game->level.render();
+			SDL_RenderPresent(game->level.renderer);
+
+			SDL_Delay(120);
 
 			if (chosenCell->getWallCount() < 1)
 				walledCells.erase(walledCells.begin() + i);

@@ -30,6 +30,9 @@ public:
 	*/
 	LevelCell(PatientGame* game, VectorXY coordinates);
 
+	// TEMPORARY for visualising corridors during testing
+	LevelCell(PatientGame* game, VectorXY coordinates, Texture* sprite);
+
 	//! Render the cell.
 	/*!
 	This method renders the cell and all of its edges.

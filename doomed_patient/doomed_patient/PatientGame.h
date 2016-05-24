@@ -45,7 +45,7 @@ public:
 	  window as an integer.
 	*/
 	static const int WINDOW_HEIGHT = 768;
-
+	Texture* getCorridorSprite() { return &corridorSprite; }
 	//Level Texture
 	Texture* getFloorSprite() { return &floorSprite; }
 	Texture* getHorizontalWallSprite() { return &horizontalWallSprite;  }
@@ -152,7 +152,7 @@ private:
 	Texture horizontalDoorSprite;
 	Texture verticalDoorSprite;
 	Texture exitSprite;
-
+	Texture corridorSprite;
 	//Guard Texture
 	Texture guardSpriteNorth;
 	Texture guardSpriteEast;

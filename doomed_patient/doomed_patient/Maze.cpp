@@ -5,9 +5,10 @@
 #include "MazeGenerationManager.h"
 
 
-Maze::Maze(PatientGame* game)
+Maze::Maze(PatientGame* game, SDL_Renderer* renderer)
 	:cells(Level::GRID_SIZE_X, std::vector<std::shared_ptr<LevelCell>>(Level::GRID_SIZE_Y, nullptr)),		// Initialise vector to correct size
-	game(game)
+	game(game),
+	renderer(renderer)
 {
 }
 
@@ -143,6 +144,8 @@ void Maze::generate()
 	while (generationManager.activeCells.size() > 0)
 	{
 		generateCells(generationManager);
+		render();
+		SDL_RenderPresent(renderer);
 	}
 }
 
@@ -204,6 +207,15 @@ std::shared_ptr<Room> Maze::createRoom()
 std::shared_ptr<LevelCell> Maze::createCell(VectorXY coordinates, std::shared_ptr<Room> room)
 {
 	cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates);
+
+
+	// IF statement temporary for testing! visualises corridors
+	if (room->corridor)
+	{
+		cells[coordinates.x][coordinates.y] = nullptr;
+		cells[coordinates.x][coordinates.y] = std::make_shared<LevelCell>(game, coordinates, game->getCorridorSprite());
+	}
+
 	cells[coordinates.x][coordinates.y]->assignRoom(room);
 	return cells[coordinates.x][coordinates.y];
 }
@@ -231,7 +243,7 @@ bool Maze::containsCoordinates(VectorXY coordinates)
 }
 
 
-void Maze::render(SDL_Renderer* renderer)
+void Maze::render()
 {
 	for (int x = 0; x < Level::GRID_SIZE_X; x++)
 	{

@@ -8,8 +8,9 @@
 // Start in bottom left corner
 const VectorXY Level::PLAYER_START(0, Level::GRID_SIZE_Y - 1);
 
-Level::Level(PatientGame* game)	
-	:game(game)
+Level::Level(PatientGame* game)
+	:game(game),
+	renderer(renderer)
 {
 }
 
@@ -19,6 +20,9 @@ std::shared_ptr<CharacterType> Level::createCharacter(VectorXY startCoordinates)
 {
 	std::shared_ptr<CharacterType> character = std::make_shared<CharacterType>(game, startCoordinates);
 	characters.push_back(character);
+	character->render(renderer);
+	SDL_RenderPresent(renderer);
+	SDL_Delay(120);
 	return character;
 }
 
@@ -42,6 +46,9 @@ void Level::placeExit()
 	}
 
 	exit = std::make_shared<Exit>(game, exitCoords);
+	exit->render(renderer);
+	SDL_RenderPresent(renderer);
+	SDL_Delay(240);
 }
 
 
@@ -72,8 +79,10 @@ void Level::placeNPC(std::shared_ptr<Room> room)
 
 void Level::clearLevel()
 {
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
 	// Old maze will automatically get destoyed as level no longer points to it
-	maze = std::make_unique<Maze>(game);
+	maze = std::make_unique<Maze>(game, renderer);
 	characters.clear();
 }
 
@@ -95,13 +104,15 @@ void Level::generateMaze()
 		{
 			placeNPC(room);
 		}
+		
+		
 	}
 }
 
 
-void Level::render(SDL_Renderer* renderer)
+void Level::render()
 {
-	maze->render(renderer);
+	maze->render();
 	exit->render(renderer);
 
 	for (int i = 0; i < characters.size(); i++)

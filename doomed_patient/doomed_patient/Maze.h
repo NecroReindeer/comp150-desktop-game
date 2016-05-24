@@ -24,7 +24,7 @@ public:
 	  It also sets up the vector of cells to be
 	  filled with nullptrs up to the level size.
 	*/
-	Maze(PatientGame* game);
+	Maze(PatientGame* game, SDL_Renderer* renderer);
 
 	//! Generates the maze.
 	/*!
@@ -38,7 +38,7 @@ public:
 	/*!
 	  This method renders the cells in the maze.
 	*/
-	void render(SDL_Renderer* renderer);
+	void render();
 
 	//! Returns the cell at the given coordinates.
 	/*!
@@ -60,6 +60,8 @@ public:
 	in the level. If so, it returns true.
 	*/
 	bool containsCoordinates(VectorXY coordinates);
+
+	SDL_Renderer* renderer;
 
 private:
 	//! Generate the maze cells.
